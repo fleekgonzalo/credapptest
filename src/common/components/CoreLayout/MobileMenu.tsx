@@ -48,10 +48,8 @@ const MobileMenu = ({
       {(hasTransitionedIn || openMenu) && (
         <nav
           className={classNames(
-            openMenu ? "bg-black/70 backdrop-blur opacity-100" : "opacity-0",
-            hasTransitionedIn
-              ? "bg-black/70 backdrop-blur opacity-100"
-              : "opacity-0",
+            openMenu ? "bg-black opacity-100" : "opacity-0",
+            hasTransitionedIn ? "bg-black opacity-100" : "opacity-0",
             noAnimation ? "" : "transition-opacity duration-[600ms]",
             "fixed text-white inset-0 z-[20] top-[71px] h-full w-full bg-cred-dark-blue md:hidden"
           )}

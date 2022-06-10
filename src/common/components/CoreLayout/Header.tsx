@@ -41,7 +41,7 @@ const Header = ({ className, address, openWalletModal }: Props) => {
       className={classNames(
         className,
         openMenu ? "bg-cred-dark-blue md:bg-transparent" : "bg-transparent",
-        "flex transition-color duration-[600ms] items-center justify-between px-6 pl-5 py-4 md:px-12 md:py-5"
+        "flex h-[42px] transition-color duration-[600ms] items-center justify-between px-6 pl-5 py-4 md:px-12 md:py-5"
       )}
     >
       <div>

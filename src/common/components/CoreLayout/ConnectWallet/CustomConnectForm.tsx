@@ -51,7 +51,6 @@ const CustomConnectForm = ({ defaultAddress = "", setOpenModal }: Props) => {
       <div className="flex-1">
         <FormField
           className="border-r-0 rounded-md rounded-r-none"
-          defaultValue={defaultAddress}
           errorMessage={error}
           placeholder="Enter your eth address"
           spellCheck={false}

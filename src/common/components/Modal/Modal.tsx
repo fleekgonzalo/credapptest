@@ -2,6 +2,7 @@ import classNames from "classnames";
 
 import { CrossIcon } from "@/common/components/CustomIcon";
 import Portal from "@/common/components/Portal";
+import useDisableBodyScroll from "@/common/hooks/useDisableBodyScroll";
 import useMountTransition from "@/common/hooks/useMountTransition";
 
 interface Props {
@@ -30,6 +31,8 @@ export const Modal = ({
     noAnimation ? 0 : unmountDelay
   );
 
+  useDisableBodyScroll(isMounted);
+
   return (
     <Portal elementId="modal">
       {(hasTransitionedIn || isMounted) && (
@@ -40,7 +43,7 @@ export const Modal = ({
               ? "bg-black/70 backdrop-blur opacity-100"
               : "opacity-0",
             noAnimation ? "" : "transition-opacity duration-[600ms]",
-            "fixed inset-0 z-30 flex items-center justify-center px-5 overflow-y-auto lg:px-0"
+            "fixed inset-0 z-30 flex items-center justify-center md:px-5 overflow-y-auto lg:px-0"
           )}
           style={{
             transitionDuration: duration ? `${duration}ms` : "",
@@ -52,19 +55,21 @@ export const Modal = ({
           >
             <div
               className={classNames(
-                "p-8 rounded-3xl text-white bg-cred-dark-blue shadow-lg",
+                "p-6 md:p-8 md:rounded-3xl text-white bg-cred-dark-blue shadow-lg",
                 wrapperAdditionalClassNames
               )}
             >
               {hasCloseButton && (
-                <button
-                  aria-label="Close"
-                  className="flex items-center justify-end w-full mb-4 cursor-pointer"
-                  onClick={() => setOpenModal(false)}
-                >
-                  <CrossIcon className="w-4 h-4 text-white" />
-                  <span className="sr-only">Close Modal</span>
-                </button>
+                <div className="flex items-center justify-end w-full">
+                  <button
+                    aria-label="Close"
+                    className="mb-4"
+                    onClick={() => setOpenModal(false)}
+                  >
+                    <CrossIcon className="w-6 h-6 text-white md:w-4 md:h-4" />
+                    <span className="sr-only">Close Modal</span>
+                  </button>
+                </div>
               )}
               {children}
             </div>

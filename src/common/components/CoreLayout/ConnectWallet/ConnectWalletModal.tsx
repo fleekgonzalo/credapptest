@@ -36,8 +36,8 @@ const ConnectWalletModal = ({
 
   return (
     <Modal isMounted={isMounted} setOpenModal={setOpenModal}>
-      <div className="text-center max-w-[540px]">
-        <div className="w-[90%] mx-auto">
+      <div className="text-center md:max-w-[540px] h-[calc(100vh-90px)] md:h-auto">
+        <div className="md:w-[90%] mx-auto">
           {/* Heading Texts */}
           <h1 className="text-[32px] leading-10 mb-2">
             Connect your digital wallet{" "}
