@@ -15,7 +15,9 @@ export const CoreLayout = ({ children }) => {
     onConnect(_) {
       // closing the modal after connected
       setIsMounted(false);
-      toast.success("Connected to wallet");
+      toast.success("Connected to wallet", {
+        duration: 750,
+      });
     },
     onError(error) {
       toast.error(error.message, {
