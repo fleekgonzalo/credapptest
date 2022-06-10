@@ -1,6 +1,7 @@
 import "@/styles/main.scss";
 
 import Head from "next/head";
+import { Toaster } from "react-hot-toast";
 import {
   configureChains,
   createClient,
@@ -64,6 +65,7 @@ export const App = ({ Component, pageProps }) => {
           <Component {...pageProps} />
         </Layout>
       </WagmiConfig>
+      <Toaster position="top-right" />
     </>
   );
 };

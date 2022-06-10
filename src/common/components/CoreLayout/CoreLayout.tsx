@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { useAccount, useConnect } from "wagmi";
 
 import Header from "@/common/components/CoreLayout/Header";
@@ -14,9 +15,12 @@ export const CoreLayout = ({ children }) => {
     onConnect(_) {
       // closing the modal after connected
       setIsMounted(false);
+      toast.success("Connected to wallet");
     },
-    onError(_) {
-      // TODO: handle error here
+    onError(error) {
+      toast.error(error.message, {
+        duration: 750,
+      });
     },
   });
 
