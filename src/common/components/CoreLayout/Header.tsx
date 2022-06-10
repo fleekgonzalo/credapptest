@@ -1,7 +1,11 @@
 import classNames from "classnames";
 
 import { Button } from "@/common/components/Button";
-import { ChevronDownIcon, LogoIcon } from "@/common/components/CustomIcon";
+import {
+  ChevronDownIcon,
+  LogoIcon,
+  MenuIcon,
+} from "@/common/components/CustomIcon";
 import { shortenWalletAddress } from "@/common/utils/string";
 
 interface Props {
@@ -15,12 +19,12 @@ const Header = ({ className, address, openWalletModal }: Props) => {
     <header
       className={classNames(
         className,
-        "flex items-center justify-between px-12 py-5"
+        "flex items-center justify-between px-6 pl-5 py-4 md:px-12 md:py-5"
       )}
     >
-      <LogoIcon />
-      <nav>
-        <ul className="flex items-center gap-8 text-base leading-5 text-white">
+      <LogoIcon className="h-[40px] md:h-[48px] w-[75.4px] md:w-[90.48px]" />
+      <nav className="flex items-center gap-8">
+        <ul className="items-center hidden gap-8 text-base leading-5 text-white md:flex">
           <li>
             <a href="#">Free Credit Report</a>
           </li>
@@ -30,19 +34,25 @@ const Header = ({ className, address, openWalletModal }: Props) => {
           <li>
             <a href="#">Careers</a>
           </li>
-          <li>
-            <Button
-              className="text-sm font-semibold"
-              rightIcon={address ? <ChevronDownIcon /> : undefined}
-              variant="outline"
-              onClick={openWalletModal}
-            >
-              {address
-                ? shortenWalletAddress({ walletAddress: address })
-                : "GET STARTED"}
-            </Button>
-          </li>
         </ul>
+        <div className="flex items-center gap-2">
+          <Button
+            className="text-sm font-semibold"
+            rightIcon={address ? <ChevronDownIcon /> : undefined}
+            variant="outline"
+            onClick={openWalletModal}
+          >
+            {address
+              ? shortenWalletAddress({ walletAddress: address })
+              : "GET STARTED"}
+          </Button>
+          <button
+            aria-label="Close"
+            className="block p-3 text-white bg-black rounded md:hidden"
+          >
+            <MenuIcon />
+          </button>
+        </div>
       </nav>
     </header>
   );

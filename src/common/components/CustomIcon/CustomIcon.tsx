@@ -5,6 +5,7 @@ import ChevronRightSvg from "./svg/ChevronRight";
 import CrossSvg from "./svg/Cross";
 import DiamondSvg from "./svg/Diamond";
 import LogoSvg from "./svg/Logo";
+import MenuSvg from "./svg/Menu";
 import MetaMaskSvg from "./svg/MetaMask";
 import StarSvg from "./svg/Star";
 import WalletConnectSvg from "./svg/WalletConnect";
@@ -85,6 +86,12 @@ export const MetaMaskIcon = ({ ...props }: Props) => (
 export const WalletConnectIcon = ({ ...props }: Props) => (
   <CustomIcon height={48} viewBox="0 0 48 48" width={48} {...props}>
     <WalletConnectSvg />
+  </CustomIcon>
+);
+
+export const MenuIcon = ({ ...props }: Props) => (
+  <CustomIcon height={16} viewBox="0 0 16 16" width={16} {...props}>
+    <MenuSvg />
   </CustomIcon>
 );
 
