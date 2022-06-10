@@ -34,8 +34,6 @@ const ConnectWalletModal = ({
     return connector.name === "Coinbase Wallet";
   });
 
-  console.log(connectors);
-
   return (
     <Modal isMounted={isMounted} setOpenModal={setOpenModal}>
       <div className="text-center max-w-[540px]">

@@ -16,7 +16,7 @@ export const Button = ({
   ...props
 }: PropsWithChildren<Props>) => {
   const commonClassName =
-    "flex gap-2 items-center transition-colors py-2.5 px-4";
+    "flex gap-2 items-center text-white transition-colors py-2.5 px-4";
 
   const variantsClassName = {
     outline:

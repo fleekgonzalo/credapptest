@@ -95,7 +95,7 @@ export const CircularProgressbar = ({
           stroke="white"
           strokeDashoffset="0"
           strokeLinecap="round"
-          strokeWidth={8}
+          strokeWidth={9}
           style={{
             opacity: !isAnimated ? undefined : "0",
             strokeDasharray: !isAnimated

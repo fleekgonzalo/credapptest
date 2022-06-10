@@ -16,9 +16,9 @@ export const CircularCredScoreProgressBar = ({
   animationDuration = 1000,
 }: Partial<Props>) => {
   return (
-    <div className="flex items-center justify-center h-full -mt-8">
+    <div className="flex items-center justify-center h-full -mt-4 md:-mt-8">
       <CircularProgressbar
-        className="h-[300px] md:h-[470px]"
+        className="max-h-[280px] min-h-[60vw] md:min-h-[auto] sm:max-h-[380px] md:max-h-[470px]"
         duration={animationDuration}
         maxValue={maxValue}
         minValue={minValue}
@@ -26,7 +26,7 @@ export const CircularCredScoreProgressBar = ({
       >
         {/* middle text with cred score and cred phrase/label */}
         <text
-          className="font-bold text-md"
+          className="font-bold text-[18px] md:text-[16px]"
           dominantBaseline="middle"
           fill="white"
           textAnchor="middle"
@@ -36,12 +36,12 @@ export const CircularCredScoreProgressBar = ({
           {value}
         </text>
         <text
-          className="text-[5px] font-semibold uppercase tracking-[0.18em]"
+          className="text-[6.5px] md:text-[5px] font-semibold uppercase tracking-[0.18em]"
           dominantBaseline="middle"
           fill="white"
           textAnchor="middle"
           x="50%"
-          y="67%"
+          y="69%"
         >
           {/* getting cred phrase with the range percent between min value and max value */}
           {getCredPhrase(
@@ -52,7 +52,7 @@ export const CircularCredScoreProgressBar = ({
 
         {/* bottom middle text */}
         <text
-          className="text-[2.9px] font-medium tracking-[0.18em]"
+          className="text-[4px] md:text-[2.9px] font-medium tracking-[0.18em]"
           dominantBaseline="middle"
           fill="#5D78FF"
           textAnchor="middle"
@@ -62,7 +62,7 @@ export const CircularCredScoreProgressBar = ({
           Provided by
         </text>
         <text
-          className="text-[2.9px] font-extrabold tracking-[0.18em]"
+          className="text-[4px] md:text-[3px] font-extrabold tracking-[0.18em]"
           dominantBaseline="middle"
           fill="#5D78FF"
           textAnchor="middle"
@@ -74,18 +74,18 @@ export const CircularCredScoreProgressBar = ({
 
         {/* min value and max value range */}
         <text
-          className="text-[3.5px] font-medium tracking-[0.18em]"
+          className="text-[5px] md:text-[3.5px] font-medium tracking-[0.18em]"
           dominantBaseline="middle"
           fill="white"
           opacity="0.5"
           textAnchor="middle"
-          x="20%"
-          y="95.5%"
+          x="18%"
+          y="96%"
         >
           {minValue}
         </text>
         <text
-          className="text-[3.5px] font-medium tracking-[0.18em]"
+          className="text-[5px] md:text-[3.5px] font-medium tracking-[0.18em]"
           dominantBaseline="middle"
           fill="white"
           opacity="0.5"
