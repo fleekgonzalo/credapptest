@@ -1,11 +1,9 @@
 import classNames from "classnames";
+import { useState } from "react";
 
 import { Button } from "@/common/components/Button";
-import {
-  ChevronDownIcon,
-  LogoIcon,
-  MenuIcon,
-} from "@/common/components/CustomIcon";
+import MobileMenu from "@/common/components/CoreLayout/MobileMenu";
+import { ChevronDownIcon, LogoIcon } from "@/common/components/CustomIcon";
 import { shortenWalletAddress } from "@/common/utils/string";
 
 interface Props {
@@ -14,30 +12,57 @@ interface Props {
   openWalletModal: () => void;
 }
 
+export interface LinkType {
+  label: string;
+  link: string;
+  isExternal?: boolean;
+}
+
+const LINKS: LinkType[] = [
+  {
+    label: "Free Credit Report",
+    link: "#",
+  },
+  {
+    label: "About",
+    link: "#",
+  },
+  {
+    label: "Careers",
+    link: "#",
+  },
+];
+
 const Header = ({ className, address, openWalletModal }: Props) => {
+  const [openMenu, setOpenMenu] = useState(false);
+
   return (
     <header
       className={classNames(
         className,
-        "flex items-center justify-between px-6 pl-5 py-4 md:px-12 md:py-5"
+        openMenu ? "bg-cred-dark-blue md:bg-transparent" : "bg-transparent",
+        "flex transition-color duration-[600ms] items-center justify-between px-6 pl-5 py-4 md:px-12 md:py-5"
       )}
     >
-      <LogoIcon className="h-[40px] md:h-[48px] w-[75.4px] md:w-[90.48px]" />
+      <div>
+        <LogoIcon className="h-[40px] md:h-[48px] w-[75.4px] md:w-[90.48px]" />
+      </div>
       <nav className="flex items-center gap-8">
         <ul className="items-center hidden gap-8 text-base leading-5 text-white md:flex">
-          <li>
-            <a href="#">Free Credit Report</a>
-          </li>
-          <li>
-            <a href="#">About</a>
-          </li>
-          <li>
-            <a href="#">Careers</a>
-          </li>
+          {LINKS.map(({ link, label }) => {
+            return (
+              <li key={label}>
+                <a href={link}>{label}</a>
+              </li>
+            );
+          })}
         </ul>
         <div className="flex items-center gap-2">
           <Button
-            className="text-sm font-semibold"
+            className={classNames(
+              "text-sm font-semibold md:flex",
+              openMenu && "hidden"
+            )}
             rightIcon={address ? <ChevronDownIcon /> : undefined}
             variant="outline"
             onClick={openWalletModal}
@@ -46,12 +71,11 @@ const Header = ({ className, address, openWalletModal }: Props) => {
               ? shortenWalletAddress({ walletAddress: address })
               : "GET STARTED"}
           </Button>
-          <button
-            aria-label="Close"
-            className="block p-3 text-white bg-black rounded md:hidden"
-          >
-            <MenuIcon />
-          </button>
+          <MobileMenu
+            links={LINKS}
+            openMenu={openMenu}
+            setOpenMenu={setOpenMenu}
+          />
         </div>
       </nav>
     </header>
