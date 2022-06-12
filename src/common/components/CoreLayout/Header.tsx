@@ -3,7 +3,9 @@ import { useState } from "react";
 
 import { Button } from "@/common/components/Button";
 import MobileMenu from "@/common/components/CoreLayout/MobileMenu";
+import WalletPopover from "@/common/components/CoreLayout/WalletPopover";
 import { ChevronDownIcon, LogoIcon } from "@/common/components/CustomIcon";
+import Popover from "@/common/components/Popover/Popover";
 import { shortenWalletAddress } from "@/common/utils/string";
 
 interface Props {
@@ -41,7 +43,7 @@ const Header = ({ className, address, openWalletModal }: Props) => {
       className={classNames(
         className,
         openMenu ? "bg-cred-dark-blue md:bg-transparent" : "bg-transparent",
-        "flex h-[42px] transition-color duration-[600ms] items-center justify-between px-6 pl-5 py-4 md:px-12 md:py-5"
+        "flex h-[42px] transition-colors duration-[600ms] items-center justify-between px-6 pl-5 py-4 md:px-12 md:py-5"
       )}
     >
       <div>
@@ -58,19 +60,36 @@ const Header = ({ className, address, openWalletModal }: Props) => {
           })}
         </ul>
         <div className="flex items-center gap-2">
-          <Button
-            className={classNames(
-              "text-sm font-semibold md:flex",
-              openMenu && "hidden"
-            )}
-            rightIcon={address ? <ChevronDownIcon /> : undefined}
-            variant="outline"
-            onClick={openWalletModal}
-          >
-            {address
-              ? shortenWalletAddress({ walletAddress: address })
-              : "GET STARTED"}
-          </Button>
+          {address ? (
+            <Popover placement="bottom-end">
+              <Popover.Trigger>
+                <Button
+                  className={classNames(
+                    "text-sm font-semibold md:flex",
+                    openMenu && "hidden"
+                  )}
+                  rightIcon={<ChevronDownIcon />}
+                  variant="outline"
+                >
+                  {shortenWalletAddress({ walletAddress: address })}
+                </Button>
+              </Popover.Trigger>
+              <Popover.Content>
+                <WalletPopover />
+              </Popover.Content>
+            </Popover>
+          ) : (
+            <Button
+              className={classNames(
+                "text-sm font-semibold md:flex",
+                openMenu && "hidden"
+              )}
+              variant="outline"
+              onClick={openWalletModal}
+            >
+              GET STARTED
+            </Button>
+          )}
           <MobileMenu
             links={LINKS}
             openMenu={openMenu}

@@ -48,7 +48,7 @@ export const AreaChart = ({
   }
 
   return (
-    <ResponsiveContainer height={height || 120} width={width || "100%"}>
+    <ResponsiveContainer height={height || 120} width={width || 300}>
       <Chart
         data={data}
         margin={{

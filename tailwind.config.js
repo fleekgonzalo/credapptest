@@ -1,14 +1,15 @@
 const theme = require("tailwindcss/defaultTheme");
 
+/**  @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
+
   theme: {
     extend: {
       fontFamily: {
-        fontFamily: {
-          sans: ["Sohne", ...theme.fontFamily.sans],
-        },
+        sans: ["Sohne", ...theme.fontFamily.sans],
       },
+
       backgroundImage: {
         // BLUE GRADIENTS
         "dark-blue": "linear-gradient(180deg, #0D1042 46.82%, #00033D 98.53%)",

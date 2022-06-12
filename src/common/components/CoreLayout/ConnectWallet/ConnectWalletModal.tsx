@@ -82,7 +82,7 @@ const ConnectWalletModal = ({
             className="flex items-center w-full gap-6 pt-6 pb-2 hover:opacity-80"
             onClick={() => connectWallet(coinbaseConnector)}
           >
-            <Image
+            <img
               alt="coinbase"
               height={48}
               src="/image/coinbase.png"

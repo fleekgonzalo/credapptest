@@ -13,6 +13,7 @@ class MyDocument extends Document {
           <Main />
           <NextScript />
           <div id="modal"></div>
+          <div id="pop-over"></div>
         </body>
       </Html>
     );
