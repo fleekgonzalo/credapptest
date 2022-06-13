@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import {
   Area,
   AreaChart as Chart,
@@ -36,17 +35,6 @@ export const AreaChart = ({
   yAxisTickCount,
   animationDuration = 1000,
 }: AreaChartProps) => {
-  // Fixing Hydration failed error
-  const [isSSR, setIsSSR] = useState(true);
-
-  useEffect(() => {
-    setIsSSR(false);
-  }, []);
-
-  if (isSSR) {
-    return;
-  }
-
   return (
     <ResponsiveContainer height={height || 120} width={width || 300}>
       <Chart
@@ -112,6 +100,7 @@ export const AreaChart = ({
           dot={<CustomizedDot lastElementIndex={data.length - 1} />}
           fill="url(#colorValue)"
           fillOpacity={1}
+          isAnimationActive={true}
           stroke={strokeColor || "#60FF5D"}
           strokeWidth="2px"
           type="monotone"

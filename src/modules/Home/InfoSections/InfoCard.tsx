@@ -4,6 +4,7 @@ import { Card } from "@/common/components/Card";
 
 interface Props {
   headingText: string;
+  className?: string;
 }
 
 const InfoCard = ({ headingText, children }: PropsWithChildren<Props>) => {

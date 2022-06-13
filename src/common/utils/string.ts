@@ -16,3 +16,13 @@ export const shortenWalletAddress = ({
   );
   return `${beginning}...${end}`;
 };
+
+export const getApiUrl = ({
+  address,
+  endpoint,
+}: {
+  address: string;
+  endpoint: string;
+}) => {
+  return `${process.env.NEXT_PUBLIC_API_URL + endpoint + address}`;
+};

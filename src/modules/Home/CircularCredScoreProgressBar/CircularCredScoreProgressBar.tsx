@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 import { CircularProgressbar } from "@/common/components/CircularProgressbar";
 
 import getCredPhrase from "./getCredPhrase";
@@ -15,6 +17,8 @@ export const CircularCredScoreProgressBar = ({
   value,
   animationDuration = 1000,
 }: Partial<Props>) => {
+  console.log(value, "value");
+
   return (
     <div className="flex items-center justify-center h-full -mt-4 md:-mt-8">
       <CircularProgressbar
@@ -33,7 +37,7 @@ export const CircularCredScoreProgressBar = ({
           x="50%"
           y="55%"
         >
-          {value}
+          {value ?? "-"}
         </text>
         <text
           className="text-[6.5px] md:text-[5px] font-semibold uppercase tracking-[0.18em]"
@@ -44,9 +48,11 @@ export const CircularCredScoreProgressBar = ({
           y="69%"
         >
           {/* getting cred phrase with the range percent between min value and max value */}
-          {getCredPhrase(
-            ((value - minValue) * 100) / (maxValue - minValue) / 100
-          )}
+          {value
+            ? getCredPhrase(
+                ((value - minValue) * 100) / (maxValue - minValue) / 100
+              )
+            : "no score"}
           !
         </text>
 

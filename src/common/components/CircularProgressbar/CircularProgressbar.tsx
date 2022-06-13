@@ -71,10 +71,6 @@ export const CircularProgressbar = ({
     /* eslint-disable-next-line react-hooks/exhaustive-deps */
   }, [value]);
 
-  if (value < minValue) {
-    throw new Error("Value must be greater than minValue");
-  }
-
   return (
     <svg className={className} viewBox="0 0 110 100">
       <path
@@ -95,7 +91,7 @@ export const CircularProgressbar = ({
           stroke="white"
           strokeDashoffset="0"
           strokeLinecap="round"
-          strokeWidth={9}
+          strokeWidth={value ? 9 : 0}
           style={{
             opacity: !isAnimated ? undefined : "0",
             strokeDasharray: !isAnimated
