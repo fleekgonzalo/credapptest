@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-
 import { CircularProgressbar } from "@/common/components/CircularProgressbar";
 
 import getCredPhrase from "./getCredPhrase";

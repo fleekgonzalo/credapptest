@@ -65,7 +65,7 @@ export const CircularProgressbar = ({
       document.getElementsByTagName("head")[0].appendChild(style);
 
       // Add animation class to svg element
-      setClassList(`circle_progress_bar${id} gradient`);
+      setClassList(`circle_progress_bar${id}`);
     }
 
     /* eslint-disable-next-line react-hooks/exhaustive-deps */

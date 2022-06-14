@@ -43,7 +43,7 @@ export const Modal = ({
               ? "bg-black/70 backdrop-blur opacity-100"
               : "opacity-0",
             noAnimation ? "" : "transition-opacity duration-[600ms]",
-            "fixed inset-0 z-30 flex items-center justify-center md:px-5 overflow-y-auto lg:px-0"
+            "fixed inset-0 z-30 md:grid md:place-items-center md:px-5 overflow-y-auto lg:px-0"
           )}
           style={{
             transitionDuration: duration ? `${duration}ms` : "",
@@ -55,7 +55,7 @@ export const Modal = ({
           >
             <div
               className={classNames(
-                "p-6 md:p-8 md:rounded-3xl text-white bg-cred-dark-blue shadow-lg",
+                "p-6 md:p-8 md:rounded-3xl text-white bg-cred-dark-blue shadow-lg md:my-4",
                 wrapperAdditionalClassNames
               )}
             >

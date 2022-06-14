@@ -34,10 +34,9 @@ const useFetcher = (url: string) => {
     };
 
     if (!url) return;
+
     fetchData();
   }, [url]);
-
-  // if (!url) return;
 
   return { error, isLoading, data };
 };

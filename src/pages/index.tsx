@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import toast from "react-hot-toast";
 import { useAccount } from "wagmi";
 
 import { Card } from "@/common/components/Card";
@@ -27,6 +29,16 @@ const Home = () => {
     error: credScoreError,
     isLoading: credScoreLoading,
   } = useFetcher(url);
+
+  useEffect(() => {
+    // toast to notify if no cred score
+    if (credScoreData?.value === null) {
+      toast("No cred score found", {
+        icon: "ⓘ",
+        duration: 800,
+      });
+    }
+  }, [credScoreData]);
 
   return (
     <div className="py-12 md:py-16 px-5 text-white max-w-[1130px] mx-auto">
