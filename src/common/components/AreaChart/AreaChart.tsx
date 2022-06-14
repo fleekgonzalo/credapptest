@@ -124,7 +124,37 @@ const objectsEqual = (o1, o2) =>
 const arraysEqual = (a1, a2) =>
   a1.length === a2.length && a1.every((o, idx) => objectsEqual(o, a2[idx]));
 
+// checking if props are equal
 function areEqual(prev: AreaChartProps, next: AreaChartProps) {
+  // if returned false component re-renders
+  if (prev.animationDuration !== next.animationDuration) {
+    return false;
+  }
+
+  if (prev.gradientFrom !== next.gradientFrom) {
+    return false;
+  }
+
+  if (prev.gradientTo !== next.gradientTo) {
+    return false;
+  }
+
+  if (prev.strokeColor !== next.strokeColor) {
+    return false;
+  }
+
+  if (prev.width !== next.width) {
+    return false;
+  }
+
+  if (prev.height !== next.height) {
+    return false;
+  }
+
+  if (prev.yAxisTickCount !== next.yAxisTickCount) {
+    return false;
+  }
+
   return arraysEqual(prev.data, next.data);
 }
 
