@@ -41,11 +41,11 @@ const Home = () => {
               animationDuration={ANIMATION_DURATION}
               maxValue={maxValue}
               minValue={minValue}
-              value={credScoreData?.[0]?.value || null}
+              value={credScoreData?.value || null}
             />
           </Card>
         </section>
-        {credScoreData?.[0]?.value && (
+        {credScoreData?.value && (
           <section className="lg:max-w-[352px] flex flex-col gap-4">
             <InfoSections animationDuration={ANIMATION_DURATION} />
           </section>
