@@ -17,8 +17,6 @@ export const CircularCredScoreProgressBar = ({
   value,
   animationDuration = 1000,
 }: Partial<Props>) => {
-  console.log(value, "value");
-
   return (
     <div className="flex items-center justify-center h-full -mt-4 md:-mt-8">
       <CircularProgressbar

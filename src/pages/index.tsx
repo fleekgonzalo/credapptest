@@ -15,16 +15,18 @@ const Home = () => {
 
   const { data: account } = useAccount();
 
+  const url = account?.address
+    ? getApiUrl({
+        address: account?.address,
+        endpoint: "score/address/",
+      })
+    : null;
+
   const {
     data: credScoreData,
     error: credScoreError,
     isLoading: credScoreLoading,
-  } = useFetcher(
-    getApiUrl({
-      address: account?.address,
-      endpoint: "score/address/",
-    })
-  );
+  } = useFetcher(url);
 
   return (
     <div className="py-12 md:py-16 px-5 text-white max-w-[1130px] mx-auto">
@@ -39,11 +41,11 @@ const Home = () => {
               animationDuration={ANIMATION_DURATION}
               maxValue={maxValue}
               minValue={minValue}
-              value={credScoreData?.value || null}
+              value={credScoreData?.[0]?.value || null}
             />
           </Card>
         </section>
-        {credScoreData?.value && (
+        {credScoreData?.[0]?.value && (
           <section className="lg:max-w-[352px] flex flex-col gap-4">
             <InfoSections animationDuration={ANIMATION_DURATION} />
           </section>

@@ -1,3 +1,4 @@
+import { memo, useMemo } from "react";
 import {
   Area,
   AreaChart as Chart,
@@ -25,89 +26,108 @@ interface AreaChartProps {
   animationDuration?: number;
 }
 
-export const AreaChart = ({
-  data,
-  gradientFrom,
-  gradientTo,
-  strokeColor,
-  width,
-  height,
-  yAxisTickCount,
-  animationDuration = 1000,
-}: AreaChartProps) => {
-  return (
-    <ResponsiveContainer height={height || 120} width={width || 300}>
-      <Chart
-        data={data}
-        margin={{
-          top: 10,
-          left: 5,
-        }}
-      >
-        <XAxis
-          axisLine={false}
-          dataKey="xAxis"
-          domain={["dataMin", "dataMax"]}
-          id={`x-axis`}
-          interval="preserveStartEnd"
-          stroke="#C6C6C6"
-          tick={{ fontSize: 11 }}
-          tickCount={3}
-          tickLine={false}
-          tickMargin={6}
-        />
-        <YAxis
-          axisLine={false}
-          domain={["auto", "auto"]}
-          orientation="right"
-          stroke="#C6C6C6"
-          strokeWidth="0.2px"
-          style={{ fontWeight: "600" }}
-          tick={{ fontSize: 11 }}
-          tickCount={yAxisTickCount || 3}
-          tickLine={{
-            stroke: "#ffffff",
-            opacity: 0.2,
-            strokeDasharray: "2 2",
-            strokeWidth: "1px",
-          }}
-          tickMargin={6}
-          tickSize={20}
-        />
-        <defs>
-          <linearGradient id="colorValue" x1="0" x2="0" y1="0" y2="1">
-            <stop
-              offset="20%"
-              stopColor={gradientFrom || "rgba(96, 255, 93, 0.17)"}
-            />
-            <stop
-              offset="100%"
-              stopColor={gradientTo || "rgba(96, 255, 93, 0.01)"}
-            />
-          </linearGradient>
-        </defs>
-        <CartesianGrid
-          opacity="0.2"
-          stroke="#ffffff"
-          // we are overriding the dash array from vertical cartesian lines (so that it has solid lines)
-          // see overrides.scss
-          strokeDasharray="2 2"
-        />
+const AreaChart = memo(
+  ({
+    data,
+    gradientFrom,
+    gradientTo,
+    strokeColor,
+    width,
+    height,
+    yAxisTickCount,
+    animationDuration = 1000,
+  }: AreaChartProps) => {
+    const memoData = useMemo(() => data, [data]);
 
-        <Area
-          animationDuration={animationDuration || 1000}
-          dataKey="value"
-          dot={<CustomizedDot lastElementIndex={data.length - 1} />}
-          fill="url(#colorValue)"
-          fillOpacity={1}
-          isAnimationActive={true}
-          stroke={strokeColor || "#60FF5D"}
-          strokeWidth="2px"
-          type="monotone"
-        />
-      </Chart>
-    </ResponsiveContainer>
-  );
-};
+    return (
+      <ResponsiveContainer height={height || 120} width={width || 300}>
+        <Chart
+          data={memoData}
+          margin={{
+            top: 10,
+            left: 5,
+          }}
+        >
+          <XAxis
+            axisLine={false}
+            dataKey="xAxis"
+            domain={["dataMin", "dataMax"]}
+            id={`x-axis`}
+            interval="preserveStartEnd"
+            stroke="#C6C6C6"
+            tick={{ fontSize: 11 }}
+            tickCount={3}
+            tickLine={false}
+            tickMargin={6}
+          />
+          <YAxis
+            axisLine={false}
+            domain={["auto", "auto"]}
+            orientation="right"
+            stroke="#C6C6C6"
+            strokeWidth="0.2px"
+            style={{ fontWeight: "600" }}
+            tick={{ fontSize: 11 }}
+            tickCount={yAxisTickCount || 3}
+            tickLine={{
+              stroke: "#ffffff",
+              opacity: 0.2,
+              strokeDasharray: "2 2",
+              strokeWidth: "1px",
+            }}
+            tickMargin={6}
+            tickSize={20}
+          />
+          <defs>
+            <linearGradient id="colorValue" x1="0" x2="0" y1="0" y2="1">
+              <stop
+                offset="20%"
+                stopColor={gradientFrom || "rgba(96, 255, 93, 0.17)"}
+              />
+              <stop
+                offset="100%"
+                stopColor={gradientTo || "rgba(96, 255, 93, 0.01)"}
+              />
+            </linearGradient>
+          </defs>
+          <CartesianGrid
+            opacity="0.2"
+            stroke="#ffffff"
+            // we are overriding the dash array from vertical cartesian lines (so that it has solid lines)
+            // see overrides.scss
+            strokeDasharray="2 2"
+          />
+
+          <Area
+            animationDuration={animationDuration || 1000}
+            dataKey="value"
+            dot={<CustomizedDot lastElementIndex={data.length - 1} />}
+            fill="url(#colorValue)"
+            fillOpacity={1}
+            stroke={strokeColor || "#60FF5D"}
+            strokeWidth="2px"
+            type="monotone"
+          />
+        </Chart>
+      </ResponsiveContainer>
+    );
+  },
+  areEqual
+);
+
+const objectsEqual = (o1, o2) =>
+  typeof o1 === "object" && Object.keys(o1).length > 0
+    ? Object.keys(o1).length === Object.keys(o2).length &&
+      Object.keys(o1).every((p) => objectsEqual(o1[p], o2[p]))
+    : o1 === o2;
+
+const arraysEqual = (a1, a2) =>
+  a1.length === a2.length && a1.every((o, idx) => objectsEqual(o, a2[idx]));
+
+function areEqual(prev: AreaChartProps, next: AreaChartProps) {
+  return arraysEqual(prev.data, next.data);
+}
+
+AreaChart.displayName = "AreaChart";
 
 export default AreaChart;
