@@ -18,7 +18,7 @@ export const CircularCredScoreProgressBar = ({
   return (
     <div className="flex items-center justify-center h-full -mt-4 md:-mt-8">
       <CircularProgressbar
-        className="max-h-[280px] min-h-[60vw] md:min-h-[auto] sm:max-h-[380px] md:max-h-[470px]"
+        className="w-[100%] md:h-[auto] md:w-[500px] max-h-[320px] min-h-[60vw] md:min-h-[auto] sm:max-h-[380px] md:max-h-[470px]"
         duration={animationDuration}
         maxValue={maxValue}
         minValue={minValue}

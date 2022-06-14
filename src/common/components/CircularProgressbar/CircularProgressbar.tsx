@@ -74,7 +74,6 @@ export const CircularProgressbar = ({
   return (
     <svg className={className} viewBox="0 0 110 100">
       <path
-        className="grey"
         d="M30,90 A40,40 0 1,1 80,90"
         fill="none"
         stroke="#252855"
