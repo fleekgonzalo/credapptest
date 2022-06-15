@@ -32,13 +32,12 @@ const Home = () => {
 
   useEffect(() => {
     // toast to notify if no cred score
-    if (credScoreData?.value === null) {
+    if (account?.address && credScoreData?.value === null) {
       toast("No cred score found", {
         icon: "ⓘ",
-        duration: 800,
       });
     }
-  }, [account]);
+  }, [account, credScoreData]);
 
   return (
     <div className="py-12 md:py-16 px-5 text-white max-w-[1130px] mx-auto">
