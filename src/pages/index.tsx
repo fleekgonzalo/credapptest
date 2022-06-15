@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import toast from "react-hot-toast";
 import { useAccount } from "wagmi";
 
@@ -17,6 +17,9 @@ const Home = () => {
 
   const { data: account } = useAccount();
 
+  // to avoid duplication of toast
+  const hasToastRendered = useRef<boolean>();
+
   const url = account?.address
     ? getApiUrl({
         address: account.address,
@@ -27,15 +30,23 @@ const Home = () => {
   const {
     data: credScoreData,
     error: credScoreError,
-    isLoading: credScoreLoading,
+    loading: credScoreLoading,
   } = useFetcher(url);
 
   useEffect(() => {
     // toast to notify if no cred score
-    if (account?.address && credScoreData?.value === null) {
+    if (
+      account?.address &&
+      credScoreData?.value === null &&
+      !hasToastRendered.current
+    ) {
+      hasToastRendered.current = true;
       toast("No cred score found", {
         icon: "ⓘ",
+        duration: 1600,
       });
+    } else {
+      hasToastRendered.current = false;
     }
   }, [account, credScoreData]);
 

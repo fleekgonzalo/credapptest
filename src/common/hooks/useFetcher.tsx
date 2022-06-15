@@ -1,44 +1,60 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
 
-const useFetcher = (url: string) => {
-  const [data, setData] = useState<any>();
-  const [isLoading, setIsLoading] = useState(false);
+function useFetch(url: string) {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchData = () => {
-      setIsLoading(true);
-
-      axios
-        .get(url, {
-          auth: {
-            username: process.env.NEXT_PUBLIC_USERNAME,
-            password: process.env.NEXT_PUBLIC_PASSWORD,
-          },
-        })
-        .then((response) => {
-          setIsLoading(false);
-          setError(null);
-          setData(response.data);
-        })
-        .catch((error) => {
-          setIsLoading(false);
-          setData(null);
-          setError(error);
-          toast.error(error.message, {
-            duration: 750,
-          });
-        });
-    };
-
     if (!url) return;
 
-    fetchData();
+    setLoading(true);
+    axios
+      .get(url, {
+        auth: {
+          username: process.env.NEXT_PUBLIC_USERNAME,
+          password: process.env.NEXT_PUBLIC_PASSWORD,
+        },
+      })
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((err) => {
+        setError(err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+
+    return () => {
+      setData(null);
+      setError(null);
+      setLoading(false);
+    };
   }, [url]);
 
-  return { error, isLoading, data };
-};
+  const refetch = () => {
+    setLoading(true);
+    axios
+      .get(url, {
+        auth: {
+          username: process.env.NEXT_PUBLIC_USERNAME,
+          password: process.env.NEXT_PUBLIC_PASSWORD,
+        },
+      })
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((err) => {
+        setError(err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
 
-export default useFetcher;
+  return { data, loading, error, refetch };
+}
+
+export default useFetch;

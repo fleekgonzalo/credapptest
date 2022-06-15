@@ -50,7 +50,7 @@ const ConnectWalletModal = ({
 
           <Divider className="mb-2" textInBetween="or" />
           <div className="md:max-h-[600px] overflow-auto">
-            {metaMaskConnector.ready && (
+            {metaMaskConnector?.ready && (
               <>
                 <button
                   className="flex items-center w-[calc(100%-20px)] gap-6 py-6 pl-2 hover:opacity-80"

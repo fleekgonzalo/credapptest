@@ -37,13 +37,21 @@ const YourCredHistory = ({ animationDuration }: Props) => {
   const {
     data: historyData,
     error: historyError,
-    isLoading: historyLoading,
+    loading: historyLoading,
   } = useFetcher(url);
 
   if (!historyData || historyLoading) {
     return (
       <InfoCard headingText="your cred history">
         <div className="min-h-[120px] text-xs">Loading...</div>
+      </InfoCard>
+    );
+  }
+
+  if (historyData.length === 0 || !Array.isArray(historyData)) {
+    return (
+      <InfoCard headingText="your cred history">
+        <div className="min-h-[120px] text-xs">No history</div>
       </InfoCard>
     );
   }
