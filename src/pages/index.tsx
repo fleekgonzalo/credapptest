@@ -19,7 +19,7 @@ const Home = () => {
 
   const url = account?.address
     ? getApiUrl({
-        address: account?.address,
+        address: account.address,
         endpoint: "score/address/",
       })
     : null;
@@ -38,7 +38,7 @@ const Home = () => {
         duration: 800,
       });
     }
-  }, [credScoreData]);
+  }, [account]);
 
   return (
     <div className="py-12 md:py-16 px-5 text-white max-w-[1130px] mx-auto">
