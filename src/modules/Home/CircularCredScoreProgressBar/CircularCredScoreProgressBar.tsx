@@ -1,12 +1,11 @@
 import { CircularProgressbar } from "@/common/components/CircularProgressbar";
 
-import getCredPhrase from "./getCredPhrase";
-
 interface Props {
   value: number;
   maxValue: number;
   minValue: number;
   animationDuration?: number;
+  valueRating: string;
 }
 
 export const CircularCredScoreProgressBar = ({
@@ -14,6 +13,7 @@ export const CircularCredScoreProgressBar = ({
   maxValue,
   value,
   animationDuration = 1000,
+  valueRating,
 }: Partial<Props>) => {
   return (
     <div className="flex items-center justify-center h-full -mt-4 md:-mt-8">
@@ -44,12 +44,7 @@ export const CircularCredScoreProgressBar = ({
           y="69%"
         >
           {/* getting cred phrase with the range percent between min value and max value */}
-          {value
-            ? getCredPhrase(
-                ((value - minValue) * 100) / (maxValue - minValue) / 100
-              )
-            : "no score"}
-          !
+          {valueRating || "no score"}!
         </text>
 
         {/* bottom middle text */}

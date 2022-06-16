@@ -64,6 +64,7 @@ const Home = () => {
               maxValue={maxValue}
               minValue={minValue}
               value={credScoreData?.value || null}
+              valueRating={credScoreData?.value_rating || null}
             />
           </Card>
         </section>
