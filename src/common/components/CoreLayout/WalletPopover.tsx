@@ -33,7 +33,11 @@ const WalletPopover = () => {
     },
   };
 
-  const activeConnectorItem = connectors[activeConnector.id];
+  const activeConnectorItem = connectors[activeConnector?.id];
+
+  if (!activeConnectorItem) {
+    return <></>;
+  }
 
   return (
     <div className="min-w-[192px]">

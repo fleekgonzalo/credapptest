@@ -1,86 +1,22 @@
-import { useEffect, useRef } from "react";
-import toast from "react-hot-toast";
-import { useAccount } from "wagmi";
-
-import { Card } from "@/common/components/Card";
+import { CoreLayout } from "@/common/components/CoreLayout";
 import { PageHead } from "@/common/components/PageHead";
-import useFetcher from "@/common/hooks/useFetcher";
-import { getApiUrl } from "@/common/utils/string";
-import { CircularCredScoreProgressBar } from "@/modules/Home/CircularCredScoreProgressBar";
 import { CreditFactors } from "@/modules/Home/CreditFactors";
-import { InfoSections } from "@/modules/Home/InfoSections";
+import CredScoreTopSection from "@/modules/Home/CredScoreTopSection/CredScoreTopSection";
 
 const Home = () => {
-  const minValue = 300;
-  const maxValue = 1000;
-  const ANIMATION_DURATION = 1000; // in order to match the duration for cred score circular progress & Cred History Chart
-
-  const { data: account } = useAccount();
-
-  // to avoid duplication of toast
-  const hasToastRendered = useRef<boolean>();
-
-  const url = account?.address
-    ? getApiUrl({
-        address: account.address,
-        endpoint: "score/address/",
-      })
-    : null;
-
-  const {
-    data: credScoreData,
-    error: credScoreError,
-    loading: credScoreLoading,
-  } = useFetcher(url);
-
-  useEffect(() => {
-    // toast to notify if no cred score
-    if (
-      account?.address &&
-      credScoreData?.value === null &&
-      !hasToastRendered.current
-    ) {
-      hasToastRendered.current = true;
-      toast("No cred score found", {
-        icon: "ⓘ",
-        duration: 1600,
-      });
-    } else {
-      hasToastRendered.current = false;
-    }
-  }, [account, credScoreData]);
-
   return (
-    <div className="py-12 md:py-16 px-5 text-white max-w-[1130px] mx-auto">
-      <PageHead description="Cred Protocol" name="Home" />
-
-      {/* Cred score top sections */}
-      <h2 className="mb-6 font-bold">My Cred Score</h2>
-      <div className="flex flex-col gap-8 lg:flex-row">
-        <section className="grid flex-1 md:min-h-[614px]">
-          <Card darker glow>
-            <CircularCredScoreProgressBar
-              animationDuration={ANIMATION_DURATION}
-              maxValue={maxValue}
-              minValue={minValue}
-              value={credScoreData?.value || null}
-              valueRating={credScoreData?.value_rating || null}
-            />
-          </Card>
-        </section>
-        {credScoreData?.value && (
-          <section className="lg:max-w-[352px] flex flex-col gap-4">
-            <InfoSections animationDuration={ANIMATION_DURATION} />
-          </section>
-        )}
-
+    <CoreLayout>
+      <div className="py-12 md:py-16 px-5 text-white max-w-[1130px] mx-auto">
+        <PageHead description="Cred Protocol" name="Home" />
+        {/* Cred score top sections */}
+        <CredScoreTopSection />
         {/* Credit factor cards */}
+        <section className="mt-12">
+          <h2 className="mb-6 font-bold">Credit factors</h2>
+          <CreditFactors />
+        </section>
       </div>
-      <section className="mt-12">
-        <h2 className="mb-6 font-bold">Credit factors</h2>
-        <CreditFactors />
-      </section>
-    </div>
+    </CoreLayout>
   );
 };
 

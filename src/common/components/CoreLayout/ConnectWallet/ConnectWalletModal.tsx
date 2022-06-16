@@ -1,3 +1,6 @@
+import toast from "react-hot-toast";
+import { useConnect } from "wagmi";
+
 import {
   MetaMaskIcon,
   WalletConnectIcon,
@@ -7,12 +10,22 @@ import { Modal } from "@/common/components/Modal";
 
 import CustomConnectForm from "./CustomConnectForm";
 
-const ConnectWalletModal = ({
-  setOpenModal,
-  isMounted,
-  connect,
-  connectors,
-}) => {
+const ConnectWalletModal = ({ setOpenModal, isMounted }) => {
+  const { connect, connectors } = useConnect({
+    onConnect(_) {
+      // closing the modal after connected
+      setOpenModal(false);
+      toast.success("Connected to wallet", {
+        duration: 750,
+      });
+    },
+    onError(error) {
+      toast.error(error.message, {
+        duration: 750,
+      });
+    },
+  });
+
   const connectWallet = (connector) => {
     connect(connector);
   };

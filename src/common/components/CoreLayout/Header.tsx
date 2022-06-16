@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import { useState } from "react";
+import { useAccount } from "wagmi";
 
 import { Button } from "@/common/components/Button";
 import MobileMenu from "@/common/components/CoreLayout/MobileMenu";
@@ -10,7 +11,6 @@ import { shortenWalletAddress } from "@/common/utils/string";
 
 interface Props {
   className?: string;
-  address?: string;
   openWalletModal: () => void;
 }
 
@@ -35,7 +35,9 @@ const LINKS: LinkType[] = [
   },
 ];
 
-const Header = ({ className, address, openWalletModal }: Props) => {
+const Header = ({ className, openWalletModal }: Props) => {
+  const { data: account } = useAccount();
+
   const [openMenu, setOpenMenu] = useState(false);
 
   return (
@@ -60,7 +62,7 @@ const Header = ({ className, address, openWalletModal }: Props) => {
           })}
         </ul>
         <div className="flex items-center gap-2">
-          {address ? (
+          {account?.address ? (
             <Popover placement="bottom-end">
               <Popover.Trigger>
                 <Button
@@ -71,7 +73,7 @@ const Header = ({ className, address, openWalletModal }: Props) => {
                   rightIcon={<ChevronDownIcon />}
                   variant="outline"
                 >
-                  {shortenWalletAddress({ walletAddress: address })}
+                  {shortenWalletAddress({ walletAddress: account?.address })}
                 </Button>
               </Popover.Trigger>
               <Popover.Content>
