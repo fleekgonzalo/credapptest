@@ -3,9 +3,14 @@ import dynamic from "next/dynamic";
 import { PageHead } from "@/common/components/PageHead";
 
 const CoreLayout = dynamic(
-  () => import("@/common/components/CoreLayout/CoreLayout")
+  () => import("@/common/components/CoreLayout/CoreLayout"),
+  {
+    loading: () => <div className="h-full bg-cred-blue" />,
+  }
 );
-const HomePage = dynamic(() => import("@/modules/Home"));
+const HomePage = dynamic(() => import("@/modules/Home"), {
+  loading: () => <div className="h-full bg-cred-blue" />,
+});
 
 const Home = () => {
   return (
