@@ -19,7 +19,7 @@ export const CredScoreTopSection = () => {
 
   const url = account?.address
     ? getApiUrl({
-        address: "0x4242616070eb6c8495ea46f1de3a423c2c9c87a3",
+        address: account.address,
         endpoint: "score/address/",
       })
     : null;
