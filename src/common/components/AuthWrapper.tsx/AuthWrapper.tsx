@@ -1,8 +1,8 @@
 //TODO: Remove this file once testing is complete (this is just for testing experience in prod.)
 import { useState } from "react";
 
+import AuthenticationForm from "@/common/components/AuthWrapper.tsx/AuthenticationForm";
 import { LogoIcon } from "@/common/components/CustomIcon";
-import AuthenticationForm from "@/modules/Home/CredScoreTopSection/AuthenticationForm";
 
 export const AuthWrapper = ({ children }) => {
   const [isAuthorized, setIsAuthorized] = useState(false);
