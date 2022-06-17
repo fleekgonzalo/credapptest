@@ -19,6 +19,7 @@ export const Card = ({
   return (
     <>
       <div
+        {...props}
         className={classNames(
           "rounded-xl border-2",
           borderColor || "border-cred-light-blue-opacity-0.2",
@@ -31,7 +32,6 @@ export const Card = ({
             : undefined,
           ...props.style,
         }}
-        {...props}
       >
         {highLightColorClassName && (
           <div

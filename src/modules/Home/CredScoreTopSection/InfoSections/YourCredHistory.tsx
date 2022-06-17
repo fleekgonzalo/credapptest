@@ -95,7 +95,10 @@ const YourCredHistory = ({ animationDuration, account }: Props) => {
 
   return (
     <InfoCard headingText="your cred history">
-      <AreaChart animationDuration={animationDuration} data={slicedData} />
+      {/* min height here fixes layout shifts */}
+      <div className="min-h-[120px]">
+        <AreaChart animationDuration={animationDuration} data={slicedData} />
+      </div>
     </InfoCard>
   );
 };
