@@ -3,6 +3,7 @@ import "@/styles/main.scss";
 import Head from "next/head";
 import { Toaster } from "react-hot-toast";
 
+import { AuthWrapper } from "@/common/components/AuthWrapper.tsx";
 import { PageHead } from "@/common/components/PageHead";
 
 export const App = ({ Component, pageProps }) => {
@@ -15,7 +16,10 @@ export const App = ({ Component, pageProps }) => {
         />
         <PageHead />
       </Head>
-      <Component {...pageProps} />
+      {/* //TODO: Remove this wrapper (AuthWrapper) once testing is complete (this is just for testing experience in prod.) */}
+      <AuthWrapper>
+        <Component {...pageProps} />
+      </AuthWrapper>
       <Toaster position="top-right" />
     </>
   );
