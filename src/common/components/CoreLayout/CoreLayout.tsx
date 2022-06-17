@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { PropsWithChildren, useEffect, useState } from "react";
 import {
   configureChains,
   createClient,
@@ -45,7 +45,14 @@ const client = createClient({
   webSocketProvider,
 });
 
-export const CoreLayout = ({ children }) => {
+interface Props {
+  hideNavItems?: boolean;
+}
+
+export const CoreLayout = ({
+  children,
+  hideNavItems,
+}: PropsWithChildren<Props>) => {
   // modal with list of wallet providers eg: metamask, coinbase & walletconnect
   const [isMounted, setIsMounted] = useState(false);
 
@@ -80,7 +87,10 @@ export const CoreLayout = ({ children }) => {
               backgroundRepeat: "no-repeat",
             }}
           >
-            <Header openWalletModal={() => setIsMounted(true)} />
+            <Header
+              hideNavItems={hideNavItems}
+              openWalletModal={() => setIsMounted(true)}
+            />
             {children}
           </div>
 
