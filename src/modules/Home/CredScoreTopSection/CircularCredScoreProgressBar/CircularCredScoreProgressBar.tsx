@@ -6,6 +6,8 @@ interface Props {
   minValue: number;
   animationDuration?: number;
   valueRating: string;
+  loading?: boolean;
+  address?: string;
 }
 
 export const CircularCredScoreProgressBar = ({
@@ -14,6 +16,8 @@ export const CircularCredScoreProgressBar = ({
   value,
   animationDuration = 1000,
   valueRating,
+  loading,
+  address,
 }: Partial<Props>) => {
   return (
     <div className="flex items-center justify-center h-full -mt-4 md:-mt-8">
@@ -36,7 +40,7 @@ export const CircularCredScoreProgressBar = ({
           {value ?? "-"}
         </text>
         <text
-          className="text-[6.5px] md:text-[5px] font-semibold uppercase tracking-[0.18em]"
+          className="text-[5.5px] md:text-[5px] font-semibold uppercase tracking-[0.18em]"
           dominantBaseline="middle"
           fill="white"
           textAnchor="middle"
@@ -44,7 +48,13 @@ export const CircularCredScoreProgressBar = ({
           y="69%"
         >
           {/* getting cred phrase with the range percent between min value and max value */}
-          {value ? valueRating : "no score"}!
+          {!address
+            ? "not connected"
+            : loading
+            ? "loading.."
+            : value
+            ? `${valueRating}!`
+            : "no score!"}
         </text>
 
         {/* bottom middle text */}
