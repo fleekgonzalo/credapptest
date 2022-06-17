@@ -65,6 +65,7 @@ export const CoreLayout = ({ children }) => {
       {/* // Passing client to React Context Provider */}
       <WagmiConfig client={client}>
         <div
+          className="min-h-screen"
           style={{
             background:
               "linear-gradient(0deg, rgba(19, 24, 100, 0.2), rgba(19, 24, 100, 0.2)), #000338",

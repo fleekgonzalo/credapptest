@@ -3,7 +3,7 @@ import { useAccount } from "wagmi";
 import AreaChart, { DataType } from "@/common/components/AreaChart/AreaChart";
 import useFetcher from "@/common/hooks/useFetcher";
 import { getApiUrl } from "@/common/utils/string";
-import InfoCard from "@/modules/Home/InfoSections/InfoCard";
+import InfoCard from "@/modules/Home/CredScoreTopSection/InfoSections/InfoCard";
 
 interface Props {
   animationDuration?: number;

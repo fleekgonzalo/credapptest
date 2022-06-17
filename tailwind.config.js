@@ -37,6 +37,14 @@ module.exports = {
           green: "#60FF5D",
           "green-opacity-0.1": "rgba(96, 255, 93, 0.1)",
 
+          // ORANGE
+          orange: "#FBAF1B",
+          "orange-opacity-0.1": "rgba(255, 175, 27, 0.1)",
+
+          // RED
+          red: "#FF007A",
+          "red-opacity-0.1": "rgba(255, 0, 122, 0.1)",
+
           // YELLOW
           yellow: "#F3D25E",
           "yellow-opacity-0.1": "rgba(243, 210, 94, 0.1)",

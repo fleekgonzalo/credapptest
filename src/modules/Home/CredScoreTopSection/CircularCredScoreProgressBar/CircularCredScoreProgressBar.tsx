@@ -44,7 +44,7 @@ export const CircularCredScoreProgressBar = ({
           y="69%"
         >
           {/* getting cred phrase with the range percent between min value and max value */}
-          {valueRating || "no score"}!
+          {value ? valueRating : "no score"}!
         </text>
 
         {/* bottom middle text */}

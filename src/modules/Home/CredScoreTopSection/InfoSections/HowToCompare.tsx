@@ -1,5 +1,5 @@
 import { StarIcon } from "@/common/components/CustomIcon";
-import InfoCard from "@/modules/Home/InfoSections/InfoCard";
+import InfoCard from "@/modules/Home/CredScoreTopSection/InfoSections/InfoCard";
 
 const HowToCompare = () => {
   return (

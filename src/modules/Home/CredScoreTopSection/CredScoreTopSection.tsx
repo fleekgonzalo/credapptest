@@ -5,10 +5,10 @@ import { useAccount } from "wagmi";
 import { Card } from "@/common/components/Card";
 import useFetcher from "@/common/hooks/useFetcher";
 import { getApiUrl } from "@/common/utils/string";
-import { CircularCredScoreProgressBar } from "@/modules/Home/CircularCredScoreProgressBar";
-import { InfoSections } from "@/modules/Home/InfoSections";
+import { CircularCredScoreProgressBar } from "@/modules/Home/CredScoreTopSection/CircularCredScoreProgressBar";
+import { InfoSections } from "@/modules/Home/CredScoreTopSection/InfoSections";
 
-const CredScoreTopSection = () => {
+export const CredScoreTopSection = () => {
   const minValue = 300;
   const maxValue = 1000;
   const ANIMATION_DURATION = 1000; // in order to match the duration for cred score circular progress & Cred History Chart
@@ -19,7 +19,7 @@ const CredScoreTopSection = () => {
 
   const url = account?.address
     ? getApiUrl({
-        address: account.address,
+        address: "0x4242616070eb6c8495ea46f1de3a423c2c9c87a3",
         endpoint: "score/address/",
       })
     : null;
@@ -49,7 +49,6 @@ const CredScoreTopSection = () => {
 
   return (
     <>
-      <h2 className="mb-6 font-bold">My Cred Score</h2>
       <div className="flex flex-col gap-8 lg:flex-row">
         <section className="grid flex-1 md:min-h-[614px]">
           <Card darker glow>

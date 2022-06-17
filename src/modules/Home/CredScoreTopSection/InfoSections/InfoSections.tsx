@@ -1,6 +1,6 @@
-import HowToCompare from "@/modules/Home/InfoSections/HowToCompare";
-import ImprovementFactor from "@/modules/Home/InfoSections/ImprovementFactor";
-import YourCredHistory from "@/modules/Home/InfoSections/YourCredHistory";
+import HowToCompare from "@/modules/Home/CredScoreTopSection/InfoSections/HowToCompare";
+import ImprovementFactor from "@/modules/Home/CredScoreTopSection/InfoSections/ImprovementFactor";
+import YourCredHistory from "@/modules/Home/CredScoreTopSection/InfoSections/YourCredHistory";
 
 interface Props {
   animationDuration?: number;
