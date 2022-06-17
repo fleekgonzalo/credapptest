@@ -91,3 +91,5 @@ export const CoreLayout = ({ children }) => {
     </>
   );
 };
+
+export default CoreLayout;

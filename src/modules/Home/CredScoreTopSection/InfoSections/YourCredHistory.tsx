@@ -1,12 +1,17 @@
-import { useAccount } from "wagmi";
+import dynamic from "next/dynamic";
 
-import AreaChart, { DataType } from "@/common/components/AreaChart/AreaChart";
+import { DataType } from "@/common/components/AreaChart/AreaChart";
 import useFetcher from "@/common/hooks/useFetcher";
 import { getApiUrl } from "@/common/utils/string";
 import InfoCard from "@/modules/Home/CredScoreTopSection/InfoSections/InfoCard";
 
+const AreaChart = dynamic(
+  () => import("@/common/components/AreaChart/AreaChart")
+);
+
 interface Props {
   animationDuration?: number;
+  account: any;
 }
 
 const monthNames = {
@@ -24,9 +29,7 @@ const monthNames = {
   "12": "Dec",
 };
 
-const YourCredHistory = ({ animationDuration }: Props) => {
-  const { data: account } = useAccount();
-
+const YourCredHistory = ({ animationDuration, account }: Props) => {
   const url = account?.address
     ? getApiUrl({
         address: account?.address,

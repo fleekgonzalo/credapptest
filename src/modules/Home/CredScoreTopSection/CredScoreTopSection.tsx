@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 import toast from "react-hot-toast";
-import { useAccount } from "wagmi";
 
 import { Card } from "@/common/components/Card";
 import useFetcher from "@/common/hooks/useFetcher";
@@ -8,11 +7,10 @@ import { getApiUrl } from "@/common/utils/string";
 import { CircularCredScoreProgressBar } from "@/modules/Home/CredScoreTopSection/CircularCredScoreProgressBar";
 import { InfoSections } from "@/modules/Home/CredScoreTopSection/InfoSections";
 
-export const CredScoreTopSection = () => {
+export const CredScoreTopSection = ({ account }) => {
   const minValue = 300;
   const maxValue = 1000;
   const ANIMATION_DURATION = 1000; // in order to match the duration for cred score circular progress & Cred History Chart
-  const { data: account } = useAccount();
 
   // to avoid duplication of toast
   const hasToastRendered = useRef<boolean>();
@@ -65,7 +63,10 @@ export const CredScoreTopSection = () => {
         </section>
         {credScoreData?.value && (
           <section className="lg:max-w-[352px] flex flex-col gap-4">
-            <InfoSections animationDuration={ANIMATION_DURATION} />
+            <InfoSections
+              account={account}
+              animationDuration={ANIMATION_DURATION}
+            />
           </section>
         )}
       </div>

@@ -1,14 +1,10 @@
-import { useAccount } from "wagmi";
-
 import useFetcher from "@/common/hooks/useFetcher";
 import getCredColor from "@/common/utils/getCredColor";
 import { getApiUrl } from "@/common/utils/string";
 
 import CreditFactor from "./CreditFactor";
 
-export const CreditFactors = () => {
-  const { data: account } = useAccount();
-
+export const CreditFactors = ({ account }) => {
   const url = account?.address
     ? getApiUrl({
         address: account.address,

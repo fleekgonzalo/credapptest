@@ -4,14 +4,18 @@ import YourCredHistory from "@/modules/Home/CredScoreTopSection/InfoSections/You
 
 interface Props {
   animationDuration?: number;
+  account: any;
 }
 
-export const InfoSections = ({ animationDuration }: Props) => {
+export const InfoSections = ({ animationDuration, account }: Props) => {
   return (
     <>
       <HowToCompare />
       <ImprovementFactor />
-      <YourCredHistory animationDuration={animationDuration} />
+      <YourCredHistory
+        account={account}
+        animationDuration={animationDuration}
+      />
     </>
   );
 };
