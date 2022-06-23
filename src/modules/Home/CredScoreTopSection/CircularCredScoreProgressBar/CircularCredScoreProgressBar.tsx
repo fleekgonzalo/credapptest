@@ -66,7 +66,7 @@ export const CircularCredScoreProgressBar = ({
           x="50%"
           y="92%"
         >
-          Provided by
+          Powered by
         </text>
         <text
           className="text-[4px] md:text-[3px] font-extrabold tracking-[0.18em]"
