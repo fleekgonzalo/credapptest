@@ -91,7 +91,7 @@ const Header = ({ className, openWalletModal, hideNavItems }: Props) => {
                 variant="outline"
                 onClick={openWalletModal}
               >
-                GET STARTED
+                CONNECT WALLET
               </Button>
             )}
             <MobileMenu
