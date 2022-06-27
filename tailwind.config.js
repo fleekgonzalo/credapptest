@@ -21,6 +21,7 @@ module.exports = {
 
       colors: {
         cred: {
+          purple: "#5c55f1",
           // gray
           "dark-gray": "#414362",
           "light-gray": "#C7C6D8",

@@ -12,6 +12,7 @@ import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 
 import Header from "@/common/components/CoreLayout/Header";
+import { ModalContext } from "@/common/context/modal.context";
 
 import ConnectWalletModal from "./ConnectWallet/ConnectWalletModal";
 
@@ -71,32 +72,39 @@ export const CoreLayout = ({
     <>
       {/* // Passing client to React Context Provider */}
       <WagmiConfig client={client}>
-        <div
-          className="min-h-screen"
-          style={{
-            background:
-              "linear-gradient(0deg, rgba(19, 24, 100, 0.2), rgba(19, 24, 100, 0.2)), #000338",
-          }}
+        <ModalContext.Provider
+          value={{ isMounted, toggleMount: () => setIsMounted((s) => !s) }}
         >
           <div
-            className="relative"
+            className="min-h-screen"
             style={{
-              backgroundSize: "1800px",
-              backgroundPosition: "top 20px center",
-              backgroundImage: "url('/image/DissolveBG.jpg')",
-              backgroundRepeat: "no-repeat",
+              background:
+                "linear-gradient(0deg, rgba(19, 24, 100, 0.2), rgba(19, 24, 100, 0.2)), #000338",
             }}
           >
-            <Header
-              hideNavItems={hideNavItems}
-              openWalletModal={() => setIsMounted(true)}
-            />
-            {children}
-          </div>
+            <div
+              className="relative"
+              style={{
+                backgroundSize: "1800px",
+                backgroundPosition: "top 20px center",
+                backgroundImage: "url('/image/DissolveBG.jpg')",
+                backgroundRepeat: "no-repeat",
+              }}
+            >
+              <Header
+                hideNavItems={hideNavItems}
+                openWalletModal={() => setIsMounted(true)}
+              />
+              {children}
+            </div>
 
-          {/* FOOTER */}
-        </div>
-        <ConnectWalletModal isMounted={isMounted} setOpenModal={setIsMounted} />
+            {/* FOOTER */}
+          </div>
+          <ConnectWalletModal
+            isMounted={isMounted}
+            setOpenModal={setIsMounted}
+          />
+        </ModalContext.Provider>
       </WagmiConfig>
     </>
   );

@@ -1,4 +1,7 @@
+import { useContext } from "react";
+
 import { CircularProgressbar } from "@/common/components/CircularProgressbar";
+import { ModalContext } from "@/common/context/modal.context";
 
 interface Props {
   value: number;
@@ -19,6 +22,7 @@ export const CircularCredScoreProgressBar = ({
   loading,
   address,
 }: Partial<Props>) => {
+  const { toggleMount } = useContext(ModalContext);
   return (
     <div className="flex items-center justify-center h-full -mt-4 md:-mt-8">
       <CircularProgressbar
@@ -29,33 +33,54 @@ export const CircularCredScoreProgressBar = ({
         value={value}
       >
         {/* middle text with cred score and cred phrase/label */}
-        <text
-          className="font-bold text-[18px] md:text-[16px]"
-          dominantBaseline="middle"
-          fill="white"
-          textAnchor="middle"
-          x="50%"
-          y="55%"
-        >
-          {value ?? "-"}
-        </text>
-        <text
-          className="text-[5.5px] md:text-[5px] font-semibold uppercase tracking-[0.18em]"
-          dominantBaseline="middle"
-          fill="white"
-          textAnchor="middle"
-          x="50%"
-          y="69%"
-        >
-          {/* getting cred phrase with the range percent between min value and max value */}
-          {!address
-            ? "not connected"
-            : loading
-            ? "loading.."
-            : value
-            ? `${valueRating}!`
-            : "no score!"}
-        </text>
+        {!address ? (
+          <g cursor="pointer" onClick={toggleMount}>
+            <rect
+              className="fill-cred-purple"
+              height="8"
+              rx="1"
+              ry="1"
+              transform="translate(-20)"
+              width="40"
+              x="50%"
+              y="55%"
+            ></rect>
+            <text
+              className="uppercase font-semibold"
+              fill="white"
+              fontSize="3"
+              transform="translate(-14)"
+              x="50%"
+              y="60%"
+            >
+              Connect wallet
+            </text>
+          </g>
+        ) : (
+          <>
+            <text
+              className="font-bold text-[18px] md:text-[16px]"
+              dominantBaseline="middle"
+              fill="white"
+              textAnchor="middle"
+              x="50%"
+              y="55%"
+            >
+              {value ?? "-"}
+            </text>
+            <text
+              className="text-[5.5px] md:text-[5px] font-semibold uppercase tracking-[0.18em]"
+              dominantBaseline="middle"
+              fill="white"
+              textAnchor="middle"
+              x="50%"
+              y="69%"
+            >
+              {/* getting cred phrase with the range percent between min value and max value */}
+              {loading ? "loading.." : value ? `${valueRating}!` : "no score"}
+            </text>
+          </>
+        )}
 
         {/* bottom middle text */}
         <text
