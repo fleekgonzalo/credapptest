@@ -50,7 +50,7 @@ export const Modal = ({
           }}
         >
           <div
-            className="relative w-full max-w-[fit-content]"
+            className="relative w-full md:max-w-[fit-content]"
             onClick={(e) => e.stopPropagation()}
           >
             <div
