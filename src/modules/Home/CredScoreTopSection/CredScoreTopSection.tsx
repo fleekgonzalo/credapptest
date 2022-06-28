@@ -2,31 +2,21 @@ import { useEffect, useRef } from "react";
 import toast from "react-hot-toast";
 
 import { Card } from "@/common/components/Card";
-import useFetcher from "@/common/hooks/useFetcher";
-import { getApiUrl } from "@/common/utils/string";
+import {
+  NoScoreInfoSection,
+  WhereMyScore,
+  YourFreeCryptoCreditScore,
+} from "@/common/components/NoScoreInfoSection";
 import { CircularCredScoreProgressBar } from "@/modules/Home/CredScoreTopSection/CircularCredScoreProgressBar";
 import { InfoSections } from "@/modules/Home/CredScoreTopSection/InfoSections";
 
-export const CredScoreTopSection = ({ account }) => {
+export const CredScoreTopSection = ({ credScoreData, loading, account }) => {
   const minValue = 300;
   const maxValue = 1000;
   const ANIMATION_DURATION = 1000; // in order to match the duration for cred score circular progress & Cred History Chart
 
   // to avoid duplication of toast
   const hasToastRendered = useRef<boolean>();
-
-  const url = account?.address
-    ? getApiUrl({
-        address: account.address,
-        endpoint: "score/address/",
-      })
-    : null;
-
-  const {
-    data: credScoreData,
-    error: credScoreError,
-    loading: credScoreLoading,
-  } = useFetcher(url);
 
   useEffect(() => {
     // toast to notify if no cred score
@@ -53,7 +43,7 @@ export const CredScoreTopSection = ({ account }) => {
             <CircularCredScoreProgressBar
               address={account?.address}
               animationDuration={ANIMATION_DURATION}
-              loading={credScoreLoading}
+              loading={loading}
               maxValue={maxValue}
               minValue={minValue}
               value={credScoreData?.value || null}
@@ -61,12 +51,19 @@ export const CredScoreTopSection = ({ account }) => {
             />
           </Card>
         </section>
-        {credScoreData?.value && (
+        {credScoreData?.value ? (
           <section className="lg:max-w-[352px] flex flex-col gap-4">
-            <InfoSections
-              account={account}
-              animationDuration={ANIMATION_DURATION}
-            />
+            <InfoSections animationDuration={ANIMATION_DURATION} />
+          </section>
+        ) : (
+          <section className="lg:max-w-[352px] flex flex-col gap-4">
+            <NoScoreInfoSection>
+              {account?.address ? (
+                <WhereMyScore />
+              ) : (
+                <YourFreeCryptoCreditScore />
+              )}
+            </NoScoreInfoSection>
           </section>
         )}
       </div>

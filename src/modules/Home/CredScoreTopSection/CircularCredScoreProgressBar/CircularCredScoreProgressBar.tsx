@@ -36,7 +36,7 @@ export const CircularCredScoreProgressBar = ({
         {!address ? (
           <g cursor="pointer" onClick={toggleMount}>
             <rect
-              className="fill-cred-purple"
+              className="fill-cred-soft-blue"
               height="8"
               rx="1"
               ry="1"

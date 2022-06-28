@@ -1,4 +1,5 @@
 import dynamic from "next/dynamic";
+import { useAccount } from "wagmi";
 
 import { DataType } from "@/common/components/AreaChart/AreaChart";
 import useFetcher from "@/common/hooks/useFetcher";
@@ -11,7 +12,6 @@ const AreaChart = dynamic(
 
 interface Props {
   animationDuration?: number;
-  account: any;
 }
 
 const monthNames = {
@@ -29,7 +29,8 @@ const monthNames = {
   "12": "Dec",
 };
 
-const YourCredHistory = ({ animationDuration, account }: Props) => {
+const YourCredHistory = ({ animationDuration }: Props) => {
+  const { data: account } = useAccount();
   const url = account?.address
     ? getApiUrl({
         address: account?.address,
