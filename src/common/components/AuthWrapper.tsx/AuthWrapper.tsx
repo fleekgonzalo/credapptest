@@ -5,7 +5,9 @@ import AuthenticationForm from "@/common/components/AuthWrapper.tsx/Authenticati
 import { LogoIcon } from "@/common/components/CustomIcon";
 
 export const AuthWrapper = ({ children }) => {
-  const [isAuthorized, setIsAuthorized] = useState(false);
+  const [isAuthorized, setIsAuthorized] = useState(
+    process.env.NODE_ENV === "development"
+  );
 
   if (!isAuthorized) {
     return (

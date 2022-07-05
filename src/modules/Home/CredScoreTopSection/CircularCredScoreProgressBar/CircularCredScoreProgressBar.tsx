@@ -77,7 +77,7 @@ export const CircularCredScoreProgressBar = ({
               y="69%"
             >
               {/* getting cred phrase with the range percent between min value and max value */}
-              {loading ? "loading.." : value ? `${valueRating}!` : "no score"}
+              {loading ? "loading.." : value ? `${valueRating}` : "no score"}
             </text>
           </>
         )}

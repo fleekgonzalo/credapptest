@@ -55,7 +55,7 @@ const ConnectWalletModal = ({ setOpenModal, isMounted }) => {
           {metaMaskConnector?.ready && (
             <>
               <button
-                className="flex items-center w-[calc(100%-20px)] gap-6 py-6 pl-2 hover:opacity-80"
+                className="flex items-center w-[calc(100%-20px)] gap-6 py-6 hover:opacity-80"
                 disabled={!metaMaskConnector.ready}
                 onClick={() => connectWallet(metaMaskConnector)}
               >

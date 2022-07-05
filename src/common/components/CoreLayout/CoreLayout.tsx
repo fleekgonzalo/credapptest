@@ -76,14 +76,14 @@ export const CoreLayout = ({
           value={{ isMounted, toggleMount: () => setIsMounted((s) => !s) }}
         >
           <div
-            className="min-h-screen"
+            className="min-h-screen text-white"
             style={{
               background:
                 "linear-gradient(0deg, rgba(19, 24, 100, 0.2), rgba(19, 24, 100, 0.2)), #000338",
             }}
           >
             <div
-              className="relative"
+              className="relative min-h-screen"
               style={{
                 backgroundSize: "1800px",
                 backgroundPosition: "top 20px center",

@@ -1,6 +1,7 @@
 import { PropsWithChildren } from "react";
 
 import ChevronDownSvg from "./svg/ChevronDown";
+import ChevronLeftSvg from "./svg/ChevronLeft";
 import ChevronRightSvg from "./svg/ChevronRight";
 import CrossSvg from "./svg/Cross";
 import DiamondSvg from "./svg/Diamond";
@@ -68,6 +69,12 @@ export const StarIcon = ({ ...props }: Props) => (
 export const ChevronRightIcon = ({ ...props }: Props) => (
   <CustomIcon fill="none" height={24} viewBox="0 0 24 24" width={24} {...props}>
     <ChevronRightSvg />
+  </CustomIcon>
+);
+
+export const ChevronLeftIcon = ({ ...props }: Props) => (
+  <CustomIcon fill="none" height={10} viewBox="0 0 6 10" width={6} {...props}>
+    <ChevronLeftSvg />
   </CustomIcon>
 );
 
