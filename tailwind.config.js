@@ -22,6 +22,8 @@ module.exports = {
       colors: {
         cred: {
           purple: "#5c55f1",
+          "light-purple": "#627EEA",
+          "dark-purple": "rgba(87, 123, 232, 0.4)",
           border: "#1B1E51",
           // gray
           "dark-gray": "#414362",
@@ -32,12 +34,15 @@ module.exports = {
           "dark-blue": "#080A2B",
           blue: "#0D1042",
           "light-blue": "#5D78FF",
+          "light-gray-blue": "#4589DE",
           "light-blue-opacity-0.2": "rgba(93, 120, 255, 0.2)",
           "soft-blue": "#335EEB",
+          "blue-chart": "#60CAFF",
 
           // GREEN
           green: "#60FF5D",
           "green-opacity-0.1": "rgba(96, 255, 93, 0.1)",
+          "green-chart": "#60FF90",
 
           // ORANGE
           orange: "#FBAF1B",

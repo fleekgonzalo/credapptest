@@ -6,11 +6,13 @@ interface Props extends ComponentPropsWithoutRef<"div"> {
   borderColor?: string;
   glow?: boolean;
   darker?: boolean;
+  childWrapperClass?: string;
 }
 
 export const Card = ({
   children,
   highLightColorClassName,
+  childWrapperClass,
   borderColor,
   glow,
   darker,
@@ -38,7 +40,11 @@ export const Card = ({
             className={classNames(highLightColorClassName, "h-2  rounded-t-lg")}
           />
         )}
-        <div className="p-6 h-[calc(100%-8px-24px-24px)]">{children}</div>
+        <div
+          className={childWrapperClass || "p-6 h-[calc(100%-8px-24px-24px)]"}
+        >
+          {children}
+        </div>
       </div>
     </>
   );

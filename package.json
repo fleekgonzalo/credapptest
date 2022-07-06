@@ -26,6 +26,7 @@
     "react-dom": "^18.1.0",
     "react-hot-toast": "^2.2.0",
     "react-popper": "^2.3.0",
+    "react-virtualized-auto-sizer": "^1.0.6",
     "recharts": "^2.1.10",
     "sass": "^1.52.1",
     "wagmi": "^0.4.10"
