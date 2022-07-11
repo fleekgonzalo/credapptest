@@ -43,13 +43,7 @@ const HomePage = () => {
         loading={credScoreLoading}
       />
 
-      {/* Credit factor cards */}
-      <section className="mt-12">
-        <h2 className="mb-6 font-bold">Start building your credit</h2>
-        <div>
-          <CreditFactors account={account} hasScore={!!credScoreData?.value} />
-        </div>
-      </section>
+      <CreditFactors account={account} hasScore={!!credScoreData?.value} />
     </div>
   );
 };

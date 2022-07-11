@@ -14,7 +14,7 @@ export const WhereMyScore = () => {
           Once you have enough activity, you{"'"}ll automatically get a score
           that{"'"}ll help you manage your on-chain finances.
         </p>
-        <Button className="font-semibold px-3" variant="primary">
+        <Button className="font-semibold px-[11.5px]" variant="primary">
           TELL ME WHEN MY SCORE IS READY
         </Button>
       </div>
