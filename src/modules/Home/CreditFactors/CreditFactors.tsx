@@ -1,5 +1,3 @@
-import PartnerCard from "@/common/components/PartnerCard";
-import { partners } from "@/common/constants/partner";
 import useFetcher from "@/common/hooks/useFetcher";
 import getCredColor from "@/common/utils/getCredColor";
 import { getApiUrl } from "@/common/utils/string";
@@ -8,7 +6,6 @@ import CreditFactor from "./CreditFactor";
 
 type CreditFactorsProps = {
   account: any;
-  hasScore: boolean;
 };
 const factorNames = [
   "Length of credit history",
@@ -23,7 +20,7 @@ type Error422Response = {
   status_code: number;
 };
 
-export const CreditFactors = ({ account, hasScore }: CreditFactorsProps) => {
+export const CreditFactors = ({ account }: CreditFactorsProps) => {
   const url = account?.address
     ? getApiUrl({
         address: account.address,
@@ -41,7 +38,11 @@ export const CreditFactors = ({ account, hasScore }: CreditFactorsProps) => {
     return <p className="text-xs">Loading...</p>;
   }
 
-  if (credFactorError?.response?.status === 422) {
+  if (credFactorError) {
+    let errorMsg = "Error loading data";
+    if (credFactorError?.response?.status === 422) {
+      errorMsg = (credFactorError.response.data as Error422Response).error;
+    }
     return (
       <section className="mt-12">
         <h2 className="mb-6 font-bold">Credit factors</h2>
@@ -53,9 +54,7 @@ export const CreditFactors = ({ account, hasScore }: CreditFactorsProps) => {
                   key={`credit-factor-${index}`}
                   link="#"
                   primaryText={data}
-                  secondaryText={
-                    (credFactorError.response.data as Error422Response).error
-                  }
+                  secondaryText={errorMsg}
                   variant="red"
                 />
               );
@@ -66,26 +65,6 @@ export const CreditFactors = ({ account, hasScore }: CreditFactorsProps) => {
     );
   }
 
-  if (!account?.address || !hasScore || credFactorError) {
-    return (
-      <section className="mt-12">
-        <h2 className="mb-6 font-bold">Start building your credit</h2>
-        <div>
-          <div className="grid grid-cols-1 gap-6 md:gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {partners.map((partner) => (
-              <PartnerCard
-                key={partner.label}
-                desc={partner.desc}
-                label={partner.label}
-                link={partner.link}
-                logoName={partner.logoName}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
-    );
-  }
   return (
     <section className="mt-12">
       <h2 className="mb-6 font-bold">Credit factors</h2>

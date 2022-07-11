@@ -9,6 +9,7 @@ import { ChevronLeftIcon } from "@/common/components/CustomIcon";
 import { reportData } from "@/constant/reportData";
 import { getTailwindColor } from "@/styles/theme";
 
+import circularImg from "../../../public/image/report_circle.png";
 import ReportAssets from "./ReportAssets";
 import ReportStatistic from "./ReportStatistic";
 
@@ -100,7 +101,7 @@ const ReportPage = () => {
         <Image
           alt="report"
           height={IMAGE_SIZE}
-          src="/image/report_circle.png"
+          src={circularImg}
           width={IMAGE_SIZE}
         ></Image>
       </div>

@@ -33,7 +33,7 @@ const ReportAssets = ({ data }: ReportAssetsProps) => {
                 <Image
                   alt="asset"
                   height={ICON_SIZE}
-                  src={require(`public/image/${asset.name}_small_icon.png`)}
+                  src={`/image/${asset.name}_small_icon.png`}
                   width={ICON_SIZE}
                 />
                 <span>{asset.name.toUpperCase()}</span>

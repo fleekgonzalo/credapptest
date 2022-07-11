@@ -7,6 +7,8 @@ import { getApiUrl } from "@/common/utils/string";
 import { CreditFactors } from "@/modules/Home/CreditFactors";
 import { CredScoreTopSection } from "@/modules/Home/CredScoreTopSection";
 
+import { PartnerSection } from "./PartnerSection";
+
 const HomePage = () => {
   const { data: account } = useAccount();
 
@@ -23,6 +25,7 @@ const HomePage = () => {
     loading: credScoreLoading,
   } = useFetcher(scoreAPI);
 
+  const hasScore = !!credScoreData?.value;
   return (
     <div className="py-12 md:py-16 px-5 max-w-[1130px] mx-auto">
       {/* Cred score top sections */}
@@ -42,8 +45,11 @@ const HomePage = () => {
         credScoreData={credScoreData}
         loading={credScoreLoading}
       />
-
-      <CreditFactors account={account} hasScore={!!credScoreData?.value} />
+      {!account?.address || !hasScore ? (
+        <PartnerSection />
+      ) : (
+        <CreditFactors account={account} />
+      )}
     </div>
   );
 };
