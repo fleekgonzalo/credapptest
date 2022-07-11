@@ -99,7 +99,7 @@ const ReportPage = () => {
       </div>
       <div className="flex justify-center mb-10">
         <Image
-          alt="report"
+          alt="circular_report"
           height={IMAGE_SIZE}
           src={circularImg}
           width={IMAGE_SIZE}
