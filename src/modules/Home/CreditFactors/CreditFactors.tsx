@@ -70,7 +70,7 @@ export const CreditFactors = ({ account }: CreditFactorsProps) => {
       <h2 className="mb-6 font-bold">Credit factors</h2>
       <div>
         <div className="grid grid-cols-1 gap-6 md:gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {credFactorData.report.factors.map((data, index) => {
+          {credFactorData?.report?.factors?.map((data, index) => {
             return (
               <CreditFactor
                 key={`credit-factor-${index}`}

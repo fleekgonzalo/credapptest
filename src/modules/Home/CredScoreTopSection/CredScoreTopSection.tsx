@@ -53,7 +53,11 @@ export const CredScoreTopSection = ({ credScoreData, loading, account }) => {
         </section>
         {credScoreData?.value ? (
           <section className="lg:max-w-[352px] flex flex-col gap-4">
-            <InfoSections animationDuration={ANIMATION_DURATION} />
+            <InfoSections
+              animationDuration={ANIMATION_DURATION}
+              decile={credScoreData?.decile}
+              valueRating={credScoreData?.value_rating}
+            />
           </section>
         ) : (
           <section className="lg:max-w-[352px] flex flex-col gap-4">

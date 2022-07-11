@@ -104,17 +104,17 @@ const ReportPage = () => {
           width={IMAGE_SIZE}
         ></img>
       </div>
-      <Card className="h-[560px] pb-4">
-        <div className="flex justify-between">
-          <h2 className="mb-4 text-sm font-semibold tracking-widest opacity-60">
+      <Card className="h-[654px] md:h-[560px] pb-4">
+        <div className="flex justify-between flex-col md:flex-row mb-[30px] md:mb-6">
+          <h2 className="text-sm font-semibold tracking-widest opacity-60 mb-6 md:mb-0">
             YOUR ACCOUNT HISTORY
           </h2>
-          <div className="flex gap-6 h-[18px] font-medium leading-[18px] tracking-widest">
+          <div className="flex gap-y-4 md:h-[18px] font-medium leading-[18px] tracking-widest flex-wrap md:flex-nowrap md:gap-3 lg:gap-6">
             {metrics.map(({ metricName, color }) => {
               return (
                 <div
                   key={metricName}
-                  className="leading-[18px] flex justify-center items-center"
+                  className="leading-[18px] w-1/2 md:w-auto flex items-center"
                 >
                   <span
                     className={`rounded-full w-3 h-3 inline-block`}
@@ -132,7 +132,7 @@ const ReportPage = () => {
           {({ width, height }) => (
             <StackedAreaChart
               data={reportData}
-              height={height}
+              height={Math.min(height, 510)}
               metrics={reverseMetrics}
               width={width}
             />
