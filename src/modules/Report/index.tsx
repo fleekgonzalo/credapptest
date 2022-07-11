@@ -9,7 +9,6 @@ import { ChevronLeftIcon } from "@/common/components/CustomIcon";
 import { reportData } from "@/constant/reportData";
 import { getTailwindColor } from "@/styles/theme";
 
-import circularImg from "../../../public/image/report_circle.png";
 import ReportAssets from "./ReportAssets";
 import ReportStatistic from "./ReportStatistic";
 
@@ -98,12 +97,12 @@ const ReportPage = () => {
         </div>
       </div>
       <div className="flex justify-center mb-10">
-        <Image
+        <img
           alt="circular_report"
           height={IMAGE_SIZE}
-          src={circularImg}
+          src="/image/report_circle.png"
           width={IMAGE_SIZE}
-        ></Image>
+        ></img>
       </div>
       <Card className="h-[560px] pb-4">
         <div className="flex justify-between">

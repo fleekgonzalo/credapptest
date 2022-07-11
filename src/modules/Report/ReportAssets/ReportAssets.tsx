@@ -30,7 +30,7 @@ const ReportAssets = ({ data }: ReportAssetsProps) => {
           return (
             <div key={asset.name} className="flex flex-col">
               <div className="flex gap-2 mb-[6px]">
-                <Image
+                <img
                   alt="asset"
                   height={ICON_SIZE}
                   src={`/image/${asset.name}_small_icon.png`}
