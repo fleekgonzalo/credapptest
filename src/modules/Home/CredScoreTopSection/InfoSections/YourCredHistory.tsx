@@ -74,19 +74,14 @@ const YourCredHistory = ({ animationDuration }: Props) => {
     const monthNumber = o.date.split("-")[1];
     const monthName = monthNames[monthNumber];
 
-    r[monthName] ? r[monthName].push(o) : (r[monthName] = [o]);
+    r[monthName] = o;
     return r;
   }, {});
 
   // converting the above grouped data into an array of objects
   const data: DataType[] = Object.keys(monthGroup).map((month) => {
-    const monthData = monthGroup[month];
-    // get average data of month
-    const average =
-      monthData.reduce((acc, cur) => acc + cur.value, 0) / monthData.length;
-
     return {
-      value: average,
+      value: monthGroup[month].value,
       xAxis: month,
     };
   });
