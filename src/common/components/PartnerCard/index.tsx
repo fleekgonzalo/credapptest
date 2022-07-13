@@ -20,12 +20,12 @@ const PartnerCard = (props: PartnerCardProps) => {
         <p className="text-base">{desc}</p>
       </div>
       <div className="px-6 pb-6 cursor-pointer">
-        <Link href={link}>
+        <a href={link} rel="noreferrer" target="_blank">
           <div className="flex gap-2 leading- items-start text-cred-light-blue font-sp tracking-wider">
             <span className="font-bold">Get started</span>
             <ChevronRightIcon />
           </div>
-        </Link>
+        </a>
       </div>
     </div>
   );

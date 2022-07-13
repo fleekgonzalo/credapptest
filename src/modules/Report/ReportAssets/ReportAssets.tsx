@@ -15,6 +15,11 @@ type ReportAssetsProps = {
 };
 
 const ReportAssets = ({ data }: ReportAssetsProps) => {
+  const handleImgNotfound = (e) => {
+    const img = e.target;
+    // add fallback image src here for unsupported asset
+    // img.src = "/image/aave.png";
+  };
   return (
     <Card childWrapperClass="p-8 pb-[18px]" className="grow md:w-1/2">
       <h2 className="font-bold text-xl leading-5">Assets</h2>
@@ -33,8 +38,9 @@ const ReportAssets = ({ data }: ReportAssetsProps) => {
                 <img
                   alt="asset"
                   height={ICON_SIZE}
-                  src={`/image/${asset.name}_small_icon.png`}
+                  src={`/image/asset_logo_${asset.name.toUpperCase()}.png`}
                   width={ICON_SIZE}
+                  onError={handleImgNotfound}
                 />
                 <span>{asset.name.toUpperCase()}</span>
               </div>
