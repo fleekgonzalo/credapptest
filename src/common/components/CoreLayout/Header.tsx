@@ -23,16 +23,16 @@ export interface LinkType {
 
 const LINKS: LinkType[] = [
   {
-    label: "Free Credit Report",
-    link: "#",
+    label: "API",
+    link: "https://beta.credprotocol.com/docs/api",
   },
   {
     label: "About",
-    link: "#",
+    link: "https://docs.credprotocol.com/",
   },
   {
     label: "Careers",
-    link: "#",
+    link: "https://join.credprotocol.com/",
   },
 ];
 
@@ -58,7 +58,9 @@ const Header = ({ className, openWalletModal, hideNavItems }: Props) => {
             {LINKS.map(({ link, label }) => {
               return (
                 <li key={label}>
-                  <a href={link}>{label}</a>
+                  <a href={link} rel="noreferrer" target="_blank">
+                    {label}
+                  </a>
                 </li>
               );
             })}

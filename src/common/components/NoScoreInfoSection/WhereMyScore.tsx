@@ -14,8 +14,15 @@ export const WhereMyScore = () => {
           Once you have enough activity, you{"'"}ll automatically get a score
           that{"'"}ll help you manage your on-chain finances.
         </p>
+
         <Button className="font-semibold px-[11.5px]" variant="primary">
-          TELL ME WHEN MY SCORE IS READY
+          <a
+            href="https://credprotocol.typeform.com/monitoring"
+            rel="noreferrer"
+            target="_blank"
+          >
+            TELL ME WHEN MY SCORE IS READY
+          </a>
         </Button>
       </div>
     </InfoCard>

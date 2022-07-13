@@ -86,14 +86,14 @@ const ReportPage = () => {
               <span className="font-extrabold"> Cred Protocol</span>
             </span>
           </div>
-          <div>
+          {/* <div>
             <Button
               className="text-sm font-semibold pt-[8.5px] pb-[8.5px] px-3 leading-[15px] tracking-[0.02em] rounded-[6px]"
               variant="primary"
             >
               DOWNLOAD YOUR REPORT
             </Button>
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="flex justify-center mb-10">
