@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 function useFetch(url: string) {
   const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<AxiosError>(null);
 
   const fetch = () => {
@@ -27,7 +27,9 @@ function useFetch(url: string) {
   };
 
   useEffect(() => {
-    if (!url) return;
+    if (!url) {
+      setLoading(false);
+    }
 
     fetch();
   }, [url]);

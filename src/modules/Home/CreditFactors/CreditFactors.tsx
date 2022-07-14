@@ -1,3 +1,4 @@
+import { LoadingFactor } from "@/common/components/Loading";
 import useFetcher from "@/common/hooks/useFetcher";
 import getCredColor from "@/common/utils/getCredColor";
 import { getApiUrl } from "@/common/utils/string";
@@ -6,6 +7,7 @@ import CreditFactor from "./CreditFactor";
 
 type CreditFactorsProps = {
   account: any;
+  loading: boolean;
 };
 const factorNames = [
   "Length of credit history",
@@ -20,7 +22,7 @@ type Error422Response = {
   status_code: number;
 };
 
-export const CreditFactors = ({ account }: CreditFactorsProps) => {
+export const CreditFactors = ({ account, loading }: CreditFactorsProps) => {
   const url = account?.address
     ? getApiUrl({
         address: account.address,
@@ -34,8 +36,19 @@ export const CreditFactors = ({ account }: CreditFactorsProps) => {
     loading: credFactorLoading,
   } = useFetcher(url);
 
-  if (credFactorLoading) {
-    return <p className="text-xs">Loading...</p>;
+  if (loading || credFactorLoading) {
+    return (
+      <section className="mt-12">
+        <h2 className="mb-6 font-bold">Credit factors</h2>
+        <div>
+          <div className="grid grid-cols-1 gap-6 md:gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {factorNames.map((data, index) => {
+              return <LoadingFactor key={index} />;
+            })}
+          </div>
+        </div>
+      </section>
+    );
   }
 
   if (credFactorError) {

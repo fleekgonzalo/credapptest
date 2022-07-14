@@ -1,7 +1,9 @@
 import { useEffect, useRef } from "react";
 import toast from "react-hot-toast";
+import Skeleton from "react-loading-skeleton";
 
 import { Card } from "@/common/components/Card";
+import { LoadingRightSection } from "@/common/components/Loading";
 import {
   NoScoreInfoSection,
   WhereMyScore,
@@ -51,16 +53,16 @@ export const CredScoreTopSection = ({ credScoreData, loading, account }) => {
             />
           </Card>
         </section>
-        {credScoreData?.value ? (
-          <section className="lg:max-w-[352px] flex flex-col gap-4">
+        <section className="lg:max-w-[352px] flex flex-col gap-4">
+          {loading ? (
+            <LoadingRightSection />
+          ) : credScoreData?.value ? (
             <InfoSections
               animationDuration={ANIMATION_DURATION}
               decile={credScoreData?.decile}
               valueRating={credScoreData?.value_rating}
             />
-          </section>
-        ) : (
-          <section className="lg:max-w-[352px] flex flex-col gap-4">
+          ) : (
             <NoScoreInfoSection>
               {account?.address ? (
                 <WhereMyScore />
@@ -68,8 +70,8 @@ export const CredScoreTopSection = ({ credScoreData, loading, account }) => {
                 <YourFreeCryptoCreditScore />
               )}
             </NoScoreInfoSection>
-          </section>
-        )}
+          )}
+        </section>
       </div>
     </>
   );

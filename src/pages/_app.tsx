@@ -1,7 +1,8 @@
 import "@/styles/main.scss";
+import "react-loading-skeleton/dist/skeleton.css";
 
-import Head from "next/head";
 import { Toaster } from "react-hot-toast";
+import { SkeletonTheme } from "react-loading-skeleton";
 
 import { AuthWrapper } from "@/common/components/AuthWrapper.tsx";
 import { CoreLayout } from "@/common/components/CoreLayout";
@@ -19,7 +20,9 @@ export const App = ({ Component, pageProps }) => {
       {/* //TODO: Remove this wrapper (AuthWrapper) once testing is complete (this is just for testing experience in prod.) */}
       <AuthWrapper>
         <CoreLayout>
-          <Component {...pageProps} />
+          <SkeletonTheme baseColor="#252855" height={12} highlightColor="#444">
+            <Component {...pageProps} />
+          </SkeletonTheme>
         </CoreLayout>
       </AuthWrapper>
       <Toaster position="top-right" />
