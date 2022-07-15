@@ -1,125 +1,27 @@
-import Image from "next/image";
 import Link from "next/link";
-import toast from "react-hot-toast";
 import AutoSizer from "react-virtualized-auto-sizer";
 
 import StackedAreaChart from "@/common/components/AreaChart/StackedAreaChart";
 import { Button } from "@/common/components/Button";
 import { Card } from "@/common/components/Card";
 import { ChevronLeftIcon } from "@/common/components/CustomIcon";
-import useFetcher from "@/common/hooks/useFetcher";
-import { getApiUrl } from "@/common/utils/string";
 import { reportData } from "@/constant/reportData";
 import { getTailwindColor } from "@/styles/theme";
-import { ReportAddressResult } from "@/types/api";
 
+import { generateMetricConfig } from "./helpers";
+import { metricConfigs } from "./report.constant";
 import ReportAssets from "./ReportAssets";
 import ReportStatistic from "./ReportStatistic";
 
 const IMAGE_SIZE = 638;
-type MetricConfig = {
-  name: string;
-  color: string;
-};
-type ReportAddressFetch = {};
 
-const defaultStatisticData = [
-  { metricName: "asset", value: 90 },
-  { metricName: "deposit", value: 80 },
-  { metricName: "collateral", value: 40 },
-  { metricName: "debt", value: 30 },
-];
-
-const assetsData = [
-  { name: "eth", value: 41987 },
-  { name: "usdc", value: 16791 },
-  { name: "uni", value: 58769 },
-  { name: "dai", value: 50374 },
-];
-const metricConfigs = [
-  {
-    name: "asset",
-    color: "green-chart",
-  },
-  {
-    name: "deposit",
-    color: "blue-chart",
-  },
-  {
-    name: "collateral",
-    color: "orange",
-  },
-  {
-    name: "debt",
-    color: "red",
-  },
-];
-
-const generateMetricConfig = (configs: MetricConfig[]) => {
-  return configs.map((config) => {
-    const colorString = getTailwindColor(config.color);
-    return {
-      color: config.color,
-      metricName: config.name,
-      strokeColor: colorString,
-      gradientFrom: `${colorString}00`,
-      gradientTo: colorString,
-    };
-  });
-};
 type ReportPageProps = {
   address: string;
 };
+
 const ReportPage = ({ address }: ReportPageProps) => {
   const metrics = generateMetricConfig(metricConfigs);
   const reverseMetrics = metrics.map((i) => i).reverse();
-  let statisticData = defaultStatisticData;
-
-  const scoreAPI = getApiUrl({
-    address,
-    endpoint: "report/address/",
-  });
-
-  const {
-    data: credScoreData,
-    error: credScoreError,
-    loading: credScoreLoading,
-  }: {
-    data: ReportAddressResult;
-    error: unknown;
-    loading: boolean;
-  } = useFetcher(scoreAPI);
-
-  if (credScoreLoading) {
-    return <div>Loading.....</div>;
-  }
-
-  if (credScoreError) {
-    toast.error(
-      "Error while fetching report statistic data, fallback to default value"
-    );
-  } else {
-    if (credScoreData) {
-      statisticData = [
-        {
-          metricName: "asset",
-          value: +credScoreData.report.total_asset_value_usd,
-        },
-        {
-          metricName: "deposit",
-          value: +credScoreData.report.total_deposit_value_usd,
-        },
-        {
-          metricName: "collateral",
-          value: +credScoreData.report.total_collateral_value_usd,
-        },
-        {
-          metricName: "debt",
-          value: +credScoreData.report.total_debt_value_usd,
-        },
-      ];
-    }
-  }
 
   return (
     <div className="py-12 md:py-16 px-5 max-w-[1130px] mx-auto">
@@ -196,8 +98,8 @@ const ReportPage = ({ address }: ReportPageProps) => {
         </AutoSizer>
       </Card>
       <div className="flex flex-col md:flex-row gap-8 mt-8">
-        <ReportStatistic data={statisticData} />
-        <ReportAssets data={assetsData} />
+        <ReportStatistic address={address} />
+        <ReportAssets address={address} />
       </div>
     </div>
   );

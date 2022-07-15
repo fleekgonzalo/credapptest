@@ -1,37 +1,90 @@
-import Image from "next/image";
+import { useRouter } from "next/router";
+import toast from "react-hot-toast";
+import Skeleton from "react-loading-skeleton";
 import AutoSizer from "react-virtualized-auto-sizer";
+import { useAccount } from "wagmi";
 
 import { Card } from "@/common/components/Card";
 import CustomPieChart from "@/common/components/CustomPieChart";
+import useFetcher from "@/common/hooks/useFetcher";
+import { getApiUrl } from "@/common/utils/string";
+
+import { extractAssetAPIData } from "../helpers";
+import { assetsData } from "../report.constant";
+import { AssetAddressFetch } from "../types";
 
 const ICON_SIZE = 24;
-type AssetsDataType = {
-  name: string;
-  value: number;
+
+const LoadingCollateral = () => {
+  return (
+    <Card className="grow md:w-1/2">
+      <Skeleton width={64} />
+      <div className="flex justify-center">
+        <Skeleton circle height={223} width={223} />
+      </div>
+      <div className="flex justify-around mt-2">
+        {Array(4)
+          .fill(1)
+          .map((_, index) => {
+            return (
+              <div key={index} className="flex flex-col">
+                <div className="flex gap-x-2">
+                  <Skeleton circle height={10} width={10} />
+                  <Skeleton width={48} />
+                </div>
+                <Skeleton width={64} />
+              </div>
+            );
+          })}
+      </div>
+    </Card>
+  );
 };
 
-type ReportAssetsProps = {
-  data: AssetsDataType[];
-};
+const ReportAssets = ({ address }: { address: string }) => {
+  let chartData = assetsData;
 
-const ReportAssets = ({ data }: ReportAssetsProps) => {
   const handleImgNotfound = (e) => {
     const img = e.target;
     // add fallback image src here for unsupported asset
     // img.src = "/image/aave.png";
   };
+
+  const assetAPI = getApiUrl({
+    address,
+    endpoint: "report/asset/address/",
+  });
+
+  const {
+    data: assetAPIData,
+    error: assetAPIError,
+    loading: assetAPILoading,
+  }: AssetAddressFetch = useFetcher(assetAPI);
+
+  if (assetAPILoading) {
+    return <LoadingCollateral />;
+  }
+  if (assetAPIError) {
+    toast.error("Fetch report asset error, use fallback data", {
+      id: "fetchError",
+    });
+  }
+  if (assetAPIData) {
+    chartData = extractAssetAPIData(assetAPIData);
+  }
+
   return (
     <Card childWrapperClass="p-8 pb-[18px]" className="grow md:w-1/2">
-      <h2 className="font-bold text-xl leading-5">Assets</h2>
+      <h2 className="font-bold text-xl leading-5">Collaterals</h2>
       <div className="h-[223px] -mt-3">
         <AutoSizer>
           {({ width, height }) => (
-            <CustomPieChart height={height} width={width} />
+            <CustomPieChart data={chartData} height={height} width={width} />
           )}
         </AutoSizer>
       </div>
-      <div className="flex w-full mt-5 justify-between">
-        {data.map((asset) => {
+      <div className="flex w-full mt-5 justify-around">
+        {chartData.map((asset) => {
           return (
             <div key={asset.name} className="flex flex-col">
               <div className="flex gap-2 mb-[6px]">

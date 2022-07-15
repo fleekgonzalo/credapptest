@@ -7,6 +7,7 @@ type Props = {
   progress: number;
   background?: string;
   className?: string;
+  percentile: string;
 };
 const getProgressColor = (value: number) => {
   if (value >= 90) {
@@ -19,7 +20,12 @@ const getProgressColor = (value: number) => {
   return getTailwindColor("red");
 };
 
-const ProgressBar = ({ progress, background, className }: Props) => {
+const ProgressBar = ({
+  progress,
+  background,
+  className,
+  percentile,
+}: Props) => {
   return (
     <div
       className={classNames("w-full h-7 rounded-full", className)}
@@ -28,12 +34,15 @@ const ProgressBar = ({ progress, background, className }: Props) => {
       }}
     >
       <div
-        className="h-7 rounded-full"
+        className="h-7 rounded-full text-black font-bold pl-2"
         style={{
-          width: `${progress}%`,
-          backgroundColor: getProgressColor(progress),
+          width: `${percentile}%`,
+          backgroundColor: getProgressColor(+percentile),
         }}
-      ></div>
+      >
+        {progress.toLocaleString()}
+        <span className="ml-2 text-xs">{`${percentile}th %ile`}</span>
+      </div>
     </div>
   );
 };

@@ -87,6 +87,8 @@ export type ReportAddressResult = {
     debt_value_moving_average_30_day: string;
     debt_value_moving_average_90_day: string;
     total_debt_percentile: string;
+    total_deposit_percentile: string;
+    total_asset_percentile: string;
     number_of_transactions_moving_average_7_day: string;
     number_of_transactions_moving_average_30_day: string;
     number_of_transactions_moving_average_90_day: string;
@@ -109,4 +111,22 @@ export type ReportAddressResult = {
     total_deposit_value_eth: string;
     factors: ReportFactor[];
   };
+};
+type AssetData = {
+  debt: string;
+  collateral: string;
+  deposit: string;
+  asset: string;
+};
+
+type ChainData = { chain: string } & AssetData;
+type ProtocolData = { protocol: string } & AssetData;
+type SymbolData = { symbol: string } & AssetData;
+
+export type ReportAssetResult = {
+  account: string;
+  total: AssetData[];
+  chains: ChainData[];
+  protocols: ProtocolData[];
+  symbols: SymbolData[];
 };

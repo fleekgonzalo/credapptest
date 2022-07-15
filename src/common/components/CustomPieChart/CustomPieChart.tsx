@@ -1,14 +1,11 @@
-import { Cell, Pie, PieChart } from "recharts";
+import { Cell, Pie, PieChart, Tooltip } from "recharts";
 
 import { getTailwindColor } from "@/styles/theme";
 
-const data = [
-  { name: "Group A", value: 25 },
-  { name: "Group B", value: 10 },
-  { name: "Group C", value: 35 },
-  { name: "Group D", value: 30 },
-];
-
+type DataType = {
+  name: string;
+  value: number;
+};
 const COLORS = ["light-purple", "light-gray-blue", "red", "orange"].map(
   getTailwindColor
 );
@@ -43,9 +40,10 @@ const renderCustomizedLabel = ({
 type CustomPieChartProps = {
   width: number;
   height: number;
+  data: DataType[];
 };
 
-const CustomPieChart = ({ width, height }: CustomPieChartProps) => {
+const CustomPieChart = ({ width, height, data }: CustomPieChartProps) => {
   return (
     <PieChart height={height} width={width}>
       <Pie
@@ -58,7 +56,7 @@ const CustomPieChart = ({ width, height }: CustomPieChartProps) => {
         outerRadius={110}
         startAngle={80}
       >
-        {data.map((entry, index) => (
+        {data.map((_, index) => (
           <Cell
             key={`cell-${index}`}
             fill={COLORS[index % COLORS.length]}
@@ -66,6 +64,7 @@ const CustomPieChart = ({ width, height }: CustomPieChartProps) => {
           />
         ))}
       </Pie>
+      <Tooltip />
     </PieChart>
   );
 };
