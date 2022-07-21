@@ -119,9 +119,9 @@ type AssetData = {
   asset: string;
 };
 
-type ChainData = { chain: string } & AssetData;
-type ProtocolData = { protocol: string } & AssetData;
-type SymbolData = { symbol: string } & AssetData;
+export type ChainData = { chain: string } & AssetData;
+export type ProtocolData = { protocol: string } & ChainData;
+export type SymbolData = { symbol: string } & ProtocolData;
 
 export type ReportAssetResult = {
   account: string;

@@ -28,17 +28,24 @@ const ProgressBar = ({
 }: Props) => {
   return (
     <div
-      className={classNames("w-full h-7 rounded-full", className)}
+      className={classNames("w-full h-7 rounded-full relative", className)}
       style={{
         backgroundColor: background || getTailwindColor("dark-purple"),
       }}
     >
       <div
-        className="h-7 rounded-full text-black font-bold pl-2"
+        className="h-7 rounded-full pl-2"
         style={{
           width: `${percentile}%`,
           backgroundColor: getProgressColor(+percentile),
         }}
+      ></div>
+      <div
+        className={classNames("absolute top-0 font-bold", {
+          "left-1": progress > 50,
+          "text-black": progress > 50,
+          "right-1": progress < 50,
+        })}
       >
         {progress.toLocaleString()}
         <span className="ml-2 text-xs">{`${percentile}th %ile`}</span>

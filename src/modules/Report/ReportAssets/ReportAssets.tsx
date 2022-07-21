@@ -1,17 +1,13 @@
-import { useRouter } from "next/router";
 import toast from "react-hot-toast";
 import Skeleton from "react-loading-skeleton";
 import AutoSizer from "react-virtualized-auto-sizer";
-import { useAccount } from "wagmi";
 
 import { Card } from "@/common/components/Card";
 import CustomPieChart from "@/common/components/CustomPieChart";
-import useFetcher from "@/common/hooks/useFetcher";
-import { getApiUrl } from "@/common/utils/string";
+import { ReportAssetResult } from "@/types/api";
 
 import { extractAssetAPIData } from "../helpers";
 import { assetsData } from "../report.constant";
-import { AssetAddressFetch } from "../types";
 
 const ICON_SIZE = 24;
 
@@ -41,7 +37,17 @@ const LoadingCollateral = () => {
   );
 };
 
-const ReportAssets = ({ address }: { address: string }) => {
+type ReportAssetsProps = {
+  assetAPIData: ReportAssetResult;
+  assetAPIError: unknown;
+  assetAPILoading: boolean;
+};
+
+const ReportAssets = ({
+  assetAPIData,
+  assetAPIError,
+  assetAPILoading,
+}: ReportAssetsProps) => {
   let chartData = assetsData;
 
   const handleImgNotfound = (e) => {
@@ -49,17 +55,6 @@ const ReportAssets = ({ address }: { address: string }) => {
     // add fallback image src here for unsupported asset
     // img.src = "/image/aave.png";
   };
-
-  const assetAPI = getApiUrl({
-    address,
-    endpoint: "report/asset/address/",
-  });
-
-  const {
-    data: assetAPIData,
-    error: assetAPIError,
-    loading: assetAPILoading,
-  }: AssetAddressFetch = useFetcher(assetAPI);
 
   if (assetAPILoading) {
     return <LoadingCollateral />;

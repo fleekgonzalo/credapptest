@@ -5,6 +5,8 @@ import StackedAreaChart from "@/common/components/AreaChart/StackedAreaChart";
 import { Button } from "@/common/components/Button";
 import { Card } from "@/common/components/Card";
 import { ChevronLeftIcon } from "@/common/components/CustomIcon";
+import useFetcher from "@/common/hooks/useFetcher";
+import { getApiUrl } from "@/common/utils/string";
 import { reportData } from "@/constant/reportData";
 import { getTailwindColor } from "@/styles/theme";
 
@@ -12,6 +14,7 @@ import { generateMetricConfig } from "./helpers";
 import { metricConfigs } from "./report.constant";
 import ReportAssets from "./ReportAssets";
 import ReportStatistic from "./ReportStatistic";
+import { SunburstChart } from "./SunburtChart";
 
 const IMAGE_SIZE = 638;
 
@@ -22,6 +25,17 @@ type ReportPageProps = {
 const ReportPage = ({ address }: ReportPageProps) => {
   const metrics = generateMetricConfig(metricConfigs);
   const reverseMetrics = metrics.map((i) => i).reverse();
+
+  const assetAPI = getApiUrl({
+    address,
+    endpoint: "report/asset/address/",
+  });
+
+  const {
+    data: assetAPIData,
+    error: assetAPIError,
+    loading: assetAPILoading,
+  } = useFetcher(assetAPI);
 
   return (
     <div className="py-12 md:py-16 px-5 max-w-[1130px] mx-auto">
@@ -55,12 +69,7 @@ const ReportPage = ({ address }: ReportPageProps) => {
         </div>
       </div>
       <div className="flex justify-center mb-10">
-        <img
-          alt="circular_report"
-          height={IMAGE_SIZE}
-          src="/image/report_circle.png"
-          width={IMAGE_SIZE}
-        ></img>
+        <SunburstChart assetData={assetAPIData} />
       </div>
       <Card className="h-[654px] md:h-[560px] pb-4">
         <div className="flex justify-between flex-col md:flex-row mb-[30px] md:mb-6">
@@ -99,7 +108,11 @@ const ReportPage = ({ address }: ReportPageProps) => {
       </Card>
       <div className="flex flex-col md:flex-row gap-8 mt-8">
         <ReportStatistic address={address} />
-        <ReportAssets address={address} />
+        <ReportAssets
+          assetAPIData={assetAPIData}
+          assetAPIError={assetAPIError}
+          assetAPILoading={assetAPILoading}
+        />
       </div>
     </div>
   );
