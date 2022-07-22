@@ -1,4 +1,4 @@
-import { PropsWithChildren, useEffect, useState } from "react";
+import { PropsWithChildren, useEffect, useReducer, useState } from "react";
 import {
   configureChains,
   createClient,
@@ -12,6 +12,12 @@ import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 
 import Header from "@/common/components/CoreLayout/Header";
+import {
+  APIDispatchContext,
+  apiReducer,
+  APIResultContext,
+  initialAPIContextData,
+} from "@/common/context/api.context";
 import { ModalContext } from "@/common/context/modal.context";
 
 import ConnectWalletModal from "./ConnectWallet/ConnectWalletModal";
@@ -56,6 +62,10 @@ export const CoreLayout = ({
 }: PropsWithChildren<Props>) => {
   // modal with list of wallet providers eg: metamask, coinbase & walletconnect
   const [isMounted, setIsMounted] = useState(false);
+  const [data, dispatch] = useReducer<typeof apiReducer>(
+    apiReducer,
+    initialAPIContextData
+  );
 
   // --- Fixing Hydration failed error --- //
   const [isSSR, setIsSSR] = useState(true);
@@ -75,35 +85,39 @@ export const CoreLayout = ({
         <ModalContext.Provider
           value={{ isMounted, toggleMount: () => setIsMounted((s) => !s) }}
         >
-          <div
-            className="min-h-screen text-white"
-            style={{
-              background:
-                "linear-gradient(0deg, rgba(19, 24, 100, 0.2), rgba(19, 24, 100, 0.2)), #000338",
-            }}
-          >
-            <div
-              className="relative min-h-screen"
-              style={{
-                backgroundSize: "1800px",
-                backgroundPosition: "top 20px center",
-                backgroundImage: "url('/image/DissolveBG.jpg')",
-                backgroundRepeat: "no-repeat",
-              }}
-            >
-              <Header
-                hideNavItems={hideNavItems}
-                openWalletModal={() => setIsMounted(true)}
-              />
-              {children}
-            </div>
+          <APIResultContext.Provider value={{ ...data }}>
+            <APIDispatchContext.Provider value={dispatch}>
+              <div
+                className="min-h-screen text-white"
+                style={{
+                  background:
+                    "linear-gradient(0deg, rgba(19, 24, 100, 0.2), rgba(19, 24, 100, 0.2)), #000338",
+                }}
+              >
+                <div
+                  className="relative min-h-screen"
+                  style={{
+                    backgroundSize: "1800px",
+                    backgroundPosition: "top 20px center",
+                    backgroundImage: "url('/image/DissolveBG.jpg')",
+                    backgroundRepeat: "no-repeat",
+                  }}
+                >
+                  <Header
+                    hideNavItems={hideNavItems}
+                    openWalletModal={() => setIsMounted(true)}
+                  />
+                  {children}
+                </div>
 
-            {/* FOOTER */}
-          </div>
-          <ConnectWalletModal
-            isMounted={isMounted}
-            setOpenModal={setIsMounted}
-          />
+                {/* FOOTER */}
+              </div>
+              <ConnectWalletModal
+                isMounted={isMounted}
+                setOpenModal={setIsMounted}
+              />
+            </APIDispatchContext.Provider>
+          </APIResultContext.Provider>
         </ModalContext.Provider>
       </WagmiConfig>
     </>

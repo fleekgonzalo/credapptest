@@ -1,5 +1,0 @@
-export const fakeAccounts = [
-  "0x6Da1065fEE8aaA943E2d7a96e9D0A02ddc3B91AA",
-  "0xe86857fa5feaac370b2a9a1d13f73531569f44e2",
-  "0x04Bd7Bc6f975a8430f57ec07F15897b6FA21feC0",
-];

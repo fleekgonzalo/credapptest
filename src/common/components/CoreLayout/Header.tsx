@@ -34,6 +34,10 @@ const LINKS: LinkType[] = [
     label: "Careers",
     link: "https://join.credprotocol.com/",
   },
+  {
+    label: "Credit Monitoring",
+    link: "",
+  },
 ];
 
 const Header = ({ className, openWalletModal, hideNavItems }: Props) => {

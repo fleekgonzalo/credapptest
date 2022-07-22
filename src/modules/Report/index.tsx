@@ -1,10 +1,12 @@
 import Link from "next/link";
+import { useContext, useEffect } from "react";
 import AutoSizer from "react-virtualized-auto-sizer";
 
 import StackedAreaChart from "@/common/components/AreaChart/StackedAreaChart";
 import { Button } from "@/common/components/Button";
 import { Card } from "@/common/components/Card";
 import { ChevronLeftIcon } from "@/common/components/CustomIcon";
+import { APIDispatchContext } from "@/common/context/api.context";
 import useFetcher from "@/common/hooks/useFetcher";
 import { getApiUrl } from "@/common/utils/string";
 import { reportData } from "@/constant/reportData";
@@ -15,27 +17,50 @@ import { metricConfigs } from "./report.constant";
 import ReportAssets from "./ReportAssets";
 import ReportStatistic from "./ReportStatistic";
 import { SunburstChart } from "./SunburtChart";
-
-const IMAGE_SIZE = 638;
+import { ReportAddressFetch } from "./types";
 
 type ReportPageProps = {
   address: string;
 };
 
 const ReportPage = ({ address }: ReportPageProps) => {
+  const dispatch = useContext(APIDispatchContext);
   const metrics = generateMetricConfig(metricConfigs);
   const reverseMetrics = metrics.map((i) => i).reverse();
 
+  const scoreAPI = getApiUrl({
+    address,
+    endpoint: "report/address/",
+  });
   const assetAPI = getApiUrl({
     address,
     endpoint: "report/asset/address/",
   });
 
   const {
+    data: credScoreData,
+    error: credScoreError,
+    loading: credScoreLoading,
+  }: ReportAddressFetch = useFetcher(scoreAPI);
+
+  const {
     data: assetAPIData,
     error: assetAPIError,
     loading: assetAPILoading,
   } = useFetcher(assetAPI);
+
+  useEffect(() => {
+    if (credScoreLoading) {
+      dispatch({ type: "LOADING_REPORT_ADDRESS" });
+      return;
+    }
+    if (credScoreError || credScoreData) {
+      dispatch({
+        type: "SET_REPORT_ADDRESS",
+        payload: { data: credScoreData, error: credScoreError },
+      });
+    }
+  }, [credScoreData, credScoreError, credScoreLoading, dispatch]);
 
   return (
     <div className="py-12 md:py-16 px-5 max-w-[1130px] mx-auto">
@@ -107,7 +132,7 @@ const ReportPage = ({ address }: ReportPageProps) => {
         </AutoSizer>
       </Card>
       <div className="flex flex-col md:flex-row gap-8 mt-8">
-        <ReportStatistic address={address} />
+        <ReportStatistic />
         <ReportAssets
           assetAPIData={assetAPIData}
           assetAPIError={assetAPIError}

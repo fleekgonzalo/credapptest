@@ -1,12 +1,12 @@
+import { useContext } from "react";
+
 import { LoadingFactor } from "@/common/components/Loading";
-import useFetcher from "@/common/hooks/useFetcher";
+import { APIResultContext } from "@/common/context/api.context";
 import getCredColor from "@/common/utils/getCredColor";
-import { getApiUrl } from "@/common/utils/string";
 
 import CreditFactor from "./CreditFactor";
 
 type CreditFactorsProps = {
-  account: any;
   loading: boolean;
 };
 const factorNames = [
@@ -22,21 +22,16 @@ type Error422Response = {
   status_code: number;
 };
 
-export const CreditFactors = ({ account, loading }: CreditFactorsProps) => {
-  const url = account?.address
-    ? getApiUrl({
-        address: account.address,
-        endpoint: "report/address/",
-      })
-    : null;
-
+export const CreditFactors = ({ loading }: CreditFactorsProps) => {
   const {
-    data: credFactorData,
-    error: credFactorError,
-    loading: credFactorLoading,
-  } = useFetcher(url);
+    reportAddress: {
+      data: reportAddressData,
+      error: reportAddressError,
+      loading: reportAddressLoading,
+    },
+  } = useContext(APIResultContext);
 
-  if (loading || credFactorLoading) {
+  if (loading || reportAddressLoading) {
     return (
       <section className="mt-12">
         <h2 className="mb-6 font-bold">Credit factors</h2>
@@ -51,10 +46,10 @@ export const CreditFactors = ({ account, loading }: CreditFactorsProps) => {
     );
   }
 
-  if (credFactorError) {
+  if (reportAddressError) {
     let errorMsg = "Error loading data";
-    if (credFactorError?.response?.status === 422) {
-      errorMsg = (credFactorError.response.data as Error422Response).error;
+    if (reportAddressError?.response?.status === 422) {
+      errorMsg = (reportAddressError.response.data as Error422Response).error;
     }
     return (
       <section className="mt-12">
@@ -83,22 +78,20 @@ export const CreditFactors = ({ account, loading }: CreditFactorsProps) => {
       <h2 className="mb-6 font-bold">Credit factors</h2>
       <div>
         <div className="grid grid-cols-1 gap-6 md:gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {credFactorData?.report?.factors?.map((data, index) => {
-            return (
-              <CreditFactor
-                key={`credit-factor-${index}`}
-                // TODO: add link when it is available
-                link="#"
-                primaryText={data.label}
-                secondaryText={data.description}
-                variant={
-                  data.rating === "None"
-                    ? "red"
-                    : (getCredColor(data.rating) as any)
-                }
-              />
-            );
-          })}
+          {reportAddressData?.report?.factors
+            ?.slice(0, 6)
+            .map((data, index) => {
+              return (
+                <CreditFactor
+                  key={`credit-factor-${index}`}
+                  // TODO: add link when it is available
+                  link="#"
+                  primaryText={data.label}
+                  secondaryText={data.description}
+                  variant={getCredColor(data.rating) as any}
+                />
+              );
+            })}
         </div>
       </div>
     </section>

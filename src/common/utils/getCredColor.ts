@@ -1,4 +1,4 @@
-enum Rating {
+export enum Rating {
   Excellent = "Excellent",
   Good = "Good",
   Fair = "Fair",

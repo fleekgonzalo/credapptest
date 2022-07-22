@@ -1,23 +1,13 @@
+import { useContext } from "react";
 import toast from "react-hot-toast";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import Skeleton from "react-loading-skeleton";
 
 import { Card } from "@/common/components/Card";
 import ProgressBar from "@/common/components/StatisticProgressBar";
-import useFetcher from "@/common/hooks/useFetcher";
-import { getApiUrl } from "@/common/utils/string";
+import { APIResultContext } from "@/common/context/api.context";
 
 import { extractAddressAPIData } from "../helpers";
 import { defaultStatisticData } from "../report.constant";
-import { ReportAddressFetch } from "../types";
-
-type StatisticDataType = {
-  metricName: string;
-  value: number;
-};
-
-type ReportStatisticProps = {
-  address: string;
-};
 
 const LoadingStatistic = () => {
   return (
@@ -39,24 +29,17 @@ const LoadingStatistic = () => {
   );
 };
 
-const ReportStatistic = ({ address }: ReportStatisticProps) => {
+const ReportStatistic = () => {
   let statisticData = defaultStatisticData;
-
-  const scoreAPI = getApiUrl({
-    address,
-    endpoint: "report/address/",
-  });
   const {
-    data: credScoreData,
-    error: credScoreError,
-    loading: credScoreLoading,
-  }: ReportAddressFetch = useFetcher(scoreAPI);
+    reportAddress: { data, loading, error },
+  } = useContext(APIResultContext);
 
-  if (credScoreLoading) {
+  if (loading) {
     return <LoadingStatistic />;
   }
 
-  if (credScoreError) {
+  if (error) {
     toast.error(
       "Error while fetching report statistic data, fallback to default data",
       {
@@ -64,8 +47,8 @@ const ReportStatistic = ({ address }: ReportStatisticProps) => {
       }
     );
   }
-  if (credScoreData) {
-    statisticData = extractAddressAPIData(credScoreData);
+  if (data) {
+    statisticData = extractAddressAPIData(data);
   }
 
   return (

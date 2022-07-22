@@ -1,15 +1,19 @@
 import Link from "next/link";
+import { useContext, useEffect } from "react";
 import { useAccount } from "wagmi";
 
 import { Button } from "@/common/components/Button";
+import { APIDispatchContext } from "@/common/context/api.context";
 import useFetcher from "@/common/hooks/useFetcher";
 import { getApiUrl } from "@/common/utils/string";
 import { CreditFactors } from "@/modules/Home/CreditFactors";
 import { CredScoreTopSection } from "@/modules/Home/CredScoreTopSection";
 
+import { ReportAddressFetch } from "../Report/types";
 import { PartnerSection } from "./PartnerSection";
 
 const HomePage = () => {
+  const dispatch = useContext(APIDispatchContext);
   const { data: account } = useAccount();
 
   const scoreAPI = account?.address
@@ -24,6 +28,32 @@ const HomePage = () => {
     error: credScoreError,
     loading: credScoreLoading,
   } = useFetcher(scoreAPI);
+
+  const reportAddressAPI = account?.address
+    ? getApiUrl({
+        address: account.address,
+        endpoint: "report/address/",
+      })
+    : null;
+
+  const {
+    data: reportAddressData,
+    error: reportAddressError,
+    loading: reportAddressLoading,
+  }: ReportAddressFetch = useFetcher(reportAddressAPI);
+
+  useEffect(() => {
+    if (reportAddressLoading) {
+      dispatch({ type: "LOADING_REPORT_ADDRESS" });
+      return;
+    }
+    if (reportAddressData || reportAddressError) {
+      dispatch({
+        type: "SET_REPORT_ADDRESS",
+        payload: { data: reportAddressData, error: reportAddressError },
+      });
+    }
+  }, [reportAddressData, reportAddressError, reportAddressLoading, dispatch]);
 
   const hasScore = !!credScoreData?.value;
   return (
@@ -50,7 +80,7 @@ const HomePage = () => {
       {!account?.address || !hasScore ? (
         <PartnerSection loading={credScoreLoading} />
       ) : (
-        <CreditFactors account={account} loading={credScoreLoading} />
+        <CreditFactors loading={credScoreLoading} />
       )}
     </div>
   );

@@ -1,13 +1,18 @@
+import { useContext } from "react";
+
 import { ChevronRightIcon } from "@/common/components/CustomIcon";
+import { APIResultContext } from "@/common/context/api.context";
 import InfoCard from "@/modules/Home/CredScoreTopSection/InfoSections/InfoCard";
 
 const ImprovementFactor = () => {
+  const {
+    reportAddress: { data },
+  } = useContext(APIResultContext);
   return (
     <InfoCard headingText="improvement factor">
       <p className="text-base">
-        Since your score is already Excellent, there are fewer areas to improve,
-        however, lenders like to see experience with credit such as the number
-        of borrowing pools and length of time you’ve used them.
+        {data?.report.factors[data.report.factors.length - 1].description ||
+          "No data"}
       </p>
 
       <a

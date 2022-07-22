@@ -1,6 +1,8 @@
+import { Rating } from "@/common/utils/getCredColor";
+
 type ReportFactor = {
   label: string;
-  rating: string;
+  rating: Rating;
   description: string;
 };
 export type ReportAddressResult = {
