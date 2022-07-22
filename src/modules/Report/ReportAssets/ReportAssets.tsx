@@ -70,7 +70,7 @@ const ReportAssets = ({
 
   return (
     <Card childWrapperClass="p-8 pb-[18px]" className="grow md:w-1/2">
-      <h2 className="font-bold text-xl leading-5">Collaterals</h2>
+      <h2 className="font-bold text-xl leading-5">Tokens</h2>
       <div className="h-[223px] -mt-3">
         <AutoSizer>
           {({ width, height }) => (
