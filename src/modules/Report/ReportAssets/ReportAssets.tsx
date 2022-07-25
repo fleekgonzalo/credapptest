@@ -8,9 +8,33 @@ import { ReportAssetResult } from "@/types/api";
 
 import { extractAssetAPIData } from "../helpers";
 import { InfoWithTooltip } from "../InfoWithTooltip";
-import { assetsData } from "../report.constant";
 
 const ICON_SIZE = 24;
+
+const NotEnoughDataPie = () => (
+  <div className="flex justify-center flex-col items-center h-[223px]">
+    <img
+      alt="no token data"
+      className="block"
+      src="/image/no_data_circle.png"
+      width={56}
+    />
+    <p className="font-normal opacity-60 mt-4">Not enough data</p>
+  </div>
+);
+const NotEnoughDataSymbol = () => (
+  <svg
+    fill="none"
+    height="46"
+    viewBox="0 0 80 46"
+    width="80"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect fill="#252855" height="12" rx="6" width="48" x="32" y="6" />
+    <rect fill="#252855" height="12" rx="6" width="80" y="34" />
+    <circle cx="12" cy="12" fill="#252855" r="12" />
+  </svg>
+);
 
 const LoadingCollateral = () => {
   return (
@@ -49,7 +73,7 @@ const ReportAssets = ({
   assetAPIError,
   assetAPILoading,
 }: ReportAssetsProps) => {
-  let chartData = assetsData;
+  let chartData = null;
 
   const handleImgNotfound = (e) => {
     const img = e.target;
@@ -81,31 +105,41 @@ const ReportAssets = ({
           </div>
         </InfoWithTooltip>{" "}
       </h2>
-      <div className="h-[223px]">
-        <AutoSizer>
-          {({ width, height }) => (
-            <CustomPieChart data={chartData} height={height} width={width} />
-          )}
-        </AutoSizer>
-      </div>
+      {chartData ? (
+        <div className="h-[223px]">
+          <AutoSizer>
+            {({ width, height }) => (
+              <CustomPieChart data={chartData} height={height} width={width} />
+            )}
+          </AutoSizer>
+        </div>
+      ) : (
+        <NotEnoughDataPie />
+      )}
       <div className="flex w-full mt-5 justify-around">
-        {chartData.map((asset) => {
-          return (
-            <div key={asset.name} className="flex flex-col">
-              <div className="flex gap-2 mb-[6px]">
-                <img
-                  alt="asset"
-                  height={ICON_SIZE}
-                  src={`/image/asset_logo_${asset.name.toUpperCase()}.png`}
-                  width={ICON_SIZE}
-                  onError={handleImgNotfound}
-                />
-                <span>{asset.name.toUpperCase()}</span>
-              </div>
-              <span className="font-bold">{asset.value.toLocaleString()}</span>
-            </div>
-          );
-        })}
+        {chartData
+          ? chartData.map((asset) => {
+              return (
+                <div key={asset.name} className="flex flex-col">
+                  <div className="flex gap-2 mb-[6px]">
+                    <img
+                      alt="asset"
+                      height={ICON_SIZE}
+                      src={`/image/asset_logo_${asset.name.toUpperCase()}.png`}
+                      width={ICON_SIZE}
+                      onError={handleImgNotfound}
+                    />
+                    <span>{asset.name.toUpperCase()}</span>
+                  </div>
+                  <span className="font-bold">
+                    {asset.value.toLocaleString()}
+                  </span>
+                </div>
+              );
+            })
+          : Array(4)
+              .fill(1)
+              .map((_, i) => <NotEnoughDataSymbol key={i} />)}
       </div>
     </Card>
   );

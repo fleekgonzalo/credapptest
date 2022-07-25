@@ -12,8 +12,8 @@ export const InfoWithTooltip = ({ children }: PropsWithChildren) => {
         </span>
       </Popover.Trigger>
       <Popover.Content
-        arrowClassName="before:bg-[#fff]"
-        className="bg-[#fff] text-black"
+        arrowClassName="before:!bg-white"
+        className="!bg-white !text-black"
       >
         {children}
       </Popover.Content>
