@@ -48,6 +48,7 @@ const Trigger = ({ children }) => {
 
 interface ContentProps extends ComponentPropsWithoutRef<"div"> {
   // referenceElement: HTMLElement
+  arrowClassName?: string;
 }
 const Content = ({ children, ...rest }: PropsWithChildren<ContentProps>) => {
   if (!React.Children.only(children))
@@ -117,10 +118,13 @@ const Content = ({ children, ...rest }: PropsWithChildren<ContentProps>) => {
             {hasArrow && (
               <div
                 ref={setArrowElement}
-                className={`${
-                  currentArrowPosition &&
-                  getArrowPositionClassName(currentArrowPosition)
-                } before:transform before:rotate-45 before:border-2 before:border-cred-light-blue-opacity-0.2 before:bg-cred-dark-blue before:w-3 before:h-3 before:absolute before:top-0 before:left-0 before:-translate-y-2/4 before:-translate-x-2/4 before:z-[-1]`}
+                className={classNames(
+                  `${
+                    currentArrowPosition &&
+                    getArrowPositionClassName(currentArrowPosition)
+                  } before:transform before:rotate-45 before:border-2 before:border-cred-light-blue-opacity-0.2 before:bg-cred-dark-blue before:w-3 before:h-3 before:absolute before:top-0 before:left-0 before:-translate-y-2/4 before:-translate-x-2/4 before:z-[-1]`,
+                  rest.arrowClassName ?? ""
+                )}
                 style={styles.arrow}
               ></div>
             )}
@@ -134,6 +138,7 @@ const Content = ({ children, ...rest }: PropsWithChildren<ContentProps>) => {
 interface PopoverProps {
   placement?: Placement;
   hasArrow?: boolean;
+  arrowClassName?: string;
 }
 const Popover = ({
   children,

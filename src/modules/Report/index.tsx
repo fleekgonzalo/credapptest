@@ -13,6 +13,7 @@ import { reportData } from "@/constant/reportData";
 import { getTailwindColor } from "@/styles/theme";
 
 import { generateMetricConfig } from "./helpers";
+import { InfoWithTooltip } from "./InfoWithTooltip";
 import { metricConfigs } from "./report.constant";
 import ReportAssets from "./ReportAssets";
 import ReportStatistic from "./ReportStatistic";
@@ -93,13 +94,28 @@ const ReportPage = ({ address }: ReportPageProps) => {
           </div> */}
         </div>
       </div>
+      <hr className="my-8 text-white/20" />
+      <h2 className="text-xl font-bold leading-[20px]">
+        Your holdings
+        <InfoWithTooltip>
+          <div className="w-[209px] text-xs">
+            Breakdown of holdings by metric, across Protocols, Chains, and in
+            Total
+          </div>
+        </InfoWithTooltip>
+      </h2>
       <div className="flex justify-center mb-10">
         <SunburstChart assetData={assetAPIData} />
       </div>
       <Card className="h-[654px] md:h-[560px] pb-4">
         <div className="flex justify-between flex-col md:flex-row mb-[30px] md:mb-6">
-          <h2 className="text-sm font-semibold tracking-widest opacity-60 mb-6 md:mb-0">
-            YOUR ACCOUNT HISTORY
+          <h2 className="text-xl leading-[18px] font-bold tracking-widest mb-6 md:mb-0">
+            Your account history
+            <InfoWithTooltip>
+              <div className="w-[209px] text-xs">
+                Account History of aggregated metrics of holdings.
+              </div>
+            </InfoWithTooltip>
           </h2>
           <div className="flex gap-y-4 md:h-[18px] font-medium leading-[18px] tracking-widest flex-wrap md:flex-nowrap md:gap-3 lg:gap-6">
             {metrics.map(({ metricName, color }) => {

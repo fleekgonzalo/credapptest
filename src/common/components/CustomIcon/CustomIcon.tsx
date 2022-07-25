@@ -6,6 +6,7 @@ import ChevronRightSvg from "./svg/ChevronRight";
 import CrossSvg from "./svg/Cross";
 import DiamondSvg from "./svg/Diamond";
 import { HandCursor } from "./svg/HandCursor";
+import { InfoCircle } from "./svg/InfoCircle";
 import LogoSvg from "./svg/Logo";
 import MenuSvg from "./svg/Menu";
 import MetaMaskSvg from "./svg/MetaMask";
@@ -105,6 +106,17 @@ export const MenuIcon = ({ ...props }: Props) => (
 export const HandCursorIcon = ({ ...props }: Props) => (
   <CustomIcon height={16} viewBox="0 0 16 16" width={16} {...props}>
     <HandCursor />
+  </CustomIcon>
+);
+export const InfoCircleIcon = ({ ...props }: Props) => (
+  <CustomIcon
+    fill="white"
+    height={16}
+    viewBox="0 0 16 16"
+    width={16}
+    {...props}
+  >
+    <InfoCircle />
   </CustomIcon>
 );
 export default CustomIcon;

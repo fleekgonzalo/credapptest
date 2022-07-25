@@ -7,6 +7,7 @@ import ProgressBar from "@/common/components/StatisticProgressBar";
 import { APIResultContext } from "@/common/context/api.context";
 
 import { extractAddressAPIData } from "../helpers";
+import { InfoWithTooltip } from "../InfoWithTooltip";
 import { defaultStatisticData } from "../report.constant";
 
 const LoadingStatistic = () => {
@@ -53,7 +54,15 @@ const ReportStatistic = () => {
 
   return (
     <Card childWrapperClass="p-8 pb-9" className="grow md:w-1/2">
-      <h2 className="font-bold text-xl leading-5 mb-9">Statistics</h2>
+      <h2 className="font-bold text-xl leading-5 mb-9">
+        Statistics
+        <InfoWithTooltip>
+          <div className="w-[209px] text-xs">
+            Total values of holding metrics supplemented with the percentile in
+            which you lie per metric
+          </div>
+        </InfoWithTooltip>
+      </h2>
       {statisticData.map((metric) => (
         <div
           key={metric.metricName}

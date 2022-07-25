@@ -7,6 +7,7 @@ import CustomPieChart from "@/common/components/CustomPieChart";
 import { ReportAssetResult } from "@/types/api";
 
 import { extractAssetAPIData } from "../helpers";
+import { InfoWithTooltip } from "../InfoWithTooltip";
 import { assetsData } from "../report.constant";
 
 const ICON_SIZE = 24;
@@ -70,8 +71,15 @@ const ReportAssets = ({
 
   return (
     <Card childWrapperClass="p-8 pb-[18px]" className="grow md:w-1/2">
-      <h2 className="font-bold text-xl leading-5">Tokens</h2>
-      <div className="h-[223px] -mt-3">
+      <h2 className="font-bold text-xl leading-5">
+        Tokens
+        <InfoWithTooltip>
+          <div className="w-[209px] text-xs">
+            Breakdown of metrics that is allocated to the tokens you hold
+          </div>
+        </InfoWithTooltip>{" "}
+      </h2>
+      <div className="h-[223px]">
         <AutoSizer>
           {({ width, height }) => (
             <CustomPieChart data={chartData} height={height} width={width} />
