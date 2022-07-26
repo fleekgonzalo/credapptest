@@ -1,6 +1,6 @@
 export const defaultStatisticData = [
-  { metricName: "asset", value: 123456, percentile: "90" },
-  { metricName: "deposit", value: 114456, percentile: "80" },
+  { metricName: "net asset", value: NaN, percentile: "90" },
+  { metricName: "deposit", value: -123456, percentile: "80" },
   { metricName: "collateral", value: 53456, percentile: "60" },
   { metricName: "debt", value: 43456, percentile: "80" },
 ];

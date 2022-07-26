@@ -99,8 +99,14 @@ const ReportPage = ({ address }: ReportPageProps) => {
         Your holdings
         <InfoWithTooltip>
           <div className="w-[209px] text-xs">
-            Breakdown of holdings by metric, across Protocols, Chains, and in
-            Total
+            <p>
+              Breakdown of Holdings per metric grouped by Total, Protocols, and
+              Chains.
+            </p>
+            <p className="mt-4">
+              Collateral is a subset of Deposit and Net Assets = Deposit -
+              Collateral.
+            </p>
           </div>
         </InfoWithTooltip>
       </h2>

@@ -41,12 +41,9 @@ const ReportStatistic = () => {
   }
 
   if (error) {
-    toast.error(
-      "Error while fetching report statistic data, fallback to default data",
-      {
-        id: "fetchError",
-      }
-    );
+    toast.error("Error while fetching report statistic data", {
+      id: "fetchError",
+    });
   }
   if (data) {
     statisticData = extractAddressAPIData(data);
@@ -69,7 +66,7 @@ const ReportStatistic = () => {
           className="flex mb-10 last:mb-0 items-center"
         >
           <div className="leading-5 min-w-[160px]">{`Total ${metric.metricName} value`}</div>
-          <ProgressBar percentile={metric.percentile} progress={metric.value} />
+          <ProgressBar percentile={metric.percentile} value={metric.value} />
         </div>
       ))}
     </Card>
