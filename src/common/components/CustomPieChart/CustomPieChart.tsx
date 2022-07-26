@@ -27,7 +27,7 @@ const renderCustomizedLabel = ({
     <text
       dominantBaseline="central"
       fill="black"
-      fontSize="14"
+      fontSize="12"
       textAnchor={x > cx ? "start" : "end"}
       x={x}
       y={y}

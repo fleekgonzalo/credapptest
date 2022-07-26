@@ -52,11 +52,14 @@ export const extractAddressAPIData = (data: ReportAddressResult) => {
   ];
 };
 
-export const extractAssetAPIData = (data: ReportAssetResult) => {
+export const extractAssetAPIData = (
+  data: Partial<ReportAssetResult>,
+  metric: string
+) => {
   const { symbols } = data;
 
   return symbols.map((symbol) => ({
     name: symbol.symbol,
-    value: +symbol.collateral,
+    value: +symbol[metric],
   }));
 };

@@ -57,7 +57,13 @@ export const LogoIcon = ({ ...props }: Props) => (
 );
 
 export const ChevronDownIcon = ({ ...props }: Props) => (
-  <CustomIcon height={20} viewBox="0 0 20 20" width={20} {...props}>
+  <CustomIcon
+    height={20}
+    stroke="#335EEB"
+    viewBox="0 0 20 20"
+    width={20}
+    {...props}
+  >
     <ChevronDownSvg />
   </CustomIcon>
 );
