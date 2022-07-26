@@ -35,7 +35,7 @@ const LINKS: LinkType[] = [
     link: "https://join.credprotocol.com/",
   },
   {
-    label: "Credit Monitoring",
+    label: "Cred Monitor",
     link: "",
   },
 ];
