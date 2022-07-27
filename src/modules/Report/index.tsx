@@ -35,7 +35,7 @@ const ReportPage = ({ address }: ReportPageProps) => {
   });
   const assetAPI = getApiUrl({
     address,
-    endpoint: "report/asset/address/",
+    endpoint: "asset/address/",
   });
 
   const {

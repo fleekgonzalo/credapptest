@@ -132,3 +132,14 @@ export type ReportAssetResult = {
   protocols: ProtocolData[];
   symbols: SymbolData[];
 };
+
+type PartnerData = {
+  name: string;
+  logo: string;
+  description: string;
+  url: string;
+};
+export type RecommendResult = {
+  account: string;
+  recommendations: PartnerData[];
+};

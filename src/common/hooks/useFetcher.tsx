@@ -6,7 +6,7 @@ function useFetch(url: string) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<AxiosError>(null);
 
-  const fetch = () => {
+  const fetch = (signal) => {
     setLoading(true);
     axios
       .get(url, {
@@ -14,15 +14,17 @@ function useFetch(url: string) {
           username: process.env.NEXT_PUBLIC_USERNAME,
           password: process.env.NEXT_PUBLIC_PASSWORD,
         },
+        signal,
       })
       .then((response) => {
         setData(response.data);
+        setLoading(false);
       })
       .catch((err) => {
-        setError(err);
-      })
-      .finally(() => {
-        setLoading(false);
+        if (err.code !== "ERR_CANCELED") {
+          setError(err);
+          setLoading(false);
+        }
       });
   };
 
@@ -30,8 +32,12 @@ function useFetch(url: string) {
     if (!url) {
       setLoading(false);
     }
+    const controller = new AbortController();
 
-    fetch();
+    fetch(controller.signal);
+    return () => {
+      controller.abort();
+    };
   }, [url]);
 
   return { data, loading, error, refetch: fetch };

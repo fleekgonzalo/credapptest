@@ -4,17 +4,17 @@ import React from "react";
 import { ChevronRightIcon } from "../CustomIcon";
 
 type PartnerCardProps = {
-  logoName: string;
+  imgUrl: string;
   label: string;
   link: string;
   desc: string;
 };
 
 const PartnerCard = (props: PartnerCardProps) => {
-  const { label, logoName, link, desc } = props;
+  const { label, imgUrl, link, desc } = props;
   return (
     <div className="max-w-sm overflow-hidden rounded-xl border-cred-border border-2">
-      <img alt="partner-brand" className="w-full" src={`/image/${logoName}`} />
+      <img alt="partner-brand" className="w-full" src={imgUrl} />
       <div className="px-6 py-4 min-h-[108px]">
         <div className="font-bold text-xl mb-2">{label}</div>
         <p className="text-base">{desc}</p>

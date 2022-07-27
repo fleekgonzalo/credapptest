@@ -1,4 +1,8 @@
-import { ReportAddressResult, ReportAssetResult } from "@/types/api";
+import {
+  RecommendResult,
+  ReportAddressResult,
+  ReportAssetResult,
+} from "@/types/api";
 
 export type MetricConfig = {
   name: string;
@@ -11,6 +15,12 @@ export type ReportAddressFetch = {
 };
 export type AssetAddressFetch = {
   data: ReportAssetResult;
+  error: unknown;
+  loading: boolean;
+};
+
+export type RecommendedFetch = {
+  data: RecommendResult;
   error: unknown;
   loading: boolean;
 };

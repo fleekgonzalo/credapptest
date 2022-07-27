@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import AutoSizer from "react-virtualized-auto-sizer";
 
 import { Card } from "@/common/components/Card";
@@ -37,17 +38,17 @@ const ReportAssets = ({
   const handleImgNotfound = (e) => {
     const img = e.target;
     // add fallback image src here for unsupported asset
-    // img.src = "/image/aave.png";
+    img.src = "/image/asset_missing.png";
   };
 
   if (assetAPILoading) {
     return <LoadingToken />;
   }
-  // if (assetAPIError) {
-  //   toast.error("Fetch report asset error", {
-  //     id: "fetchError",
-  //   });
-  // }
+  if (assetAPIError) {
+    toast.error("Fetch report asset error", {
+      id: "fetchAssetError",
+    });
+  }
 
   const chartData = extractAssetAPIData(
     assetAPIData || assetsData,
