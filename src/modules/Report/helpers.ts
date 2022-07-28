@@ -53,7 +53,7 @@ export const extractAddressAPIData = (data: ReportAddressResult) => {
 };
 
 export const extractAssetAPIData = (
-  data: Partial<ReportAssetResult>,
+  data: ReportAssetResult,
   metric: string
 ) => {
   const { symbols } = data;

@@ -43,33 +43,46 @@ const levelOptions: Partial<PlotSunburstOptions> = {
     },
   ],
 };
-export const generateProtocol = (protocols: ProtocolData[], totalDebt) => {
+export const generateProtocol = (
+  protocols: ProtocolData[],
+  metricTotal,
+  metric
+) => {
   return protocols.map((item) => ({
     id: item.protocol,
     parent: item.chain,
-    value: +item.debt,
+    value: +item[metric],
     name: item.protocol,
     custom: {
-      percent: ((parseFloat(item.debt) / totalDebt) * 100).toFixed(2),
+      percent: ((parseFloat(item[metric]) / metricTotal) * 100).toFixed(2),
     },
   }));
 };
-export const generateChainData = (chains: ChainData[], totalDebt) => {
+export const generateChainData = (chains: ChainData[], metricTotal, metric) => {
   return chains.map((item, index) => ({
     id: item.chain,
     parent: "total",
-    value: +item.debt,
+    value: +item[metric],
     name: item.chain,
     color: colors[index],
     custom: {
-      percent: ((parseFloat(item.debt) / totalDebt) * 100).toFixed(2),
+      percent: ((parseFloat(item[metric]) / metricTotal) * 100).toFixed(2),
     },
   }));
 };
-export const generateChartData = (data: ReportAssetResult) => {
+export const generateChartData = (data: ReportAssetResult, metric: string) => {
   const total = data.total[0];
-  const chains = generateChainData(data.chains, parseFloat(total.debt));
-  const protocols = generateProtocol(data.protocols, parseFloat(total.debt));
+  const metricTotal = total[metric];
+  const chains = generateChainData(
+    data.chains,
+    parseFloat(metricTotal),
+    metric
+  );
+  const protocols = generateProtocol(
+    data.protocols,
+    parseFloat(metric),
+    metric
+  );
   return [
     {
       id: "root",
@@ -80,7 +93,7 @@ export const generateChartData = (data: ReportAssetResult) => {
       id: "total",
       parent: "root",
       name: "Debt",
-      value: parseFloat(total.debt),
+      value: parseFloat(metricTotal),
       custom: {
         percent: 100,
       },

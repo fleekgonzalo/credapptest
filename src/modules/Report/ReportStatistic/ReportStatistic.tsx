@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import toast from "react-hot-toast";
 import Skeleton from "react-loading-skeleton";
 
@@ -6,9 +6,9 @@ import { Card } from "@/common/components/Card";
 import ProgressBar from "@/common/components/StatisticProgressBar";
 import { APIResultContext } from "@/common/context/api.context";
 
+import { defaultStatisticData } from "../constant";
 import { extractAddressAPIData } from "../helpers";
 import { InfoWithTooltip } from "../InfoWithTooltip";
-import { defaultStatisticData } from "../report.constant";
 
 const LoadingStatistic = () => {
   return (
@@ -36,15 +36,17 @@ const ReportStatistic = () => {
     reportAddress: { data, loading, error },
   } = useContext(APIResultContext);
 
+  useEffect(() => {
+    if (error) {
+      toast.error("Error while fetching report statistic data", {
+        id: "fetchError",
+      });
+    }
+  }, [error]);
   if (loading) {
     return <LoadingStatistic />;
   }
 
-  if (error) {
-    toast.error("Error while fetching report statistic data", {
-      id: "fetchError",
-    });
-  }
   if (data) {
     statisticData = extractAddressAPIData(data);
   }
@@ -66,7 +68,7 @@ const ReportStatistic = () => {
           className="flex mb-10 last:mb-0 items-center"
         >
           <div className="leading-5 min-w-[160px]">{`Total ${metric.metricName} value`}</div>
-          <ProgressBar percentile={metric.percentile} value={metric.value} />
+          <ProgressBar percentile={metric?.percentile} value={metric.value} />
         </div>
       ))}
     </Card>

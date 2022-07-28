@@ -35,8 +35,20 @@ const HoverInfo = ({ data }) => {
 };
 type SunburstChartProps = {
   assetData: ReportAssetResult;
+  metric: string;
 };
-export const SunburstChart = ({ assetData }: SunburstChartProps) => {
+
+const renderFilter = ({ msg }: { msg?: string }) => {
+  return (
+    <div className="relative my-20">
+      <img alt="circle" src={"/image/sunburst_no_data.svg"} />
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 translate-y-8 text-xl opacity-60 text-center">
+        {msg || "Not enough data"}
+      </div>
+    </div>
+  );
+};
+export const SunburstChart = ({ assetData, metric }: SunburstChartProps) => {
   const [isShowHoverData, setShowHoverData] = useState(false);
   const [slideName, setSlideName] = useState("");
   const [slidePercent, setSlidePercent] = useState(0);
@@ -59,9 +71,15 @@ export const SunburstChart = ({ assetData }: SunburstChartProps) => {
     []
   );
   if (!assetData) {
-    return <img alt="circle" src={"/image/sunburst_no_data.svg"} />;
+    return renderFilter({});
   }
-  const data = generateChartData(assetData);
+  const data = generateChartData(assetData, metric);
+
+  const hasNegative = data.some((slice) => slice.value < 0);
+
+  if (hasNegative) {
+    return renderFilter({ msg: "Net asset only show when positive" });
+  }
 
   const options: Options = generateChartOptions({
     mouseOver: onMouseOverPoint,

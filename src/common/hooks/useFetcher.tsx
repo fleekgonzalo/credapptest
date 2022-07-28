@@ -19,6 +19,7 @@ function useFetch(url: string) {
       .then((response) => {
         setData(response.data);
         setLoading(false);
+        setError(null);
       })
       .catch((err) => {
         if (err.code !== "ERR_CANCELED") {

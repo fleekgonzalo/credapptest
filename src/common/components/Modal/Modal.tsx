@@ -38,9 +38,11 @@ export const Modal = ({
       {(hasTransitionedIn || isMounted) && (
         <aside
           className={classNames(
-            isMounted ? "bg-black/70 backdrop-blur opacity-100" : "opacity-0",
+            isMounted
+              ? "bg-black/10 backdrop-blur-[14px] opacity-100"
+              : "opacity-0",
             hasTransitionedIn
-              ? "bg-black/70 backdrop-blur opacity-100"
+              ? "bg-black/10 backdrop-blur-[14px] opacity-100"
               : "opacity-0",
             noAnimation ? "" : "transition-opacity duration-[600ms]",
             "fixed inset-0 z-30 md:grid md:place-items-center md:px-5 overflow-y-auto lg:px-0"

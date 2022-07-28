@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import AutoSizer from "react-virtualized-auto-sizer";
 
@@ -8,9 +8,9 @@ import CustomPieChart from "@/common/components/CustomPieChart";
 import { Dropdown } from "@/common/components/Dropdown";
 import { ReportAssetResult } from "@/types/api";
 
+import { assetsData } from "../constant";
 import { extractAssetAPIData } from "../helpers";
 import { InfoWithTooltip } from "../InfoWithTooltip";
-import { assetsData } from "../report.constant";
 import { LoadingToken } from "./LoadingToken";
 import { FilterPieChart, NotEnoughDataSymbol } from "./NotEnoughData";
 
@@ -35,27 +35,33 @@ const ReportAssets = ({
   assetAPILoading,
 }: ReportAssetsProps) => {
   const [selectedMetric, setSelectedMetric] = useState("collateral");
+  let chartData = null;
+  let hasNegative = false;
+
   const handleImgNotfound = (e) => {
     const img = e.target;
     // add fallback image src here for unsupported asset
     img.src = "/image/asset_missing.png";
   };
 
+  useEffect(() => {
+    if (assetAPIError) {
+      toast.error("Fetch report asset error", {
+        id: "fetchAssetError",
+      });
+    }
+  }, [assetAPIError]);
+
   if (assetAPILoading) {
     return <LoadingToken />;
   }
-  if (assetAPIError) {
-    toast.error("Fetch report asset error", {
-      id: "fetchAssetError",
-    });
+
+  if (assetAPIData) {
+    chartData = extractAssetAPIData(assetAPIData, selectedMetric).sort(
+      (a, b) => b.value - a.value
+    );
+    hasNegative = chartData.some((item) => item.value < 0);
   }
-
-  const chartData = extractAssetAPIData(
-    assetAPIData || assetsData,
-    selectedMetric
-  ).sort((a, b) => b.value - a.value);
-
-  const hasNegative = chartData.some((item) => item.value < 0);
 
   const handleChangeMetric = (item) => {
     setSelectedMetric(item.value);

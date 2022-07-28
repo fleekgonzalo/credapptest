@@ -1,10 +1,10 @@
 import { ReportAssetResult } from "@/types/api";
 
 export const defaultStatisticData = [
-  { metricName: "net asset", value: NaN, percentile: "90" },
-  { metricName: "deposit", value: -123456, percentile: "80" },
-  { metricName: "collateral", value: 53456, percentile: "60" },
-  { metricName: "debt", value: 43456, percentile: "80" },
+  { metricName: "net asset", value: null, percentile: "" },
+  { metricName: "deposit", value: null, percentile: "" },
+  { metricName: "collateral", value: null, percentile: "" },
+  { metricName: "debt", value: null, percentile: "" },
 ];
 
 export const assetsData: Partial<ReportAssetResult> = {
