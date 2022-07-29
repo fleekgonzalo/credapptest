@@ -11,7 +11,7 @@ import ReportAssets from "./ReportAssets";
 import { ReportHistoryChart } from "./ReportHistoryChart";
 import ReportStatistic from "./ReportStatistic";
 import { ReportYourHolding } from "./ReportYourHolding";
-import { ReportAddressFetch } from "./types";
+import { AssetAddressFetch, ReportAddressFetch } from "./types";
 
 type ReportPageProps = {
   address: string;
@@ -27,6 +27,10 @@ const ReportPage = ({ address }: ReportPageProps) => {
     address,
     endpoint: "asset/address/",
   });
+  const historyAPI = getApiUrl({
+    address,
+    endpoint: "asset/history/address/",
+  });
 
   const {
     data: credScoreData,
@@ -34,11 +38,13 @@ const ReportPage = ({ address }: ReportPageProps) => {
     loading: credScoreLoading,
   }: ReportAddressFetch = useFetcher(scoreAPI);
 
+  const { data: historyData }: ReportAddressFetch = useFetcher(historyAPI);
+
   const {
     data: assetAPIData,
     error: assetAPIError,
     loading: assetAPILoading,
-  } = useFetcher(assetAPI);
+  }: AssetAddressFetch = useFetcher(assetAPI);
 
   useEffect(() => {
     if (credScoreLoading) {
@@ -86,7 +92,7 @@ const ReportPage = ({ address }: ReportPageProps) => {
       </div>
       <hr className="my-8 text-white/20" />
       <ReportYourHolding data={assetAPIData} />
-      <ReportHistoryChart data={undefined} />
+      <ReportHistoryChart data={null} />
       <div className="flex flex-col md:flex-row gap-8 mt-8">
         <ReportStatistic />
         <ReportAssets

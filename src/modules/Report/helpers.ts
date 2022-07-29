@@ -8,10 +8,9 @@ export const generateMetricConfig = (configs: MetricConfig[]) => {
     const colorString = getTailwindColor(config.color);
     return {
       color: config.color,
+      metricLabel: config.label,
       metricName: config.name,
-      strokeColor: colorString,
-      gradientFrom: `${colorString}00`,
-      gradientTo: colorString,
+      fillColor: colorString,
     };
   });
 };

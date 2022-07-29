@@ -50,18 +50,22 @@ export const assetsData: Partial<ReportAssetResult> = {
 export const metricConfigs = [
   {
     name: "asset",
-    color: "green-chart",
+    label: "Net Asset",
+    color: "green-red",
   },
   {
     name: "deposit",
+    label: "Deposit",
     color: "blue-chart",
   },
   {
     name: "collateral",
+    label: "Collateral",
     color: "orange",
   },
   {
     name: "debt",
+    label: "Debt",
     color: "red",
   },
 ];

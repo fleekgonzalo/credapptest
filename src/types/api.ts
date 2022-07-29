@@ -120,6 +120,13 @@ type AssetData = {
   deposit: string;
   asset: string;
 };
+type HistoryData = {
+  account: string;
+  total: AssetData[];
+  chains: ChainData[];
+  protocols: ProtocolData[];
+  symbols: SymbolData[];
+};
 
 export type ChainData = { chain: string } & AssetData;
 export type ProtocolData = { protocol: string } & ChainData;
@@ -132,6 +139,7 @@ export type ReportAssetResult = {
   protocols: ProtocolData[];
   symbols: SymbolData[];
 };
+export type HistoryResult = HistoryData[];
 
 type PartnerData = {
   name: string;

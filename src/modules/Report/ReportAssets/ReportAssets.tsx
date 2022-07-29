@@ -8,7 +8,6 @@ import CustomPieChart from "@/common/components/CustomPieChart";
 import { Dropdown } from "@/common/components/Dropdown";
 import { ReportAssetResult } from "@/types/api";
 
-import { assetsData } from "../constant";
 import { extractAssetAPIData } from "../helpers";
 import { InfoWithTooltip } from "../InfoWithTooltip";
 import { LoadingToken } from "./LoadingToken";

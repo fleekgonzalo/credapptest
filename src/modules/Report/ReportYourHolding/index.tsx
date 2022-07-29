@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import { RadioButton } from "@/common/components/RadioButton";
+import { ReportAssetResult } from "@/types/api";
 
 import { InfoWithTooltip } from "../InfoWithTooltip";
 import { SunburstChart } from "../SunburtChart";
@@ -23,7 +24,10 @@ const options = [
     value: "debt",
   },
 ];
-export const ReportYourHolding = ({ data }) => {
+type Props = {
+  data: ReportAssetResult;
+};
+export const ReportYourHolding = ({ data }: Props) => {
   const [metric, setMetric] = useState("asset");
   return (
     <>

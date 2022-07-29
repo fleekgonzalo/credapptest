@@ -1,8 +1,7 @@
 import AutoSizer from "react-virtualized-auto-sizer";
 
-import StackedAreaChart from "@/common/components/AreaChart/StackedAreaChart";
 import { Card } from "@/common/components/Card";
-import { reportData } from "@/constant/reportData";
+import { ComposeHistoryChart } from "@/common/components/ComposeHistoryChart";
 import { getTailwindColor } from "@/styles/theme";
 
 import { metricConfigs } from "../constant";
@@ -25,7 +24,7 @@ export const ReportHistoryChart = ({ data }) => {
           </InfoWithTooltip>
         </h2>
         <div className="flex gap-y-4 md:h-[18px] font-medium leading-[18px] tracking-widest flex-wrap md:flex-nowrap md:gap-3 lg:gap-6">
-          {metrics.map(({ metricName, color }) => {
+          {metrics.map(({ metricName, color, metricLabel }) => {
             return (
               <div
                 key={metricName}
@@ -33,10 +32,16 @@ export const ReportHistoryChart = ({ data }) => {
               >
                 <span
                   className={`rounded-full w-3 h-3 inline-block`}
-                  style={{ backgroundColor: getTailwindColor(color) }}
+                  style={{
+                    background: data ? getTailwindColor(color) : "#ffffff33",
+                  }}
                 ></span>
-                <div className="ml-1 text-sm leading-[18px] inline-block capitalize whitespace-nowrap">
-                  Total {metricName}
+                <div className="ml-1 text-sm leading-[18px] inline-block whitespace-nowrap">
+                  {data ? (
+                    <span className="capitalize">{metricLabel}</span>
+                  ) : (
+                    <span className="text-white/60">{metricLabel}</span>
+                  )}
                 </div>
               </div>
             );
@@ -45,8 +50,8 @@ export const ReportHistoryChart = ({ data }) => {
       </div>
       <AutoSizer>
         {({ width, height }) => (
-          <StackedAreaChart
-            data={reportData}
+          <ComposeHistoryChart
+            data={data}
             height={Math.min(height, 510)}
             metrics={reverseMetrics}
             width={width}

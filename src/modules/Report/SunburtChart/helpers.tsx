@@ -2,7 +2,7 @@ import { Options, PlotSunburstOptions } from "highcharts";
 
 import { ChainData, ProtocolData, ReportAssetResult } from "@/types/api";
 
-const colors = ["#FF007A", "#FBAF1B", "#627EEA"];
+const colors = ["#FF00AA", "#FBAF1B", "#627EEA"];
 
 const commonOptions: Partial<Options> = {
   chart: {

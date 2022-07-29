@@ -20,7 +20,11 @@ export const App = ({ Component, pageProps }) => {
       {/* //TODO: Remove this wrapper (AuthWrapper) once testing is complete (this is just for testing experience in prod.) */}
       <AuthWrapper>
         <CoreLayout>
-          <SkeletonTheme baseColor="#252855" height={12} highlightColor="#444">
+          <SkeletonTheme
+            baseColor="#252855"
+            height={12}
+            highlightColor="#2e326B"
+          >
             <Component {...pageProps} />
           </SkeletonTheme>
         </CoreLayout>
