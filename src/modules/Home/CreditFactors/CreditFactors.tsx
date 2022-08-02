@@ -37,7 +37,7 @@ export const CreditFactors = ({ loading }: CreditFactorsProps) => {
         <h2 className="mb-6 font-bold">Credit factors</h2>
         <div>
           <div className="grid grid-cols-1 gap-6 md:gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {factorNames.map((data, index) => {
+            {factorNames.map((_, index) => {
               return <LoadingFactor key={index} />;
             })}
           </div>
@@ -85,7 +85,7 @@ export const CreditFactors = ({ loading }: CreditFactorsProps) => {
                 <CreditFactor
                   key={`credit-factor-${index}`}
                   // TODO: add link when it is available
-                  link="#"
+                  link={data.learn_more}
                   primaryText={data.label}
                   secondaryText={data.description}
                   variant={getCredColor(data.rating) as any}

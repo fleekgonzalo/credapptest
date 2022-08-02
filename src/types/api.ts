@@ -4,6 +4,7 @@ type ReportFactor = {
   label: string;
   rating: Rating;
   description: string;
+  learn_more?: string;
 };
 export type ReportAddressResult = {
   account: string;

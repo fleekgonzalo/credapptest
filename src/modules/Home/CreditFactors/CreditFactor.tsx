@@ -50,15 +50,17 @@ const CreditFactor = ({ variant, primaryText, secondaryText, link }: Props) => {
             <p className="mb-4 tracking-wide">{secondaryText}</p>
           </div>
         </div>
-        <a
-          className="flex items-center gap-2 mt-2 font-semibold bottom-2 text-cred-light-blue group hover:text-cred-soft-blue"
-          href={link}
-        >
-          Learn more
-          <span className="group-hover:translate-x-0.5 transition-transform">
-            <ChevronRightIcon />
-          </span>
-        </a>
+        {link ? (
+          <a
+            className="flex items-center gap-2 mt-2 font-semibold bottom-2 text-cred-light-blue group hover:text-cred-soft-blue"
+            href={link}
+          >
+            Learn more
+            <span className="group-hover:translate-x-0.5 transition-transform">
+              <ChevronRightIcon />
+            </span>
+          </a>
+        ) : null}
       </div>
     </Card>
   );
