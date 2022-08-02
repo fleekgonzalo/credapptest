@@ -32,6 +32,8 @@ function useFetch(url: string) {
   useEffect(() => {
     if (!url) {
       setLoading(false);
+      setData(null);
+      setError(null);
     }
     const controller = new AbortController();
 
