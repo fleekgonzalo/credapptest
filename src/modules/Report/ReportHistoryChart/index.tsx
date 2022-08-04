@@ -3,12 +3,13 @@ import AutoSizer from "react-virtualized-auto-sizer";
 import { Card } from "@/common/components/Card";
 import { ComposeHistoryChart } from "@/common/components/ComposeHistoryChart";
 import { getTailwindColor } from "@/styles/theme";
+import { HistoryResult } from "@/types/api";
 
 import { metricConfigs } from "../constant";
 import { generateMetricConfig } from "../helpers";
 import { InfoWithTooltip } from "../InfoWithTooltip";
 
-export const ReportHistoryChart = ({ data }) => {
+export const ReportHistoryChart = ({ data }: { data: HistoryResult }) => {
   const metrics = generateMetricConfig(metricConfigs);
   const reverseMetrics = metrics.map((i) => i).reverse();
 

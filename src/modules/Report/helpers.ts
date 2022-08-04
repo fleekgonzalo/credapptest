@@ -59,6 +59,8 @@ export const extractAssetAPIData = (
 
   return symbols.map((symbol) => ({
     name: symbol.symbol,
-    value: +symbol[metric],
+    value: isNaN(parseFloat(symbol[metric]))
+      ? null
+      : parseFloat(symbol[metric]),
   }));
 };

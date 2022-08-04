@@ -6,7 +6,7 @@ import Highcharts, {
 import HighchartsExporting from "highcharts/modules/exporting";
 import Sunburst from "highcharts/modules/sunburst";
 import HighchartsReact from "highcharts-react-official";
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 import { HandCursorIcon } from "@/common/components/CustomIcon";
 import { ReportAssetResult } from "@/types/api";
@@ -70,10 +70,22 @@ export const SunburstChart = ({ assetData, metric }: SunburstChartProps) => {
     },
     []
   );
-  if (!assetData) {
+  const data = useMemo(
+    () => generateChartData(assetData, metric),
+    [metric, assetData]
+  );
+
+  if (!data) {
     return renderFilter({});
   }
-  const data = generateChartData(assetData, metric);
+
+  const isTotalNull = data.some(
+    (item) => item.id === "total" && item.value === null
+  );
+
+  if (isTotalNull) {
+    return renderFilter({});
+  }
 
   const hasNegative = data.some((slice) => slice.value < 0);
 

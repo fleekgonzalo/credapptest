@@ -1,27 +1,17 @@
 const randomNumber = (min: number, max: number) => {
   return Math.floor(Math.random() * (max - min) + min);
 };
-export const months = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec",
-];
-
-export const reportData = months.map((m, i) => {
-  return {
-    asset: randomNumber(-5000, 5000),
-    deposit: randomNumber(1000, 5000),
-    collateral: randomNumber(1000, 5000),
-    debt: randomNumber(1000, 5000),
-    xAxis: m,
-  };
-});
+export const monthMapping = {
+  "01": "Jan",
+  "02": "Feb",
+  "03": "Mar",
+  "04": "Apr",
+  "05": "May",
+  "06": "June",
+  "07": "Jul",
+  "08": "Aug",
+  "09": "Sep",
+  "10": "Oct",
+  "11": "Nov",
+  "12": "Dec",
+};

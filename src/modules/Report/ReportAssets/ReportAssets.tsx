@@ -36,6 +36,7 @@ const ReportAssets = ({
   const [selectedMetric, setSelectedMetric] = useState("collateral");
   let chartData = null;
   let hasNegative = false;
+  let isAllNull = false;
 
   const handleImgNotfound = (e) => {
     const img = e.target;
@@ -56,9 +57,11 @@ const ReportAssets = ({
   }
 
   if (assetAPIData) {
-    chartData = extractAssetAPIData(assetAPIData, selectedMetric).sort(
-      (a, b) => b.value - a.value
-    );
+    chartData = extractAssetAPIData(assetAPIData, selectedMetric)
+      .sort((a, b) => b.value - a.value)
+      .filter((i) => i.name !== null);
+    isAllNull =
+      chartData.length < 1 || chartData.every((item) => item.value === null);
     hasNegative = chartData.some((item) => item.value < 0);
   }
 
@@ -84,7 +87,7 @@ const ReportAssets = ({
           onChange={handleChangeMetric}
         />
       </div>
-      {!chartData || hasNegative ? (
+      {!chartData || hasNegative || isAllNull ? (
         <FilterPieChart hasNegative={hasNegative} />
       ) : (
         <div className="h-[223px]">
@@ -96,7 +99,7 @@ const ReportAssets = ({
         </div>
       )}
       <div className="flex w-full mt-5 justify-around">
-        {chartData
+        {chartData && !isAllNull
           ? chartData.map((asset) => {
               return (
                 <div key={asset.name} className="flex flex-col">

@@ -123,10 +123,11 @@ type AssetData = {
 };
 type HistoryData = {
   account: string;
-  total: AssetData[];
-  chains: ChainData[];
-  protocols: ProtocolData[];
-  symbols: SymbolData[];
+  date: string;
+  debt: string;
+  collateral: string;
+  deposit: string;
+  asset: string;
 };
 
 export type ChainData = { chain: string } & AssetData;

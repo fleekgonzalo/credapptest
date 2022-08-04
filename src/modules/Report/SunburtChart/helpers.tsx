@@ -58,6 +58,7 @@ export const generateProtocol = (
     },
   }));
 };
+
 export const generateChainData = (chains: ChainData[], metricTotal, metric) => {
   return chains.map((item, index) => ({
     id: item.chain,
@@ -70,19 +71,15 @@ export const generateChainData = (chains: ChainData[], metricTotal, metric) => {
     },
   }));
 };
+
 export const generateChartData = (data: ReportAssetResult, metric: string) => {
+  if (!data) {
+    return null;
+  }
   const total = data.total[0];
-  const metricTotal = total[metric];
-  const chains = generateChainData(
-    data.chains,
-    parseFloat(metricTotal),
-    metric
-  );
-  const protocols = generateProtocol(
-    data.protocols,
-    parseFloat(metric),
-    metric
-  );
+  const metricTotal = parseFloat(total[metric]);
+  const chains = generateChainData(data.chains, metricTotal, metric);
+  const protocols = generateProtocol(data.protocols, metricTotal, metric);
   return [
     {
       id: "root",
@@ -92,8 +89,8 @@ export const generateChartData = (data: ReportAssetResult, metric: string) => {
     {
       id: "total",
       parent: "root",
-      name: "Debt",
-      value: parseFloat(metricTotal),
+      name: metric.toUpperCase(),
+      value: isNaN(metricTotal) ? null : metricTotal,
       custom: {
         percent: 100,
       },
