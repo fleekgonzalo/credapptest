@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import Skeleton from "react-loading-skeleton";
 
 import { ChevronRightIcon } from "@/common/components/CustomIcon";
 import { APIResultContext } from "@/common/context/api.context";
@@ -7,14 +8,31 @@ import InfoCard from "@/modules/Home/CredScoreTopSection/InfoSections/InfoCard";
 const IMPROVEMENT_FACTOR_INDEX = 6;
 const filterText =
   "Unfortunately, we currently don't have enough data to suggest credit scoring feedback for this wallet.";
+const ImprovementFactorLoading = () => {
+  return (
+    <InfoCard headingText={<Skeleton width={180} />}>
+      <Skeleton></Skeleton>
+      <Skeleton></Skeleton>
+      <Skeleton></Skeleton>
+      <Skeleton></Skeleton>
+      <Skeleton></Skeleton>
+      <Skeleton width={150}></Skeleton>
+      <Skeleton className="mt-5" width={90}></Skeleton>
+    </InfoCard>
+  );
+};
 const ImprovementFactor = () => {
   const {
-    reportAddress: { data },
+    reportAddress: { data, loading },
   } = useContext(APIResultContext);
   const [extend, setExtend] = useState(false);
   const toggleExtend = () => setExtend((s) => !s);
 
-  if (data && data.report.factors.length < 7) {
+  if (loading) {
+    return <ImprovementFactorLoading />;
+  }
+
+  if (!data || (data && data.report.factors.length < 7)) {
     return (
       <InfoCard headingText="improvement factor">
         <div className="flex gap-x-2">
@@ -51,9 +69,11 @@ const ImprovementFactor = () => {
         ) : (
           <p>
             {texts[0]}
-            <u className="cursor-pointer" onClick={toggleExtend}>
-              Read more
-            </u>
+            {texts.length > 1 ? (
+              <u className="cursor-pointer" onClick={toggleExtend}>
+                Read more
+              </u>
+            ) : null}
           </p>
         )}
       </div>

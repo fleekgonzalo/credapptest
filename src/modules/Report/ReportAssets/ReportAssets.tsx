@@ -59,7 +59,7 @@ const ReportAssets = ({
   if (assetAPIData) {
     chartData = extractAssetAPIData(assetAPIData, selectedMetric)
       .sort((a, b) => b.value - a.value)
-      .filter((i) => i.name !== null);
+      .filter((i) => i.value !== null);
     isAllNull =
       chartData.length < 1 || chartData.every((item) => item.value === null);
     hasNegative = chartData.some((item) => item.value < 0);

@@ -75,6 +75,16 @@ export const SunburstChart = ({ assetData, metric }: SunburstChartProps) => {
     [metric, assetData]
   );
 
+  const options: Options = useMemo(
+    () =>
+      generateChartOptions({
+        mouseOver: onMouseOverPoint,
+        mouseOut: onMouseOut,
+        data,
+      }),
+    [data]
+  );
+
   if (!data) {
     return renderFilter({});
   }
@@ -93,11 +103,6 @@ export const SunburstChart = ({ assetData, metric }: SunburstChartProps) => {
     return renderFilter({ msg: "Net asset only show when positive" });
   }
 
-  const options: Options = generateChartOptions({
-    mouseOver: onMouseOverPoint,
-    mouseOut: onMouseOut,
-    data,
-  });
   return (
     <div className="relative flex justify-center">
       <HighchartsReact highcharts={Highcharts} options={options} />

@@ -51,10 +51,10 @@ export const generateProtocol = (
   return protocols.map((item) => ({
     id: item.protocol,
     parent: item.chain,
-    value: +item[metric],
+    value: parseFloat(item[metric]) || null,
     name: item.protocol,
     custom: {
-      percent: ((parseFloat(item[metric]) / metricTotal) * 100).toFixed(2),
+      percent: ((parseFloat(item[metric]) / metricTotal) * 100).toFixed(1),
     },
   }));
 };
@@ -63,11 +63,11 @@ export const generateChainData = (chains: ChainData[], metricTotal, metric) => {
   return chains.map((item, index) => ({
     id: item.chain,
     parent: "total",
-    value: +item[metric],
+    value: parseFloat(item[metric]) || null,
     name: item.chain,
     color: colors[index],
     custom: {
-      percent: ((parseFloat(item[metric]) / metricTotal) * 100).toFixed(2),
+      percent: ((parseFloat(item[metric]) / metricTotal) * 100).toFixed(1),
     },
   }));
 };
@@ -78,8 +78,14 @@ export const generateChartData = (data: ReportAssetResult, metric: string) => {
   }
   const total = data.total[0];
   const metricTotal = parseFloat(total[metric]);
-  const chains = generateChainData(data.chains, metricTotal, metric);
-  const protocols = generateProtocol(data.protocols, metricTotal, metric);
+  const chains = generateChainData(data.chains, metricTotal, metric).filter(
+    (chain) => chain.value !== null
+  );
+  const protocols = generateProtocol(
+    data.protocols,
+    metricTotal,
+    metric
+  ).filter((chain) => chain.value !== null);
   return [
     {
       id: "root",
