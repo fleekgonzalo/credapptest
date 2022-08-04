@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 import { ChevronRightIcon } from "@/common/components/CustomIcon";
 import { APIResultContext } from "@/common/context/api.context";
@@ -11,6 +11,8 @@ const ImprovementFactor = () => {
   const {
     reportAddress: { data },
   } = useContext(APIResultContext);
+  const [extend, setExtend] = useState(false);
+  const toggleExtend = () => setExtend((s) => !s);
 
   if (data && data.report.factors.length < 7) {
     return (
@@ -27,12 +29,34 @@ const ImprovementFactor = () => {
     );
   }
 
+  const texts =
+    data?.report.factors[IMPROVEMENT_FACTOR_INDEX].description.split("\n");
+
   return (
     <InfoCard headingText="improvement factor">
-      <p className="text-base">
-        {data?.report.factors[IMPROVEMENT_FACTOR_INDEX].description ||
-          "No data"}
-      </p>
+      <div className="text-base flex flex-col gap-y-4">
+        {extend ? (
+          <div>
+            {texts.map((line, i) => (
+              <p key={i}>
+                {line}
+                {i === texts.length - 1 ? (
+                  <u className="cursor-pointer ml-1" onClick={toggleExtend}>
+                    Less
+                  </u>
+                ) : null}
+              </p>
+            ))}
+          </div>
+        ) : (
+          <p>
+            {texts[0]}
+            <u className="cursor-pointer" onClick={toggleExtend}>
+              Read more
+            </u>
+          </p>
+        )}
+      </div>
 
       <a
         className="flex items-center gap-2 mt-2 font-semibold text-cred-light-blue group hover:text-cred-soft-blue"

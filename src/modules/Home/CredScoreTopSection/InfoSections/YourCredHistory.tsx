@@ -1,4 +1,5 @@
 import dynamic from "next/dynamic";
+import Skeleton from "react-loading-skeleton";
 import { useAccount } from "wagmi";
 
 import { DataType } from "@/common/components/AreaChart/AreaChart";
@@ -46,16 +47,22 @@ const YourCredHistory = ({ animationDuration }: Props) => {
 
   if (!historyData || historyLoading) {
     return (
-      <InfoCard headingText="your cred history">
-        <div className="min-h-[120px] text-xs">Loading...</div>
+      <InfoCard headingText={<Skeleton width={160} />}>
+        <div className="min-h-[120px] text-xs">
+          <img alt="loading" src="/image/loading_cred_history.png" />
+        </div>
       </InfoCard>
     );
   }
 
-  if (historyData.length === 0 || !Array.isArray(historyData)) {
+  const isNoHistory =
+    historyData.length === 0 ||
+    !Array.isArray(historyData) ||
+    historyData.every((data) => data.value === null);
+  if (isNoHistory) {
     return (
       <InfoCard headingText="your cred history">
-        <div className="min-h-[120px] text-xs">No history</div>
+        <div className="min-h-[120px]">No history</div>
       </InfoCard>
     );
   }

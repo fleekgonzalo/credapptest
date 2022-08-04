@@ -16,7 +16,7 @@ const getCredColor = (rating: Rating) => {
     case Rating.Bad:
       return "red";
     default:
-      throw new Error("Invalid rating");
+      return "red";
   }
 };
 

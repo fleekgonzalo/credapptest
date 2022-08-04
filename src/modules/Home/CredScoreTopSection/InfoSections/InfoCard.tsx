@@ -1,9 +1,9 @@
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, ReactNode } from "react";
 
 import { Card } from "@/common/components/Card";
 
 interface Props {
-  headingText: string;
+  headingText: ReactNode;
   className?: string;
 }
 
