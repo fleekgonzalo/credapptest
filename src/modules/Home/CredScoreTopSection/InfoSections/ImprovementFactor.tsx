@@ -48,34 +48,32 @@ const ImprovementFactor = () => {
   }
 
   const texts =
-    data?.report.factors[IMPROVEMENT_FACTOR_INDEX].description.split("\n");
+    data?.report?.factors[IMPROVEMENT_FACTOR_INDEX].description.replaceAll(
+      "\n",
+      "<br />"
+    ) || "";
+
+  const hasBreakLine =
+    data?.report?.factors[IMPROVEMENT_FACTOR_INDEX].description.includes("\n");
+  const displayText =
+    hasBreakLine && !extend ? texts.split("<br />")[0] : texts;
 
   return (
     <InfoCard headingText="improvement factor">
       <div className="text-base flex flex-col gap-y-4">
-        {extend ? (
+        {
           <div>
-            {texts.map((line, i) => (
-              <p key={i}>
-                {line}
-                {i === texts.length - 1 ? (
-                  <u className="cursor-pointer ml-1" onClick={toggleExtend}>
-                    Less
-                  </u>
-                ) : null}
-              </p>
-            ))}
-          </div>
-        ) : (
-          <p>
-            {texts[0]}
-            {texts.length > 1 ? (
-              <u className="cursor-pointer" onClick={toggleExtend}>
-                Read more
+            <p
+              className="inline"
+              dangerouslySetInnerHTML={{ __html: displayText }}
+            ></p>
+            {hasBreakLine ? (
+              <u className="pl-1 cursor-pointer" onClick={toggleExtend}>
+                {extend ? "Less" : "Read more"}
               </u>
             ) : null}
-          </p>
-        )}
+          </div>
+        }
       </div>
 
       <a
