@@ -95,7 +95,7 @@ export const generateChartData = (data: ReportAssetResult, metric: string) => {
     {
       id: "total",
       parent: "root",
-      name: metric.toUpperCase(),
+      name: metric,
       value: isNaN(metricTotal) ? null : metricTotal,
       custom: {
         percent: 100,

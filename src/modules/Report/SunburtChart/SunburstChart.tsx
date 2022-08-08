@@ -26,10 +26,11 @@ type LevelData = {
 };
 
 const HoverInfo = ({ data }) => {
+  const name = data.name === "asset" ? "net assets" : data.name;
   return (
     <div>
       <p className="text-5xl font-bold">{data.percent} %</p>
-      <p className="text-sm leading-[18px] mt-4">{data.name}</p>
+      <p className="text-sm leading-[18px] mt-4 capitalize">{name}</p>
     </div>
   );
 };
@@ -100,7 +101,7 @@ export const SunburstChart = ({ assetData, metric }: SunburstChartProps) => {
   const hasNegative = data.some((slice) => slice.value < 0);
 
   if (hasNegative) {
-    return renderFilter({ msg: "Net asset only show when positive" });
+    return renderFilter({ msg: "Net Assets only show when positive" });
   }
 
   return (

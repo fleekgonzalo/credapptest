@@ -76,15 +76,17 @@ const ImprovementFactor = () => {
         }
       </div>
 
-      <a
-        className="flex items-center gap-2 mt-2 font-semibold text-cred-light-blue group hover:text-cred-soft-blue"
-        href="#"
-      >
-        Learn more
-        <span className="group-hover:translate-x-0.5 transition-transform">
-          <ChevronRightIcon />
-        </span>
-      </a>
+      {data?.report?.factors[IMPROVEMENT_FACTOR_INDEX].learn_more ? (
+        <a
+          className="flex items-center gap-2 mt-2 font-semibold text-cred-light-blue group hover:text-cred-soft-blue"
+          href={data?.report?.factors[IMPROVEMENT_FACTOR_INDEX].learn_more}
+        >
+          Learn more
+          <span className="group-hover:translate-x-0.5 transition-transform">
+            <ChevronRightIcon />
+          </span>
+        </a>
+      ) : null}
     </InfoCard>
   );
 };

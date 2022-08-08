@@ -1,7 +1,7 @@
 import { ReportAssetResult } from "@/types/api";
 
 export const defaultStatisticData = [
-  { metricName: "net asset", value: null, percentile: "" },
+  { metricName: "net assets", value: null, percentile: "" },
   { metricName: "deposit", value: null, percentile: "" },
   { metricName: "collateral", value: null, percentile: "" },
   { metricName: "debt", value: null, percentile: "" },
@@ -50,8 +50,8 @@ export const assetsData: Partial<ReportAssetResult> = {
 export const metricConfigs = [
   {
     name: "asset",
-    label: "Net Asset",
-    color: "green-red",
+    label: "Net Assets",
+    color: "purple-bar",
   },
   {
     name: "deposit",

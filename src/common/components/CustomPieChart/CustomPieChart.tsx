@@ -51,6 +51,7 @@ const CustomPieChart = ({ width, height, data }: CustomPieChartProps) => {
         dataKey="value"
         endAngle={-280}
         fill="#8884d8"
+        isAnimationActive={false}
         label={renderCustomizedLabel}
         labelLine={false}
         outerRadius={110}

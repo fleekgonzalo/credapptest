@@ -43,6 +43,29 @@ const yAxisTickFormater = (value: number, index: number) => {
   }
   return `$${value}`;
 };
+const metricNames = ["debt", "deposit", "collateral", "asset"];
+const CustomizedDot = (props) => {
+  const { cx, cy, stroke, payload, value } = props;
+
+  const outterColor =
+    value >= payload.asset || value < 3 ? "#0d1042" : "#4D4F80";
+
+  return (
+    <svg
+      fill="none"
+      height="10"
+      viewBox="0 0 6 6"
+      width="10"
+      x={cx - 5}
+      xmlns="http://www.w3.org/2000/svg"
+      y={cy - 5}
+    >
+      <circle cx="3" cy="3" fill={outterColor} fillOpacity={1} r="3" />
+      <circle cx="3" cy="3" fill={stroke} r="2" />
+    </svg>
+  );
+};
+
 export const ComposeHistoryChart = ({
   data,
   width,
@@ -51,7 +74,12 @@ export const ComposeHistoryChart = ({
   animationDuration = 1000,
   metrics,
 }: AreaChartProps) => {
-  const yDomain = data ? ["auto", "dataMax + 100"] : [0, 200000];
+  const yDomain = data ? ["auto", "dataMax"] : [0, 200000];
+
+  const hasNullField =
+    data?.some((item) => {
+      return metricNames.some((name) => item[name] === null);
+    }) || false;
 
   return (
     <ComposedChart data={data} height={height} width={width}>
@@ -62,7 +90,7 @@ export const ComposeHistoryChart = ({
         id={`x-axis`}
         padding={{ left: 0, right: 0 }}
         stroke="#C6C6C6"
-        tick={{ fontSize: 11 }}
+        tick={{ fontSize: 14 }}
         tickLine={false}
       />
       <YAxis
@@ -72,7 +100,7 @@ export const ComposeHistoryChart = ({
         stroke="#C6C6C6"
         strokeWidth="0.2px"
         style={{ fontWeight: "600" }}
-        tick={{ fontSize: 11 }}
+        tick={{ fontSize: 14 }}
         tickCount={yAxisTickCount}
         tickFormatter={yAxisTickFormater}
         tickLine={false}
@@ -82,23 +110,42 @@ export const ComposeHistoryChart = ({
       {!data ? null : (
         <>
           <ReferenceLine stroke="white" y={0} />
-          <Bar barSize={30} dataKey="asset">
-            {data.map((entry, index) => (
+          <Bar barSize={80} dataKey="asset">
+            {data.map((_, index) => (
               <Cell
                 key={`cell-${index}`}
-                fill={entry.asset > 0 ? "#45aa77" : "#aa1527"}
+                fill="#4D4F80"
                 strokeWidth={index === 2 ? 4 : 1}
               />
             ))}
           </Bar>
+          {!hasNullField
+            ? null
+            : metrics
+                .slice(0, 3)
+                .map((metric) => (
+                  <Line
+                    key={metric.metricName}
+                    connectNulls
+                    animationDuration={animationDuration || 1000}
+                    dataKey={metric.metricName}
+                    isAnimationActive={false}
+                    stroke={metric.fillColor}
+                    strokeDasharray="4"
+                    strokeWidth="2px"
+                    tooltipType="none"
+                  />
+                ))}
           {metrics.slice(0, 3).map((metric) => (
             <Line
               key={metric.metricName}
               animationDuration={animationDuration || 1000}
               dataKey={metric.metricName}
+              dot={<CustomizedDot />}
               fillOpacity={0.6}
+              isAnimationActive={false}
               stroke={metric.fillColor}
-              strokeWidth="3px"
+              strokeWidth="2px"
             />
           ))}
         </>
