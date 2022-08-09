@@ -21,7 +21,8 @@ export const Dropdown = ({
   const [active, setActive] = useState(false);
   const [selected, setSelected] = useState(value || options[0].value);
 
-  const handleClickOption = (item: DropDownOptions) => () => {
+  const handleClickOption = (item: DropDownOptions) => (e) => {
+    e.preventDefault();
     setSelected(item.value);
     onChange(item);
     setActive(false);
@@ -54,24 +55,26 @@ export const Dropdown = ({
         aria-labelledby="menu-button"
         aria-orientation="vertical"
         className={classNames(
-          "absolute hidden w-full shadow-lg ring-1 ring-white ring-opacity-5 focus:outline-none z-50",
+          "absolute hidden w-full shadow-lg ring-1 ring-white ring-opacity-5 focus:outline-none z-50 bg-cred-blue",
           active ? "!block" : ""
         )}
         role="menu"
       >
         <div className="py-1" role="none">
-          {options.map((item) => {
-            return (
-              <span
-                key={item.value}
-                className="block hover:bg-cred-dark-gray p-2 hover:text-gray-300 text-sm cursor-pointer"
-                role="menuitem"
-                onClick={handleClickOption(item)}
-              >
-                {item.label}
-              </span>
-            );
-          })}
+          {options
+            .filter((i) => i.value !== selected)
+            .map((item) => {
+              return (
+                <span
+                  key={item.value}
+                  className="block hover:bg-cred-dark-gray p-2 hover:text-gray-300 text-sm cursor-pointer"
+                  role="menuitem"
+                  onClick={handleClickOption(item)}
+                >
+                  {item.label}
+                </span>
+              );
+            })}
         </div>
       </div>
     </div>

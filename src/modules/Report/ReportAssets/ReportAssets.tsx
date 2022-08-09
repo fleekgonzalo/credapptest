@@ -6,6 +6,7 @@ import AutoSizer from "react-virtualized-auto-sizer";
 import { Card } from "@/common/components/Card";
 import CustomPieChart from "@/common/components/CustomPieChart";
 import { Dropdown } from "@/common/components/Dropdown";
+import { getTailwindColor } from "@/styles/theme";
 import { ReportAssetResult } from "@/types/api";
 
 import { extractAssetAPIData } from "../helpers";
@@ -21,6 +22,12 @@ const options = [
   { label: "Collateral", value: "collateral" },
   { label: "Deposit", value: "deposit" },
 ];
+const metricColors = {
+  asset: "purple-bar",
+  deposit: "blue-chart",
+  collateral: "orange",
+  debt: "red",
+};
 
 type ReportAssetsProps = {
   assetAPIData: ReportAssetResult;
@@ -93,7 +100,12 @@ const ReportAssets = ({
         <div className="h-[223px]">
           <AutoSizer>
             {({ width, height }) => (
-              <CustomPieChart data={chartData} height={height} width={width} />
+              <CustomPieChart
+                circleColor={getTailwindColor(metricColors[selectedMetric])}
+                data={chartData}
+                height={height}
+                width={width}
+              />
             )}
           </AutoSizer>
         </div>
@@ -111,7 +123,7 @@ const ReportAssets = ({
                       width={ICON_SIZE}
                       onError={handleImgNotfound}
                     />
-                    <span>{asset.name.toUpperCase()}</span>
+                    <span>{asset.name}</span>
                   </div>
                   <span
                     className={classNames("font-bold", {

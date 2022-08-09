@@ -1,14 +1,13 @@
-import { Cell, Pie, PieChart, Tooltip } from "recharts";
+import { useState } from "react";
+import { Cell, Pie, PieChart, Sector } from "recharts";
 
+import { iconColorMapping } from "@/modules/Report/constant";
 import { getTailwindColor } from "@/styles/theme";
 
 type DataType = {
   name: string;
   value: number;
 };
-const COLORS = ["light-purple", "light-gray-blue", "red", "orange"].map(
-  getTailwindColor
-);
 
 const RADIAN = Math.PI / 180;
 const renderCustomizedLabel = ({
@@ -40,32 +39,121 @@ const renderCustomizedLabel = ({
 type CustomPieChartProps = {
   width: number;
   height: number;
+  circleColor: string;
   data: DataType[];
 };
+const getActiveTokenColor = (name) => {
+  let color = iconColorMapping[name];
+  if (!color) {
+    color = getTailwindColor("light-gray");
+  }
+  return color;
+};
+const renderActiveShape = (props) => {
+  const RADIAN = Math.PI / 180;
+  const {
+    cx,
+    cy,
+    midAngle,
+    innerRadius,
+    outerRadius,
+    startAngle,
+    endAngle,
+    fill,
+    payload,
+    percent,
+    value,
+  } = props;
+  const color = getActiveTokenColor(payload.name);
+  const sin = Math.sin(-RADIAN * midAngle);
+  const cos = Math.cos(-RADIAN * midAngle);
+  const sx = cx + (outerRadius + 10) * cos;
+  const sy = cy + (outerRadius + 10) * sin;
+  const mx = cx + (outerRadius + 30) * cos;
+  const my = cy + (outerRadius + 30) * sin;
+  const ex = mx + (cos >= 0 ? 1 : -1) * 22;
+  const ey = my;
+  const textAnchor = cos >= 0 ? "start" : "end";
+  // const newCx = cx + (cos >= 0 ? 1 : -1) * 5;
+  // const newCy = cy + (sin >= 0 ? 1 : -1) * 5;
 
-const CustomPieChart = ({ width, height, data }: CustomPieChartProps) => {
+  return (
+    <g>
+      <text dy={8} fill={color} textAnchor="middle" x={cx} y={cy}>
+        {payload.name}
+      </text>
+      <Sector
+        color="white"
+        cx={cx}
+        cy={cy}
+        endAngle={endAngle}
+        fill={color}
+        innerRadius={innerRadius}
+        outerRadius={outerRadius}
+        startAngle={startAngle}
+        stroke="#0D1042"
+        strokeWidth={5}
+      />
+      <Sector
+        cx={cx}
+        cy={cy}
+        endAngle={endAngle}
+        fill={color}
+        innerRadius={outerRadius + 6}
+        outerRadius={outerRadius + 10}
+        startAngle={startAngle}
+      />
+      <path
+        d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`}
+        fill="none"
+        stroke={color}
+      />
+      <circle cx={ex} cy={ey} fill={color} r={2} stroke="none" />
+      <text
+        dy={9}
+        fill={color}
+        textAnchor={textAnchor}
+        x={ex + (cos >= 0 ? 1 : -1) * 12}
+        y={ey}
+      >
+        {`${(percent * 100).toFixed(2)}%`}
+      </text>
+    </g>
+  );
+};
+const CustomPieChart = ({
+  width,
+  height,
+  data,
+  circleColor,
+}: CustomPieChartProps) => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const onPieEnter = (_, index) => {
+    setActiveIndex(index);
+  };
+
   return (
     <PieChart height={height} width={width}>
       <Pie
+        activeIndex={activeIndex}
+        activeShape={renderActiveShape}
+        cx="50%"
+        cy="50%"
         data={data}
         dataKey="value"
         endAngle={-280}
-        fill="#8884d8"
+        fill={circleColor}
+        innerRadius={55}
         isAnimationActive={false}
-        label={renderCustomizedLabel}
         labelLine={false}
-        outerRadius={110}
+        outerRadius={80}
         startAngle={80}
+        onMouseEnter={onPieEnter}
       >
         {data.map((_, index) => (
-          <Cell
-            key={`cell-${index}`}
-            fill={COLORS[index % COLORS.length]}
-            stroke="black"
-          />
+          <Cell key={`cell-${index}`} stroke="black" />
         ))}
       </Pie>
-      <Tooltip />
     </PieChart>
   );
 };
