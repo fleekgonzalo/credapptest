@@ -7,7 +7,7 @@ import InfoCard from "@/modules/Home/CredScoreTopSection/InfoSections/InfoCard";
 
 const IMPROVEMENT_FACTOR_INDEX = 6;
 const filterText =
-  "Unfortunately, we currently don't have enough data to suggest credit scoring feedback for this wallet.";
+  "We don't have enough data to suggest credit scoring feedback to this account at this time.";
 const ImprovementFactorLoading = () => {
   return (
     <InfoCard headingText={<Skeleton width={180} />}>
