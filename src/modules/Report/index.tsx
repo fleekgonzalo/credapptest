@@ -38,7 +38,8 @@ const ReportPage = ({ address }: ReportPageProps) => {
     loading: credScoreLoading,
   }: ReportAddressFetch = useFetcher(scoreAPI);
 
-  const { data: historyData }: HistoryFetch = useFetcher(historyAPI);
+  const { data: historyData, loading: historyLoading }: HistoryFetch =
+    useFetcher(historyAPI);
 
   const {
     data: assetAPIData,
@@ -91,8 +92,8 @@ const ReportPage = ({ address }: ReportPageProps) => {
         </div>
       </div>
       <hr className="my-8 text-white/20" />
-      <ReportYourHolding data={assetAPIData} />
-      <ReportHistoryChart data={historyData} />
+      <ReportYourHolding data={assetAPIData} loading={assetAPILoading} />
+      <ReportHistoryChart data={historyData} loading={historyLoading} />
       <div className="flex flex-col md:flex-row gap-8 mt-8">
         <ReportStatistic />
         <ReportAssets
