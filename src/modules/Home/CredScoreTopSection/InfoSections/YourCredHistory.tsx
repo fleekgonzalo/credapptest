@@ -30,6 +30,25 @@ const monthNames = {
   "12": "Dec",
 };
 
+const NO_DATA_STRING =
+  "Cred history isn’t available for this account at this time. Please check back later!";
+
+const YourCredHistoryNoData = () => {
+  return (
+    <InfoCard headingText="your cred histor">
+      <div className="flex gap-x-2 mb-5">
+        <img
+          alt="no token data"
+          className="inline w-10 h-10"
+          src="/image/no_data_circle.png"
+        />
+        <p className="tracking-[0.02em] font-normal">{NO_DATA_STRING}</p>
+      </div>
+      <img alt="loading" src="/image/nodata_cred_history.png" />
+    </InfoCard>
+  );
+};
+
 const YourCredHistory = ({ animationDuration }: Props) => {
   const { data: account } = useAccount();
   const url = account?.address
@@ -60,11 +79,7 @@ const YourCredHistory = ({ animationDuration }: Props) => {
     !Array.isArray(historyData) ||
     historyData.every((data) => data.value === null);
   if (isNoHistory) {
-    return (
-      <InfoCard headingText="your cred history">
-        <div className="min-h-[120px]">No history</div>
-      </InfoCard>
-    );
+    return <YourCredHistoryNoData />;
   }
 
   // sorting the data by dates
