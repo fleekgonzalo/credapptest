@@ -69,13 +69,11 @@ const renderActiveShape = (props) => {
   const cos = Math.cos(-RADIAN * midAngle);
   const sx = cx + (outerRadius + 10) * cos;
   const sy = cy + (outerRadius + 10) * sin;
-  const mx = cx + (outerRadius + 30) * cos;
-  const my = cy + (outerRadius + 30) * sin;
-  const ex = mx + (cos >= 0 ? 1 : -1) * 22;
+  const mx = cx + (outerRadius + 20) * cos;
+  const my = cy + (outerRadius + 20) * sin;
+  const ex = mx + (cos >= 0 ? 1 : -1) * 11;
   const ey = my;
   const textAnchor = cos >= 0 ? "start" : "end";
-  // const newCx = cx + (cos >= 0 ? 1 : -1) * 5;
-  // const newCy = cy + (sin >= 0 ? 1 : -1) * 5;
 
   return (
     <g>
@@ -110,10 +108,11 @@ const renderActiveShape = (props) => {
       />
       <circle cx={ex} cy={ey} fill={color} r={2} stroke="none" />
       <text
-        dy={9}
+        dy={5}
         fill={color}
+        fontSize={10}
         textAnchor={textAnchor}
-        x={ex + (cos >= 0 ? 1 : -1) * 12}
+        x={ex + (cos >= 0 ? 1 : -1) * 10}
         y={ey}
       >
         {`${(percent * 100).toFixed(2)}%`}

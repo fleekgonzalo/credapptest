@@ -6,6 +6,7 @@ import AutoSizer from "react-virtualized-auto-sizer";
 import { Card } from "@/common/components/Card";
 import CustomPieChart from "@/common/components/CustomPieChart";
 import { Dropdown } from "@/common/components/Dropdown";
+import { SimpleCarousel } from "@/common/components/SimpleCarousel";
 import { getTailwindColor } from "@/styles/theme";
 import { ReportAssetResult } from "@/types/api";
 
@@ -110,34 +111,38 @@ const ReportAssets = ({
           </AutoSizer>
         </div>
       )}
-      <div className="flex w-full mt-5 justify-around">
-        {chartData && !isAllNull
-          ? chartData.map((asset) => {
-              return (
-                <div key={asset.name} className="flex flex-col">
-                  <div className="flex gap-2 mb-[6px]">
-                    <img
-                      alt="asset"
-                      height={ICON_SIZE}
-                      src={`/image/asset_logo_${asset.name.toUpperCase()}.png`}
-                      width={ICON_SIZE}
-                      onError={handleImgNotfound}
-                    />
-                    <span>{asset.name}</span>
-                  </div>
-                  <span
-                    className={classNames("font-bold", {
-                      "text-cred-red": asset.value < 0,
-                    })}
-                  >
-                    {asset.value.toLocaleString()}
-                  </span>
+      <div className="w-full mt-5">
+        {chartData && !isAllNull ? (
+          <SimpleCarousel
+            data={chartData}
+            renderer={(asset) => (
+              <div key={asset.name} className="flex flex-col">
+                <div className="flex gap-2 mb-[6px]">
+                  <img
+                    alt="asset"
+                    height={ICON_SIZE}
+                    src={`/image/asset_logo_${asset.name.toUpperCase()}.png`}
+                    width={ICON_SIZE}
+                    onError={handleImgNotfound}
+                  />
+                  <span>{asset.name}</span>
                 </div>
-              );
-            })
-          : Array(4)
-              .fill(1)
-              .map((_, i) => <NotEnoughDataSymbol key={i} />)}
+                <span
+                  className={classNames("font-bold", {
+                    "text-cred-red": asset.value < 0,
+                  })}
+                >
+                  {asset.value.toLocaleString()}
+                </span>
+              </div>
+            )}
+            visibleItems={4}
+          />
+        ) : (
+          Array(4)
+            .fill(1)
+            .map((_, i) => <NotEnoughDataSymbol key={i} />)
+        )}
       </div>
     </Card>
   );
