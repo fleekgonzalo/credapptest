@@ -84,7 +84,7 @@ const ReportAssets = ({
           Tokens
           <InfoWithTooltip>
             <div className="w-[209px] text-xs">
-              Breakdown of metrics that is allocated to the tokens you hold.
+              {"Breakdown of Total Metric Value per Token ($USD)"}
             </div>
           </InfoWithTooltip>
         </h2>

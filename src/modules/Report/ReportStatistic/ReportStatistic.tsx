@@ -57,8 +57,7 @@ const ReportStatistic = () => {
         Statistics
         <InfoWithTooltip>
           <div className="w-[209px] text-xs">
-            Total values of holding metrics supplemented with the percentile in
-            which you lie per metric
+            {"Total Metric Value and Percentile of Account ($USD)"}
           </div>
         </InfoWithTooltip>
       </h2>
