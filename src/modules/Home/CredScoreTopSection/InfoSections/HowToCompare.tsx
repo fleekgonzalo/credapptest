@@ -11,9 +11,9 @@ const HowToCompare = ({ decile, valueRating }) => {
         <p className="text-base">
           Your score is <span className="font-bold">{valueRating} </span> and{" "}
           <span className="font-bold">
-            better than {parseFloat(decile) * 100}%
+            ranks in the {parseInt(decile) * 10}th percentile
           </span>{" "}
-          of accounts!
+          of all accounts!
         </p>
       </div>
     </InfoCard>
