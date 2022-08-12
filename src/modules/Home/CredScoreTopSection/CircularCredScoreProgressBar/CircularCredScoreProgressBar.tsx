@@ -22,7 +22,7 @@ export const CircularCredScoreProgressBar = ({
   loading,
   address,
 }: Partial<Props>) => {
-  const { toggleMount } = useContext(ModalContext);
+  const { openModal } = useContext(ModalContext);
   return (
     <div className="flex items-center justify-center h-full -mt-4 md:-mt-8">
       <CircularProgressbar
@@ -34,7 +34,7 @@ export const CircularCredScoreProgressBar = ({
       >
         {/* middle text with cred score and cred phrase/label */}
         {!address ? (
-          <g cursor="pointer" onClick={toggleMount}>
+          <g cursor="pointer" onClick={() => openModal("connect")}>
             <rect
               className="fill-cred-soft-blue"
               height="8"

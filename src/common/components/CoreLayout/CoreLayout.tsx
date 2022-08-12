@@ -21,6 +21,7 @@ import {
 import { ModalContext } from "@/common/context/modal.context";
 
 import ConnectWalletModal from "./ConnectWallet/ConnectWalletModal";
+import { SubcribeModal } from "./SubcribeModal";
 
 const alchemyId = process.env.ALCHEMY_ID;
 
@@ -56,17 +57,53 @@ interface Props {
   hideNavItems?: boolean;
 }
 
+interface ModalProps {
+  id: string;
+  isMounted: boolean;
+  setOpenModal: (isOpen: boolean) => void;
+}
+const renderModal = ({ id, isMounted, setOpenModal }: ModalProps) => {
+  switch (id) {
+    case "connect":
+      return (
+        <ConnectWalletModal isMounted={isMounted} setOpenModal={setOpenModal} />
+      );
+    case "subcribe":
+      return (
+        <SubcribeModal isMounted={isMounted} setOpenModal={setOpenModal} />
+      );
+  }
+};
+
 export const CoreLayout = ({
   children,
   hideNavItems,
 }: PropsWithChildren<Props>) => {
   // modal with list of wallet providers eg: metamask, coinbase & walletconnect
   const [isMounted, setIsMounted] = useState(false);
+  const [modalId, setModalId] = useState("");
   const [data, dispatch] = useReducer<typeof apiReducer>(
     apiReducer,
     initialAPIContextData
   );
 
+  const openModal = (id: string) => {
+    setIsMounted(true);
+    setModalId(id);
+  };
+
+  const closeModal = () => {
+    setIsMounted(false);
+    setModalId("");
+  };
+
+  const toggleModal = (id: string) => (isOpen: boolean) => {
+    if (isOpen) {
+      openModal(id);
+    } else {
+      closeModal();
+    }
+  };
   // --- Fixing Hydration failed error --- //
   const [isSSR, setIsSSR] = useState(true);
 
@@ -83,7 +120,12 @@ export const CoreLayout = ({
       {/* // Passing client to React Context Provider */}
       <WagmiConfig client={client}>
         <ModalContext.Provider
-          value={{ isMounted, toggleMount: () => setIsMounted((s) => !s) }}
+          value={{
+            isMounted,
+            openModal,
+            closeModal,
+            id: modalId,
+          }}
         >
           <APIResultContext.Provider value={{ ...data }}>
             <APIDispatchContext.Provider value={dispatch}>
@@ -105,17 +147,18 @@ export const CoreLayout = ({
                 >
                   <Header
                     hideNavItems={hideNavItems}
-                    openWalletModal={() => setIsMounted(true)}
+                    openWalletModal={() => openModal("connect")}
                   />
                   {children}
                 </div>
 
                 {/* FOOTER */}
               </div>
-              <ConnectWalletModal
-                isMounted={isMounted}
-                setOpenModal={setIsMounted}
-              />
+              {renderModal({
+                id: modalId,
+                isMounted,
+                setOpenModal: toggleModal(modalId),
+              })}
             </APIDispatchContext.Provider>
           </APIResultContext.Provider>
         </ModalContext.Provider>

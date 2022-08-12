@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useAccount } from "wagmi";
 
 import { Button } from "@/common/components/Button";
@@ -7,6 +7,7 @@ import MobileMenu from "@/common/components/CoreLayout/MobileMenu";
 import WalletPopover from "@/common/components/CoreLayout/WalletPopover";
 import { ChevronDownIcon, LogoIcon } from "@/common/components/CustomIcon";
 import Popover from "@/common/components/Popover/Popover";
+import { ModalContext } from "@/common/context/modal.context";
 import { shortenWalletAddress } from "@/common/utils/string";
 
 interface Props {
@@ -18,10 +19,11 @@ interface Props {
 export interface LinkType {
   label: string;
   link: string;
+  action?: () => void;
   isExternal?: boolean;
 }
 
-const LINKS: LinkType[] = [
+const createLink = ({ onClickCredMonitor }) => [
   {
     label: "API",
     link: "https://beta.credprotocol.com/docs/api",
@@ -36,15 +38,18 @@ const LINKS: LinkType[] = [
   },
   {
     label: "Cred Monitor",
-    link: "",
+    link: "#",
+    action: onClickCredMonitor,
   },
 ];
 
 const Header = ({ className, openWalletModal, hideNavItems }: Props) => {
   const { data: account } = useAccount();
+  const { openModal } = useContext(ModalContext);
 
   const [openMenu, setOpenMenu] = useState(false);
 
+  const LINKS = createLink({ onClickCredMonitor: () => openModal("subcribe") });
   return (
     <header
       className={classNames(
@@ -59,10 +64,14 @@ const Header = ({ className, openWalletModal, hideNavItems }: Props) => {
       {hideNavItems ? null : (
         <nav className="flex items-center gap-8">
           <ul className="items-center hidden gap-8 text-base leading-5 text-white md:flex">
-            {LINKS.map(({ link, label }) => {
+            {LINKS.map(({ link, label, action }) => {
               return (
-                <li key={label}>
-                  <a href={link} rel="noreferrer" target="_blank">
+                <li key={label} className="cursor-pointer" onClick={action}>
+                  <a
+                    href={action ? null : link}
+                    rel="noreferrer"
+                    target="_blank"
+                  >
                     {label}
                   </a>
                 </li>

@@ -55,13 +55,13 @@ const MobileMenu = ({
           )}
         >
           <ul className="flex flex-col mt-16 leading-4 gap-14">
-            {links.map(({ link, label, isExternal }) => {
+            {links.map(({ link, label, isExternal, action }) => {
               let linkComponent;
               if (isExternal) {
                 linkComponent = (
                   <a
                     className="block text-2xl text-center"
-                    href={link}
+                    href={action ? null : link}
                     rel="noreferrer"
                     target="_blank"
                   >
@@ -70,7 +70,7 @@ const MobileMenu = ({
                 );
               } else {
                 linkComponent = (
-                  <Link href={link}>
+                  <Link href={action ? null : link}>
                     <a className="block text-2xl text-center">{label}</a>
                   </Link>
                 );

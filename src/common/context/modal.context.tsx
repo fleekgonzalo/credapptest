@@ -1,6 +1,8 @@
 import { createContext } from "react";
 
 export const ModalContext = createContext({
+  id: "",
   isMounted: false,
-  toggleMount: () => {},
+  openModal: (id: string) => {},
+  closeModal: (id: string) => {},
 });
