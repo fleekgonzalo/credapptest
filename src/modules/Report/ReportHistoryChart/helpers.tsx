@@ -30,19 +30,39 @@ export const generateHistoryData = (data: HistoryResult) => {
     return compareAsc(dayA, dayB);
   });
 
+  const currentMonth = new Date().getMonth(); // 0-11
+  const currentYear = new Date().getFullYear();
+
+  const dict = {};
+  for (let i = 0; i < 6; i++) {
+    const month =
+      currentMonth - i < 0 ? currentMonth - i + 12 : currentMonth - i;
+    const year = month < 0 ? currentYear - 1 : currentYear;
+    const monthString = `${year}-${`0${month + 1}`.slice(-2)}`;
+    dict[monthString] = {
+      asset: null,
+      collateral: null,
+      date: monthMapping[monthString.slice(5)],
+      debt: null,
+      deposit: null,
+    };
+  }
+
   let monthDict: { [key: string]: ChartData } = dataSortedByDate.reduce(
     (dict, dayData) => {
       const month = dayData.date.slice(0, 7);
-      dict[month] = {
-        asset: parseNum(dayData.asset),
-        deposit: parseNum(dayData.deposit),
-        collateral: parseNum(dayData.collateral),
-        debt: parseNum(dayData.debt),
-        date: monthMapping[month.slice(5)],
-      };
+      if (dict[month]) {
+        dict[month] = {
+          asset: parseNum(dayData.asset),
+          deposit: parseNum(dayData.deposit),
+          collateral: parseNum(dayData.collateral),
+          debt: parseNum(dayData.debt),
+          date: monthMapping[month.slice(5)],
+        };
+      }
       return dict;
     },
-    {}
+    dict
   );
   const months = Object.keys(monthDict).sort((a, b) => {
     const monthA = parse(a, "yyyy-MM", new Date());

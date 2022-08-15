@@ -30,6 +30,8 @@ const metricColors = {
   debt: "red",
 };
 
+const PERCENTAGE_THRESHOLD = 2;
+
 type ReportAssetsProps = {
   assetAPIData: ReportAssetResult;
   assetAPIError: unknown;
@@ -44,7 +46,7 @@ const ReportAssets = ({
   const [selectedMetric, setSelectedMetric] = useState("collateral");
   let chartData = null;
   let hasNegative = false;
-  let isAllNull = false;
+  let isEmpty = false;
 
   const handleImgNotfound = (e) => {
     const img = e.target;
@@ -65,11 +67,38 @@ const ReportAssets = ({
   }
 
   if (assetAPIData) {
+    let total = 0;
+
     chartData = extractAssetAPIData(assetAPIData, selectedMetric)
       .sort((a, b) => b.value - a.value)
-      .filter((i) => i.value !== null);
-    isAllNull =
-      chartData.length < 1 || chartData.every((item) => item.value === null);
+      .filter((i) => {
+        if (i.value !== null && i.value > 0) {
+          total += i.value;
+          return true;
+        }
+        return false;
+      });
+
+    if (total > 0) {
+      let combine = {
+        name: "Others",
+        value: 0,
+      };
+      chartData = chartData
+        .filter((item) => {
+          if (item.value > 0) {
+            const percentage = (item.value / total) * 100;
+            if (percentage < PERCENTAGE_THRESHOLD) {
+              combine.value += item.value;
+              return false;
+            }
+            return true;
+          }
+          return false;
+        })
+        .concat(combine.value > 0 ? combine : []);
+    }
+    isEmpty = chartData.length < 1;
     hasNegative = chartData.some((item) => item.value < 0);
   }
 
@@ -95,7 +124,7 @@ const ReportAssets = ({
           onChange={handleChangeMetric}
         />
       </div>
-      {!chartData || hasNegative || isAllNull ? (
+      {!chartData || hasNegative || isEmpty ? (
         <FilterPieChart hasNegative={hasNegative} />
       ) : (
         <div className="h-[223px]">
@@ -112,7 +141,7 @@ const ReportAssets = ({
         </div>
       )}
       <div className="w-full mt-5">
-        {chartData && !isAllNull ? (
+        {chartData && !isEmpty ? (
           <SimpleCarousel
             data={chartData}
             renderer={(asset) => (

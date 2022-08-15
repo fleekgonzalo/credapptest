@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { ChevronLeftIcon, ChevronRightIcon } from "../CustomIcon";
 
@@ -18,6 +18,10 @@ export const SimpleCarousel = ({
 
   const isEnd = page === Math.ceil(data.length / visibleItems) - 1;
   const isStart = page === 0;
+
+  useEffect(() => {
+    setPage(0);
+  }, [data]);
 
   return (
     <div className="flex w-full justify-between">
