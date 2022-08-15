@@ -76,11 +76,6 @@ export const ComposeHistoryChart = ({
 }: AreaChartProps) => {
   const yDomain = data ? ["auto", "dataMax"] : [0, 200000];
 
-  const hasNullField =
-    data?.some((item) => {
-      return metricNames.some((name) => item[name] === null);
-    }) || false;
-
   return (
     <ComposedChart data={data} height={height} width={width}>
       <XAxis
@@ -119,26 +114,10 @@ export const ComposeHistoryChart = ({
               />
             ))}
           </Bar>
-          {!hasNullField
-            ? null
-            : metrics
-                .slice(0, 3)
-                .map((metric) => (
-                  <Line
-                    key={metric.metricName}
-                    connectNulls
-                    animationDuration={animationDuration || 1000}
-                    dataKey={metric.metricName}
-                    isAnimationActive={false}
-                    stroke={metric.fillColor}
-                    strokeDasharray="4"
-                    strokeWidth="2px"
-                    tooltipType="none"
-                  />
-                ))}
           {metrics.slice(0, 3).map((metric) => (
             <Line
               key={metric.metricName}
+              connectNulls
               animationDuration={animationDuration || 1000}
               dataKey={metric.metricName}
               dot={<CustomizedDot />}

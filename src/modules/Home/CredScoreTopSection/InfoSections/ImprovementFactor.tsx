@@ -32,7 +32,7 @@ const ImprovementFactor = () => {
     return <ImprovementFactorLoading />;
   }
 
-  if (!data || (data && data.report.factors.length < 7)) {
+  if (!data || (data && data?.report?.factors?.length < 7)) {
     return (
       <InfoCard headingText="improvement factor">
         <div className="flex gap-x-2">
