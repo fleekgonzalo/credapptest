@@ -44,7 +44,7 @@ const renderFilter = ({ msg }: { msg?: string }) => {
     <div className="relative my-20">
       <img alt="circle" src={"/image/sunburst_no_data.svg"} />
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 translate-y-8 text-xl opacity-60 text-center">
-        {msg || "Not enough data"}
+        {msg ? <span className="text-lg">{msg}</span> : "Not enough data"}
       </div>
     </div>
   );
@@ -101,7 +101,9 @@ export const SunburstChart = ({ assetData, metric }: SunburstChartProps) => {
   const hasNegative = data.some((slice) => slice.value < 0);
 
   if (hasNegative) {
-    return renderFilter({ msg: "Net Assets only show when positive" });
+    return renderFilter({
+      msg: "Data Visual not available. Net Assets only show positive values.",
+    });
   }
 
   return (

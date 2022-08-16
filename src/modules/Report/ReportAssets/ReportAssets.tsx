@@ -168,9 +168,13 @@ const ReportAssets = ({
             visibleItems={4}
           />
         ) : (
-          Array(4)
-            .fill(1)
-            .map((_, i) => <NotEnoughDataSymbol key={i} />)
+          <div className="flex justify-around">
+            {Array(4)
+              .fill(1)
+              .map((_, i) => (
+                <NotEnoughDataSymbol key={i} />
+              ))}
+          </div>
         )}
       </div>
     </Card>
