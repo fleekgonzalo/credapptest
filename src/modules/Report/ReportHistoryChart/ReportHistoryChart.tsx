@@ -57,7 +57,10 @@ export const ReportHistoryChart = ({
             Your account history
             <InfoWithTooltip>
               <div className="w-[209px] text-xs">
-                {"Aggregated metrics of holding in the last 5 months ($USD)."}
+                <p>
+                  Aggregated metrics of holding in the last 5 months ($USD).
+                </p>
+                <br />
                 <p>
                   Months with missing dots indicate missing data for account.
                 </p>
