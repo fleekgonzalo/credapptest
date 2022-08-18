@@ -35,7 +35,7 @@ const NO_DATA_STRING =
 
 const YourCredHistoryNoData = () => {
   return (
-    <InfoCard headingText="your cred histor">
+    <InfoCard headingText="your cred history">
       <div className="flex gap-x-2 mb-5">
         <img
           alt="no token data"
