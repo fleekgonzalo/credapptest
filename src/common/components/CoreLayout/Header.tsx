@@ -10,6 +10,8 @@ import Popover from "@/common/components/Popover/Popover";
 import { ModalContext } from "@/common/context/modal.context";
 import { shortenWalletAddress } from "@/common/utils/string";
 
+import { SignUpButton } from "../SignupButton";
+
 interface Props {
   className?: string;
   openWalletModal: () => void;
@@ -62,7 +64,8 @@ const Header = ({ className, openWalletModal, hideNavItems }: Props) => {
         <LogoIcon className="h-[40px] md:h-[48px] w-[75.4px] md:w-[90.48px]" />
       </div>
       {hideNavItems ? null : (
-        <nav className="flex items-center gap-8">
+        <nav className="flex items-center gap-4">
+          <SignUpButton />
           <ul className="items-center hidden gap-8 text-base leading-5 text-white md:flex">
             {LINKS.map(({ link, label, action }) => {
               return (

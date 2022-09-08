@@ -3,6 +3,7 @@ import { useContext, useEffect } from "react";
 import { useAccount } from "wagmi";
 
 import { Button } from "@/common/components/Button";
+import { SignUpButton } from "@/common/components/SignupButton";
 import { APIDispatchContext } from "@/common/context/api.context";
 import useFetcher from "@/common/hooks/useFetcher";
 import { getApiUrl } from "@/common/utils/string";
@@ -77,6 +78,10 @@ const HomePage = () => {
         credScoreData={credScoreData}
         loading={credScoreLoading}
       />
+      <div className="flex items-center text-4xl gap-x-5 font-bold mt-6">
+        <h1>Want to join the BETA waitlist or find out more?</h1>
+        <SignUpButton />
+      </div>
       {!account?.address || !hasScore ? (
         <PartnerSection loading={credScoreLoading} />
       ) : (
