@@ -1,19 +1,33 @@
 import axios, { AxiosError } from "axios";
-import { useEffect, useState } from "react";
+import { compareAsc } from "date-fns";
+import { useContext, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
-function useFetch(url: string) {
+import { AppContext } from "../context/app.context";
+
+function useFetch(url: string, tokenRequire = true) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<AxiosError>(null);
+  const { auth } = useContext(AppContext);
 
   const fetch = (signal) => {
+    if (tokenRequire) {
+      if (!auth) return;
+    }
+    const authHeader = tokenRequire
+      ? { headers: { Authorization: "Bearer " + auth.accessToken } }
+      : {
+          auth: {
+            username: process.env.NEXT_PUBLIC_USERNAME,
+            password: process.env.NEXT_PUBLIC_PASSWORD,
+          },
+        };
+
     setLoading(true);
     axios
       .get(url, {
-        auth: {
-          username: process.env.NEXT_PUBLIC_USERNAME,
-          password: process.env.NEXT_PUBLIC_PASSWORD,
-        },
+        ...authHeader,
         signal,
       })
       .then((response) => {
@@ -30,18 +44,19 @@ function useFetch(url: string) {
   };
 
   useEffect(() => {
+    const controller = new AbortController();
     if (!url) {
       setLoading(false);
       setData(null);
       setError(null);
+    } else {
+      fetch(controller.signal);
     }
-    const controller = new AbortController();
 
-    fetch(controller.signal);
     return () => {
       controller.abort();
     };
-  }, [url]);
+  }, [url, auth]);
 
   return { data, loading, error, refetch: fetch };
 }

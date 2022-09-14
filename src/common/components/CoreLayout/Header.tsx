@@ -1,13 +1,15 @@
 import classNames from "classnames";
-import { useContext, useState } from "react";
-import { useAccount } from "wagmi";
+import { compareAsc } from "date-fns";
+import { useContext, useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { useAccount, useDisconnect } from "wagmi";
 
 import { Button } from "@/common/components/Button";
 import MobileMenu from "@/common/components/CoreLayout/MobileMenu";
 import WalletPopover from "@/common/components/CoreLayout/WalletPopover";
 import { ChevronDownIcon, LogoIcon } from "@/common/components/CustomIcon";
 import Popover from "@/common/components/Popover/Popover";
-import { ModalContext } from "@/common/context/modal.context";
+import { AppContext } from "@/common/context/app.context";
 import { shortenWalletAddress } from "@/common/utils/string";
 
 import { SignUpButton } from "../SignupButton";
@@ -47,11 +49,29 @@ const createLink = ({ onClickCredMonitor }) => [
 
 const Header = ({ className, openWalletModal, hideNavItems }: Props) => {
   const { data: account } = useAccount();
-  const { openModal } = useContext(ModalContext);
+  const { openModal } = useContext(AppContext);
+  const { disconnect } = useDisconnect();
 
   const [openMenu, setOpenMenu] = useState(false);
 
   const LINKS = createLink({ onClickCredMonitor: () => openModal("subcribe") });
+
+  useEffect(() => {
+    if (!account) {
+      localStorage.removeItem("authToken");
+    } else {
+      const authToken = JSON.parse(localStorage.getItem("authToken") || null);
+      if (authToken) {
+        if (compareAsc(new Date(), new Date(authToken.expiredAt)) > 0) {
+          toast.error("Token expired, please reconnect", {
+            id: "expired-error",
+          });
+          setTimeout(() => disconnect(), 1000);
+        }
+      }
+    }
+  }, []);
+
   return (
     <header
       className={classNames(

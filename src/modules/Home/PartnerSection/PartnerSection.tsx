@@ -5,7 +5,6 @@ import PartnerCard from "@/common/components/PartnerCard";
 import useFetcher from "@/common/hooks/useFetcher";
 import { getApiUrl } from "@/common/utils/string";
 import { RecommendedFetch } from "@/modules/Report/types";
-import { WagmiAccount } from "@/types/shared";
 
 type Props = {
   loading: boolean;
@@ -20,7 +19,7 @@ export const PartnerSection = ({ loading }: Props) => {
     data: recommendedData,
     error: recommendedError,
     loading: recommendedLoading,
-  }: RecommendedFetch = useFetcher(recommendAPI);
+  }: RecommendedFetch = useFetcher(recommendAPI, false);
 
   if (recommendedError) {
     toast.error("Fetch recommended data error", {

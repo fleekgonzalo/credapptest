@@ -1,13 +1,15 @@
 import React from "react";
 
-export const Spinner = () => {
+export const Spinner = ({ width = "16px", height = "16px" }) => {
   return (
     <div className="flex justify-center" role="status">
       <svg
         aria-hidden="true"
-        className="mr-2 w-4 h-4 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+        className="mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
         fill="none"
+        height={height}
         viewBox="0 0 100 101"
+        width={width}
         xmlns="http://www.w3.org/2000/svg"
       >
         <path

@@ -1,5 +1,6 @@
+import { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { useConnect } from "wagmi";
+import { useAccount, useConnect, useSignMessage } from "wagmi";
 
 import {
   MetaMaskIcon,
@@ -7,17 +8,41 @@ import {
 } from "@/common/components/CustomIcon";
 import { Divider } from "@/common/components/Divider";
 import { Modal } from "@/common/components/Modal";
+import { AppContext } from "@/common/context/app.context";
+import { getAuthToken, getSignatureMessage } from "@/common/utils/auth";
 
-import CustomConnectForm from "./CustomConnectForm";
+import { Spinner } from "../../Spinner";
 
 const ConnectWalletModal = ({ setOpenModal, isMounted }) => {
+  const {
+    data: address,
+    isLoading: loadingConnect,
+    isError: errorConnect,
+  } = useAccount();
+  const [message, setMessage] = useState("");
+  const [loadingAuth, setLoadingAuth] = useState(false);
+  const { setAuthToken } = useContext(AppContext);
+  const {
+    data: signature,
+    isError: errorSign,
+    isLoading: loadingSign,
+    isSuccess: successSign,
+    signMessage,
+  } = useSignMessage({
+    message,
+  });
   const { connect, connectors } = useConnect({
-    onConnect(_) {
+    onConnect({ account }) {
       // closing the modal after connected
-      setOpenModal(false);
       toast.success("Connected to wallet", {
         duration: 750,
       });
+      setLoadingAuth(true);
+      getSignatureMessage(account)
+        .then(setMessage)
+        .finally(() => {
+          setLoadingAuth(false);
+        });
     },
     onError(error) {
       toast.error(error.message, {
@@ -26,8 +51,8 @@ const ConnectWalletModal = ({ setOpenModal, isMounted }) => {
     },
   });
 
-  const connectWallet = (connector) => {
-    connect(connector);
+  const connectWallet = async (connector) => {
+    await connect(connector);
   };
 
   // metamask
@@ -45,8 +70,38 @@ const ConnectWalletModal = ({ setOpenModal, isMounted }) => {
     return connector.name === "Coinbase Wallet";
   });
 
+  useEffect(() => {
+    if (message) {
+      signMessage();
+    }
+  }, [message]);
+
+  useEffect(() => {
+    if (signature && successSign) {
+      setLoadingAuth(true);
+      getAuthToken({ address: address.address, message, signature }).then(
+        (data) => {
+          setAuthToken(data.access);
+          setLoadingAuth(false);
+          setOpenModal(false);
+        }
+      );
+    }
+  }, [signature]);
+
+  useEffect(() => {
+    if (errorSign) {
+      toast.error("Error when sign message, please contact admin");
+    }
+  }, [errorSign]);
+
   return (
     <Modal isMounted={isMounted} setOpenModal={setOpenModal}>
+      {(loadingAuth || loadingConnect || loadingSign) && (
+        <div className="absolute w-full h-full inset-0 z-50 flex justify-center items-center backdrop-blur-[2px]">
+          <Spinner height="40px" width="40px" />
+        </div>
+      )}
       <div className="text-center md:w-[500px] min-h-[calc(100vh-90px)] md:min-h-[auto] md:h-auto">
         {/* Heading Texts */}
         <h1 className="text-[32px] leading-10 mb-2">Connect your wallet </h1>

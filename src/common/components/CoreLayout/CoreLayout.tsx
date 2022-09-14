@@ -1,3 +1,4 @@
+import { add } from "date-fns";
 import { PropsWithChildren, useEffect, useReducer, useState } from "react";
 import {
   configureChains,
@@ -18,7 +19,7 @@ import {
   APIResultContext,
   initialAPIContextData,
 } from "@/common/context/api.context";
-import { ModalContext } from "@/common/context/modal.context";
+import { AppContext } from "@/common/context/app.context";
 
 import ConnectWalletModal from "./ConnectWallet/ConnectWalletModal";
 import { SubcribeModal } from "./SubcribeModal";
@@ -74,6 +75,10 @@ const renderModal = ({ id, isMounted, setOpenModal }: ModalProps) => {
       );
   }
 };
+type AccessToken = {
+  accessToken: string;
+  expiredAt: Date;
+};
 
 export const CoreLayout = ({
   children,
@@ -82,6 +87,7 @@ export const CoreLayout = ({
   // modal with list of wallet providers eg: metamask, coinbase & walletconnect
   const [isMounted, setIsMounted] = useState(false);
   const [modalId, setModalId] = useState("");
+  const [authToken, setAuthToken] = useState<AccessToken>(null);
   const [data, dispatch] = useReducer<typeof apiReducer>(
     apiReducer,
     initialAPIContextData
@@ -109,22 +115,38 @@ export const CoreLayout = ({
 
   useEffect(() => {
     setIsSSR(false);
+    const authToken = JSON.parse(localStorage.getItem("authToken")) || null;
+    setAuthToken(authToken);
   }, []);
 
   if (isSSR) {
     return null;
   }
 
+  const handleSetToken = (accessToken: string) => {
+    const authToken = {
+      accessToken,
+      expiredAt: add(+new Date(), {
+        minutes: 5,
+        seconds: -30,
+      }),
+    };
+    localStorage.setItem("authToken", JSON.stringify(authToken));
+    setAuthToken(authToken);
+  };
+
   return (
     <>
       {/* // Passing client to React Context Provider */}
       <WagmiConfig client={client}>
-        <ModalContext.Provider
+        <AppContext.Provider
           value={{
+            auth: authToken,
+            setAuthToken: handleSetToken,
             isMounted,
             openModal,
             closeModal,
-            id: modalId,
+            modalId,
           }}
         >
           <APIResultContext.Provider value={{ ...data }}>
@@ -161,7 +183,7 @@ export const CoreLayout = ({
               })}
             </APIDispatchContext.Provider>
           </APIResultContext.Provider>
-        </ModalContext.Provider>
+        </AppContext.Provider>
       </WagmiConfig>
     </>
   );

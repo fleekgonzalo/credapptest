@@ -1,7 +1,7 @@
 import { useContext } from "react";
 
 import { CircularProgressbar } from "@/common/components/CircularProgressbar";
-import { ModalContext } from "@/common/context/modal.context";
+import { AppContext } from "@/common/context/app.context";
 
 interface Props {
   value: number;
@@ -22,7 +22,7 @@ export const CircularCredScoreProgressBar = ({
   loading,
   address,
 }: Partial<Props>) => {
-  const { openModal } = useContext(ModalContext);
+  const { openModal } = useContext(AppContext);
   return (
     <div className="flex items-center justify-center h-full -mt-4 md:-mt-8">
       <CircularProgressbar
