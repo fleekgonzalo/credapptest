@@ -8,7 +8,7 @@ export const WhereMyScore = () => {
       <div className="flex flex-col gap-y-5 tracking-wide">
         <p>
           Your Cred Score is based on your history of activity interacting with
-          lending protocols and crypto-currencies.
+          lending protocols and digital assets.
         </p>
         <p>
           Once you have enough activity, you{"'"}ll automatically get a score

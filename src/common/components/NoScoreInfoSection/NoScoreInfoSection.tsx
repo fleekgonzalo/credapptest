@@ -7,8 +7,8 @@ export const NoScoreInfoSection = ({ children }) => {
       <InfoCard headingText="how do i build my credit?">
         <div className="flex flex-col gap-y-5">
           <p>
-            The products listed below are popular places to engage with
-            crypto-currencies.
+            The products listed below are popular places to engage with digital
+            assets.
           </p>
           <p className="tracking-wide">
             Using them helps build your credit history.
