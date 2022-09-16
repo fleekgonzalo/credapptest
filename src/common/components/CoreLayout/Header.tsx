@@ -12,8 +12,6 @@ import Popover from "@/common/components/Popover/Popover";
 import { AppContext } from "@/common/context/app.context";
 import { shortenWalletAddress } from "@/common/utils/string";
 
-import { SignUpButton } from "../SignupButton";
-
 interface Props {
   className?: string;
   openWalletModal: () => void;
@@ -33,7 +31,7 @@ const createLink = ({ onClickCredMonitor }) => [
     link: "https://beta.credprotocol.com/docs/api",
   },
   {
-    label: "About",
+    label: "FAQs",
     link: "https://docs.credprotocol.com/",
   },
   {
@@ -84,8 +82,7 @@ const Header = ({ className, openWalletModal, hideNavItems }: Props) => {
         <LogoIcon className="h-[40px] md:h-[48px] w-[75.4px] md:w-[90.48px]" />
       </div>
       {hideNavItems ? null : (
-        <nav className="flex items-center gap-4">
-          <SignUpButton />
+        <nav className="flex items-center gap-8">
           <ul className="items-center hidden gap-8 text-base leading-5 text-white md:flex">
             {LINKS.map(({ link, label, action }) => {
               return (
