@@ -127,8 +127,7 @@ export const CoreLayout = ({
     const authToken = {
       accessToken,
       expiredAt: add(+new Date(), {
-        minutes: 5,
-        seconds: -30,
+        days: 29,
       }),
     };
     localStorage.setItem("authToken", JSON.stringify(authToken));
