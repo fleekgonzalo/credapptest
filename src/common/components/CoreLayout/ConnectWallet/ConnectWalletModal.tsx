@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { useAccount, useConnect, useSignMessage } from "wagmi";
+import { useAccount, useConnect, useDisconnect, useSignMessage } from "wagmi";
 
 import {
   MetaMaskIcon,
@@ -31,6 +31,7 @@ const ConnectWalletModal = ({ setOpenModal, isMounted }) => {
   } = useSignMessage({
     message,
   });
+  const { disconnect } = useDisconnect();
   const { connect, connectors } = useConnect({
     onConnect({ account }) {
       // closing the modal after connected
@@ -92,6 +93,7 @@ const ConnectWalletModal = ({ setOpenModal, isMounted }) => {
   useEffect(() => {
     if (errorSign) {
       toast.error("Error when sign message, please contact admin");
+      disconnect();
     }
   }, [errorSign]);
 

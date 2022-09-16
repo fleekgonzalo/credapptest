@@ -66,6 +66,8 @@ const Header = ({ className, openWalletModal, hideNavItems }: Props) => {
           });
           setTimeout(() => disconnect(), 1000);
         }
+      } else {
+        setTimeout(() => disconnect(), 1000);
       }
     }
   }, []);
