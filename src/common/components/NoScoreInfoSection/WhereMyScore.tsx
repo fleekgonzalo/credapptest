@@ -17,7 +17,7 @@ export const WhereMyScore = () => {
 
         <Button className="font-semibold px-[11.5px]" variant="primary">
           <a
-            href="https://credprotocol.typeform.com/monitoring"
+            href="https://credprotocol.typeform.com/to/s1hMxTks"
             rel="noreferrer"
             target="_blank"
           >
