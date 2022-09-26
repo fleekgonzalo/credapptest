@@ -35,11 +35,7 @@ const createLink = ({ onClickCredMonitor }) => [
     link: "https://docs.credprotocol.com/",
   },
   {
-    label: "Careers",
-    link: "https://join.credprotocol.com/",
-  },
-  {
-    label: "Cred Monitor",
+    label: "Monitor your Score",
     link: "#",
     action: onClickCredMonitor,
   },
