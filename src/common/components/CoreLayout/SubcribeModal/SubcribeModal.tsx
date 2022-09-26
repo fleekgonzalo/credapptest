@@ -47,7 +47,7 @@ export const SubcribeModal = ({ setOpenModal, isMounted }) => {
       );
       if (result.data.email) {
         setErrorMsg(
-          "This email is already signed up for the cred monitor service."
+          "This email is already signed up for the Cred Monitoring Service."
         );
       } else {
         setIsSucess(true);
@@ -80,14 +80,13 @@ export const SubcribeModal = ({ setOpenModal, isMounted }) => {
         <div className="md:w-[480px] min-h-[calc(100vh-90px)] md:min-h-[auto] md:h-auto">
           {/* Heading Texts */}
           <h1 className="text-[32px] leading-10 mb-2 text-center">
-            Stay on top of your Credit Score
+            Monitor your Score
           </h1>
 
           <div className="md:max-h-[600px]  m-auto overflow-auto">
             <div className="md:max-w-[440px] mb-8 text-center">
-              Subscribe to receive notifications about any changes to your
-              Credit Score as well as personalized education to understand and
-              improve your score.
+              Get notificatied about changes to your Cred Score. Receive
+              personalized tips on improving your score.
             </div>
             <div className="flex relative pb-8">
               <input
@@ -118,7 +117,7 @@ export const SubcribeModal = ({ setOpenModal, isMounted }) => {
                 {errorMsg}
               </div>
             </div>
-            <div className=" flex items-center gap-x-1">
+            <div className=" flex items-center gap-x-3">
               <Checkbox
                 checked={isCheck}
                 isError={notChecked}
