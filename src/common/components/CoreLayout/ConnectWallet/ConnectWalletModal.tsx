@@ -151,6 +151,30 @@ const ConnectWalletModal = ({ setOpenModal, isMounted }) => {
             </span>
           </button>
         </div>
+        <div className="md:max-h-[600px] overflow-auto mt-10">
+          <span className="text-xs">
+            Wallets are provided by External Providers and by selecting you
+            agree to Terms of those Providers and the Cred Protocol{" "}
+            <a
+              className="underline"
+              href="https://join.credprotocol.com/legal/terms"
+              rel="noreferrer"
+              target="_blank"
+            >
+              Terms of Service
+            </a>{" "}
+            and{" "}
+            <a
+              className="underline"
+              href="https://join.credprotocol.com/legal/privacy"
+              rel="noreferrer"
+              target="_blank"
+            >
+              Privacy Policy
+            </a>
+            .
+          </span>
+        </div>
       </div>
     </Modal>
   );
