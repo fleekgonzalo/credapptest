@@ -4,7 +4,7 @@ import { Button } from "../Button";
 
 export const WhereMyScore = () => {
   return (
-    <InfoCard headingText="where's is my score?">
+    <InfoCard headingText="where's my score?">
       <div className="flex flex-col gap-y-5 tracking-wide">
         <p>
           Your Cred Score is based on your history of activity interacting with

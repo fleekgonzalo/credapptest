@@ -85,7 +85,7 @@ export const SubcribeModal = ({ setOpenModal, isMounted }) => {
 
           <div className="md:max-h-[600px]  m-auto overflow-auto">
             <div className="md:max-w-[440px] mb-8 text-center">
-              Get notificatied about changes to your Cred Score. Receive
+              Get notified about changes to your Cred Score. Receive
               personalized tips on improving your score.
             </div>
             <div className="flex relative pb-8">
