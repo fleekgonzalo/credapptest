@@ -19,7 +19,7 @@ export const PartnerSection = ({ loading }: Props) => {
     data: recommendedData,
     error: recommendedError,
     loading: recommendedLoading,
-  }: RecommendedFetch = useFetcher(recommendAPI);
+  }: RecommendedFetch = useFetcher(recommendAPI, false);
 
   if (recommendedError) {
     toast.error("Fetch recommended data error", {
