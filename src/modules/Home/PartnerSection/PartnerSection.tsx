@@ -29,7 +29,7 @@ export const PartnerSection = ({ loading }: Props) => {
 
   return (
     <section className="mt-6">
-      <h2 className="mb-6 font-bold">Start building your credit</h2>
+      <h2 className="mb-6 font-bold">Build your web3 credit score</h2>
       <div>
         <div className="grid grid-cols-1 gap-6 md:gap-8 md:grid-cols-2 lg:grid-cols-3">
           {(recommendedData?.recommendations || Array(6).fill(1)).map(
