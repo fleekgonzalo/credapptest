@@ -15,7 +15,10 @@ export const WhereMyScore = () => {
           that{"'"}ll help you manage your on-chain finances.
         </p>
 
-        <Button className="font-semibold px-[11.5px]" variant="primary">
+        <Button
+          className="font-semibold px-[11.5px] mt-1 mb-1"
+          variant="primary"
+        >
           <a
             href="https://credprotocol.typeform.com/to/s1hMxTks"
             rel="noreferrer"
