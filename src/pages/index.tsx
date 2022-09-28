@@ -9,7 +9,7 @@ const HomePage = dynamic(() => import("@/modules/Home"), {
 const Home = () => {
   return (
     <>
-      <PageHead description="Cred Protocol" name="Home" />
+      <PageHead description="Cred Protocol" name="Cred Score" />
       <HomePage />
     </>
   );
