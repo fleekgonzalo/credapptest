@@ -76,13 +76,11 @@ const HomePage = () => {
         credScoreData={credScoreData}
         loading={credScoreLoading}
       />
-      {account?.address ? (
-        !hasScore ? (
-          <PartnerSection loading={credScoreLoading} />
-        ) : (
-          <CreditFactors loading={credScoreLoading} />
-        )
-      ) : null}
+      {!account?.address || !hasScore ? (
+        <PartnerSection loading={credScoreLoading} />
+      ) : (
+        <CreditFactors loading={credScoreLoading} />
+      )}
       <SubscribeSection />
     </div>
   );
