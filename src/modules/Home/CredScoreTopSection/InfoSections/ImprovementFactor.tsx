@@ -69,7 +69,7 @@ const ImprovementFactor = () => {
             ></p>
             {hasBreakLine ? (
               <u className="pl-1 cursor-pointer" onClick={toggleExtend}>
-                {extend ? "See less" : "See more..."}
+                {extend ? "see less" : "see more"}
               </u>
             ) : null}
           </div>
