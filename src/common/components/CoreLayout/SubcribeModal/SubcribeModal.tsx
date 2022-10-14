@@ -1,10 +1,11 @@
 import axios from "axios";
 import classNames from "classnames";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import toast from "react-hot-toast";
 import { useAccount } from "wagmi";
 
 import { Modal } from "@/common/components/Modal";
+import { AppContext } from "@/common/context/app.context";
 import { getApiUrl } from "@/common/utils/string";
 
 import { Checkbox } from "../../Checkbox";
@@ -19,6 +20,7 @@ export const SubcribeModal = ({ setOpenModal, isMounted }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [isSuccess, setIsSucess] = useState(false);
+  const { auth } = useContext(AppContext);
 
   const handleSubmit = async () => {
     if (!isCheck) {
@@ -39,10 +41,7 @@ export const SubcribeModal = ({ setOpenModal, isMounted }) => {
           endpoint: "monitor/",
         })}/${email}`,
         {
-          auth: {
-            username: process.env.NEXT_PUBLIC_USERNAME,
-            password: process.env.NEXT_PUBLIC_PASSWORD,
-          },
+          headers: { Authorization: "Bearer " + auth?.accessToken },
         }
       );
       if (result.data.email) {
