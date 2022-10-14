@@ -15,14 +15,9 @@ function useFetch(url: string, tokenRequire = true) {
     if (tokenRequire) {
       if (!auth) return;
     }
-    const authHeader = tokenRequire
+    const authHeader = auth
       ? { headers: { Authorization: "Bearer " + auth.accessToken } }
-      : {
-          auth: {
-            username: process.env.NEXT_PUBLIC_USERNAME,
-            password: process.env.NEXT_PUBLIC_PASSWORD,
-          },
-        };
+      : {};
 
     setLoading(true);
     axios

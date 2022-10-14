@@ -34,6 +34,10 @@ const WalletPopover = () => {
   };
 
   const activeConnectorItem = connectors[activeConnector?.id];
+  const disconnectWallet = () => {
+    localStorage.removeItem("authToken");
+    disconnect();
+  };
 
   if (!activeConnectorItem) {
     return <></>;
@@ -59,7 +63,7 @@ const WalletPopover = () => {
           "text-sm w-10/12 py-1.5 uppercase font-semibold md:flex"
         )}
         variant="primary"
-        onClick={() => disconnect()}
+        onClick={disconnectWallet}
       >
         Disconnect
       </Button>
