@@ -1,3 +1,5 @@
+import * as _ from "lodash";
+
 import { getTailwindColor } from "@/styles/theme";
 import { ReportAddressResult, ReportAssetResult } from "@/types/api";
 
@@ -16,16 +18,47 @@ export const generateMetricConfig = (configs: MetricConfig[]) => {
 };
 
 export const extractAddressAPIData = (data: ReportAddressResult) => {
-  const {
-    total_asset_value_usd,
-    total_asset_percentile,
-    total_deposit_percentile,
-    total_debt_percentile,
-    total_collateral_percentile,
-    total_collateral_value_usd,
-    total_deposit_value_usd,
-    total_debt_value_usd,
-  } = data.report;
+  const { general_report, lending_report } = data.report;
+
+  const total_asset_value_usd = _.get(
+    general_report,
+    "global_summary_stats.total_asset_amount_usd"
+  );
+
+  const total_asset_percentile = _.get(
+    general_report,
+    "global_percentiles.total_asset_amount_usd"
+  );
+
+  const total_deposit_percentile = _.get(
+    lending_report,
+    "global_percentiles.total_deposit_amount_usd"
+  );
+
+  const total_debt_percentile = _.get(
+    lending_report,
+    "global_percentiles.total_borrow_amount_usd"
+  );
+
+  const total_deposit_value_usd = _.get(
+    lending_report,
+    "global_summary_stats.total_deposit_amount_usd"
+  );
+
+  const total_debt_value_usd = _.get(
+    lending_report,
+    "global_summary_stats.total_borrow_amount_usd"
+  );
+
+  const total_collateral_percentile = _.get(
+    lending_report,
+    "global_percentiles.total_deposit_amount_usd"
+  );
+
+  const total_collateral_value_usd = _.get(
+    lending_report,
+    "global_summary_stats.total_deposit_amount_usd"
+  );
 
   return [
     {
