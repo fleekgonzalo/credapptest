@@ -6,9 +6,33 @@ type ReportFactor = {
   description: string;
   learn_more?: string;
 };
+
 export type ReportAddressResult = {
   account: string;
   report: {
+    general_report: {
+      global_summary_stats: {
+        total_asset_amount_usd: string; // previously total_asset_value_usd: string;
+      };
+      global_percentiles: {
+        total_asset_amount_usd: string; // previously total_asset_percentile: string;
+      };
+    };
+    lending_report: {
+      global_summary_stats: {
+        // previously total_deposit_value_usd: string;
+        // also previously total_collateral_value_usd: string;
+        total_deposit_amount_usd: string;
+        total_borrow_amount_usd: string; // previously total_debt_value_usd: string;
+      };
+      global_percentiles: {
+        // previously total_deposit_percentile: string;
+        // also previously total_collateral_percentile: string;
+        total_deposit_amount_usd: string;
+        // previously total_debt_percentile: string;
+        total_borrow_amount_usd: string;
+      };
+    };
     created: string;
     updated: string;
     account_creation_timestamp: string;
@@ -57,7 +81,6 @@ export type ReportAddressResult = {
     decile: string;
     model_version: string;
     debt_equity_ratio: string;
-    total_asset_value_usd: string;
     total_asset_value_eth: string;
     safety_factor_delta_1_day: string;
     safety_factor_delta_7_day: string;
@@ -68,7 +91,6 @@ export type ReportAddressResult = {
     safety_factor_moving_average_30_day: string;
     safety_factor_moving_average_90_day: string;
     safety_factor_percentile: string;
-    total_collateral_value_usd: string;
     total_collateral_value_eth: string;
     collateral_value_delta_1_day: string;
     collateral_value_delta_7_day: string;
@@ -78,8 +100,6 @@ export type ReportAddressResult = {
     collateral_value_moving_average_7_day: string;
     collateral_value_moving_average_30_day: string;
     collateral_value_moving_average_90_day: string;
-    total_collateral_percentile: string;
-    total_debt_value_usd: string;
     total_debt_value_eth: string;
     debt_value_delta_1_day: string;
     debt_value_delta_7_day: string;
@@ -89,9 +109,6 @@ export type ReportAddressResult = {
     debt_value_moving_average_7_day: string;
     debt_value_moving_average_30_day: string;
     debt_value_moving_average_90_day: string;
-    total_debt_percentile: string;
-    total_deposit_percentile: string;
-    total_asset_percentile: string;
     number_of_transactions_moving_average_7_day: string;
     number_of_transactions_moving_average_30_day: string;
     number_of_transactions_moving_average_90_day: string;
@@ -110,7 +127,6 @@ export type ReportAddressResult = {
     number_of_liquidations_moving_average_7_day: string;
     number_of_liquidations_moving_average_30_day: string;
     number_of_liquidations_moving_average_90_day: string;
-    total_deposit_value_usd: string;
     total_deposit_value_eth: string;
     factors: ReportFactor[];
   };
