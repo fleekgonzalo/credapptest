@@ -54,7 +54,7 @@ export const ReportHistoryChart = ({
       ) : (
         <div className="flex justify-between flex-col md:flex-row mb-[30px] md:mb-6">
           <h2 className="text-xl leading-[18px] font-bold tracking-widest mb-6 md:mb-0">
-            Your account history
+            Your borrowing history
             <InfoWithTooltip>
               <div className="w-[209px] text-xs">
                 <p>
