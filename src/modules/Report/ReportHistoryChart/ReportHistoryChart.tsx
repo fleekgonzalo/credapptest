@@ -5,7 +5,7 @@ import AutoSizer from "react-virtualized-auto-sizer";
 import { Card } from "@/common/components/Card";
 import { ComposeHistoryChart } from "@/common/components/ComposeHistoryChart";
 import { getTailwindColor } from "@/styles/theme";
-import { HistoryResult } from "@/types/api";
+import { HistoryResultUSD } from "@/types/api";
 
 import { metricConfigs } from "../constant";
 import { generateMetricConfig } from "../helpers";
@@ -35,7 +35,7 @@ export const ReportHistoryChart = ({
   data,
   loading,
 }: {
-  data: HistoryResult;
+  data: HistoryResultUSD;
   loading: boolean;
 }) => {
   const metrics = generateMetricConfig(metricConfigs);

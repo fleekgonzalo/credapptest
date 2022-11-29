@@ -76,7 +76,7 @@ export const generateChartData = (data: ReportAssetResult, metric: string) => {
   if (!data) {
     return null;
   }
-  const total = data.total[0];
+  const total = data.total;
   const metricTotal = parseFloat(total[metric]);
   const chains = generateChainData(data.chains, metricTotal, metric).filter(
     (chain) => chain.value !== null
@@ -86,6 +86,7 @@ export const generateChartData = (data: ReportAssetResult, metric: string) => {
     metricTotal,
     metric
   ).filter((chain) => chain.value !== null);
+
   return [
     {
       id: "root",

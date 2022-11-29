@@ -1,7 +1,7 @@
 import { compareAsc, parse } from "date-fns";
 
 import { monthMapping } from "@/constant/reportData";
-import { HistoryResult } from "@/types/api";
+import { HistoryResultUSD } from "@/types/api";
 
 export const parseNum = (num: string) => {
   return isNaN(parseFloat(num)) ? null : parseFloat(num);
@@ -15,7 +15,7 @@ type ChartData = {
   asset: number;
 };
 
-export const generateHistoryData = (data: HistoryResult) => {
+export const generateHistoryData = (data: HistoryResultUSD) => {
   if (!data) {
     return null;
   }
@@ -53,10 +53,10 @@ export const generateHistoryData = (data: HistoryResult) => {
       const month = dayData.date.slice(0, 7);
       if (dict[month]) {
         dict[month] = {
-          asset: parseNum(dayData.asset),
-          deposit: parseNum(dayData.deposit),
-          collateral: parseNum(dayData.collateral),
-          debt: parseNum(dayData.debt),
+          asset: parseNum(dayData.asset_in_wallet_usd),
+          deposit: parseNum(dayData.deposit_usd),
+          collateral: parseNum(dayData.collateral_usd),
+          debt: parseNum(dayData.debt_usd),
           date: monthMapping[month.slice(5)],
         };
       }

@@ -17,19 +17,12 @@ type ReportPageProps = {
   address: string;
 };
 
-const ReportPage = ({ address }: ReportPageProps) => {
+const ReportPage = ({}: ReportPageProps) => {
+  const address = "0x4BaAD650A6E58C4D3bE40358657BAc526927b53d";
   const dispatch = useContext(APIDispatchContext);
   const scoreAPI = getApiUrl({
     address,
     endpoint: "report/address/",
-  });
-  const assetAPI = getApiUrl({
-    address,
-    endpoint: "asset/address/",
-  });
-  const historyAPI = getApiUrl({
-    address,
-    endpoint: "asset/history/address/",
   });
 
   const {
@@ -37,15 +30,6 @@ const ReportPage = ({ address }: ReportPageProps) => {
     error: credScoreError,
     loading: credScoreLoading,
   }: ReportAddressFetch = useFetcher(scoreAPI);
-
-  const { data: historyData, loading: historyLoading }: HistoryFetch =
-    useFetcher(historyAPI);
-
-  const {
-    data: assetAPIData,
-    error: assetAPIError,
-    loading: assetAPILoading,
-  }: AssetAddressFetch = useFetcher(assetAPI);
 
   useEffect(() => {
     if (credScoreLoading) {
@@ -59,6 +43,8 @@ const ReportPage = ({ address }: ReportPageProps) => {
       });
     }
   }, [credScoreData, credScoreError, credScoreLoading, dispatch]);
+
+  console.log("credScoreData", credScoreData);
 
   return (
     <div className="py-12 md:py-16 px-5 max-w-[1130px] mx-auto">
@@ -92,14 +78,20 @@ const ReportPage = ({ address }: ReportPageProps) => {
         </div>
       </div>
       <hr className="my-8 text-white/20" />
-      <ReportYourHolding data={assetAPIData} loading={assetAPILoading} />
-      <ReportHistoryChart data={historyData} loading={historyLoading} />
+      <ReportYourHolding
+        data={credScoreData?.report?.assets}
+        loading={credScoreLoading}
+      />
+      <ReportHistoryChart
+        data={credScoreData?.report?.asset_history}
+        loading={credScoreLoading}
+      />
       <div className="flex flex-col md:flex-row gap-8 mt-8">
         <ReportStatistic />
         <ReportAssets
-          assetAPIData={assetAPIData}
-          assetAPIError={assetAPIError}
-          assetAPILoading={assetAPILoading}
+          assetAPIData={credScoreData?.report?.assets}
+          assetAPIError={credScoreError}
+          assetAPILoading={credScoreLoading}
         />
       </div>
     </div>

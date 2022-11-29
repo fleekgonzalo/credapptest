@@ -10,15 +10,15 @@ import { SunburstChart } from "../SunburtChart";
 const options = [
   {
     label: "Total Assets",
-    value: "asset",
+    value: "asset_in_wallet_usd",
   },
   {
     label: "Deposit",
-    value: "deposit",
+    value: "deposit_usd",
   },
   {
     label: "Debt",
-    value: "debt",
+    value: "debt_usd",
   },
 ];
 type Props = {
@@ -50,7 +50,7 @@ const YourHoldingSkeleton = () => {
   );
 };
 export const ReportYourHolding = ({ data, loading }: Props) => {
-  const [metric, setMetric] = useState("asset");
+  const [metric, setMetric] = useState(options[0].value);
 
   if (loading) {
     return <YourHoldingSkeleton />;

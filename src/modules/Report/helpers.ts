@@ -88,9 +88,9 @@ export const extractAssetAPIData = (
   data: ReportAssetResult,
   metric: string
 ) => {
-  const { symbols } = data;
+  const { erc20 } = data;
 
-  return symbols.map((symbol) => ({
+  return erc20.map((symbol) => ({
     name: symbol.symbol,
     value: isNaN(parseFloat(symbol[metric]))
       ? null
