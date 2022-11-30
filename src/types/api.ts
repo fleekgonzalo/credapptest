@@ -7,16 +7,16 @@ type ReportFactor = {
   learn_more?: string;
 };
 
-export type ChainDataUSD = { chain: string } & AssetData;
-export type ProtocolDataUSD = { protocol: string } & ChainData;
-export type SymbolDataUSD = { symbol: string } & ProtocolData;
-export type TokenDataUsd = { symbol: string; address: string } & AssetData;
+export type ChainData = { chain: string } & AssetData;
+export type ProtocolData = { protocol: string } & ChainData;
+export type SymbolData = { symbol: string } & ProtocolData;
+export type TokenData = { symbol: string; address: string } & AssetData;
 
 export type ReportAssetResult = {
-  chains: ChainDataUSD[];
-  total: AssetDataUSD;
-  protocols: ProtocolDataUSD[];
-  erc20: TokenDataUsd[];
+  chains: ChainData[];
+  total: AssetData;
+  protocols: ProtocolData[];
+  erc20: TokenData[];
 };
 
 export type HistoryResultUSD = HistoryDataUSD[];
@@ -63,18 +63,13 @@ export type ReportAddressResult = {
   };
 };
 
-type AssetDataUSD = {
+type AssetData = {
   debt_usd: string;
   collateral_usd: string;
   deposit_usd: string;
   asset_in_wallet_usd: string;
 };
-type AssetData = {
-  debt: string;
-  collateral: string;
-  deposit: string;
-  asset: string;
-};
+
 type HistoryData = {
   account: string;
   date: string;
@@ -83,10 +78,6 @@ type HistoryData = {
   deposit: string;
   asset: string;
 };
-
-export type ChainData = { chain: string } & AssetData;
-export type ProtocolData = { protocol: string } & ChainData;
-export type SymbolData = { symbol: string } & ProtocolData;
 
 export type HistoryResult = HistoryData[];
 
