@@ -105,15 +105,6 @@ export const ComposeHistoryChart = ({
       {!data ? null : (
         <>
           <ReferenceLine stroke="white" y={0} />
-          <Bar barSize={80} dataKey="asset">
-            {data.map((_, index) => (
-              <Cell
-                key={`cell-${index}`}
-                fill="#4D4F80"
-                strokeWidth={index === 2 ? 4 : 1}
-              />
-            ))}
-          </Bar>
           {metrics.slice(0, 3).map((metric) => (
             <Line
               key={metric.metricName}

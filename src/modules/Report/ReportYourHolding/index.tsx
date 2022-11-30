@@ -9,16 +9,12 @@ import { SunburstChart } from "../SunburtChart";
 
 const options = [
   {
-    label: "Net Assets",
+    label: "Total Assets",
     value: "asset",
   },
   {
     label: "Deposit",
     value: "deposit",
-  },
-  {
-    label: "Collateral",
-    value: "collateral",
   },
   {
     label: "Debt",
@@ -70,10 +66,6 @@ export const ReportYourHolding = ({ data, loading }: Props) => {
               <p>
                 Breakdown of Holdings per metric grouped by Total, Protocols,
                 and Chains.
-              </p>
-              <p className="mt-4">
-                Collateral is a subset of Deposit and Net Assets = Deposit -
-                Collateral.
               </p>
             </div>
           </InfoWithTooltip>

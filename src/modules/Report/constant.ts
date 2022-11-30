@@ -59,11 +59,6 @@ export const metricConfigs = [
     color: "blue-chart",
   },
   {
-    name: "collateral",
-    label: "Collateral",
-    color: "orange",
-  },
-  {
     name: "debt",
     label: "Debt",
     color: "red",
