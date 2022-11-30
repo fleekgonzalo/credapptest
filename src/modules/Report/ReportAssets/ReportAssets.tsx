@@ -18,10 +18,10 @@ import { FilterPieChart, NotEnoughDataSymbol } from "./NotEnoughData";
 const ICON_SIZE = 24;
 
 const options = [
-  { label: "Net Assets", value: "asset" },
-  { label: "Debt", value: "debt" },
-  { label: "Collateral", value: "collateral" },
-  { label: "Deposit", value: "deposit" },
+  { label: "Net Assets", value: "asset_in_wallet_usd" },
+  { label: "Debt", value: "debt_usd" },
+  { label: "Collateral", value: "collateral_usd" },
+  { label: "Deposit", value: "deposit_usd" },
 ];
 const metricColors = {
   asset: "purple-bar",
@@ -43,7 +43,7 @@ const ReportAssets = ({
   assetAPIError,
   assetAPILoading,
 }: ReportAssetsProps) => {
-  const [selectedMetric, setSelectedMetric] = useState("collateral");
+  const [selectedMetric, setSelectedMetric] = useState("collateral_usd");
   let chartData = null;
   let hasNegative = false;
   let isEmpty = false;
@@ -150,7 +150,7 @@ const ReportAssets = ({
                   <img
                     alt="asset"
                     height={ICON_SIZE}
-                    src={`/image/asset_logo_${asset.name.toUpperCase()}.png`}
+                    src={`${process.env.NEXT_PUBLIC_TOKEN_ICON_CDN_URL}${asset.address}.png`}
                     width={ICON_SIZE}
                     onError={handleImgNotfound}
                   />

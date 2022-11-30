@@ -95,5 +95,6 @@ export const extractAssetAPIData = (
     value: isNaN(parseFloat(symbol[metric]))
       ? null
       : parseFloat(symbol[metric]),
+    address: symbol.address,
   }));
 };
