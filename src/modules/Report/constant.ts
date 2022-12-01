@@ -7,17 +7,17 @@ export const defaultStatisticData = [
 
 export const metricConfigs = [
   {
-    name: "asset_in_wallet_usd",
+    name: "asset",
     label: "Net Assets",
     color: "purple-bar",
   },
   {
-    name: "deposit_usd",
+    name: "deposit",
     label: "Deposit",
     color: "blue-chart",
   },
   {
-    name: "debt_usd",
+    name: "debt",
     label: "Debt",
     color: "red",
   },
