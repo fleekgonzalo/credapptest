@@ -20,7 +20,8 @@ const ICON_SIZE = 24;
 const options = [
   { label: "Net Assets", value: "asset_in_wallet_usd" },
   { label: "Debt", value: "debt_usd" },
-  { label: "Collateral", value: "collateral_usd" },
+  // Comment out collateral for now
+  // { label: "Collateral", value: "collateral_usd" },
   { label: "Deposit", value: "deposit_usd" },
 ];
 const metricColors = {
@@ -43,7 +44,7 @@ const ReportAssets = ({
   assetAPIError,
   assetAPILoading,
 }: ReportAssetsProps) => {
-  const [selectedMetric, setSelectedMetric] = useState("collateral_usd");
+  const [selectedMetric, setSelectedMetric] = useState("asset_in_wallet_usd");
   let chartData = null;
   let hasNegative = false;
   let isEmpty = false;

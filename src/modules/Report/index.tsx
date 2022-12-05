@@ -11,7 +11,7 @@ import ReportAssets from "./ReportAssets";
 import { ReportHistoryChart } from "./ReportHistoryChart";
 import ReportStatistic from "./ReportStatistic";
 import { ReportYourHolding } from "./ReportYourHolding";
-import { AssetAddressFetch, HistoryFetch, ReportAddressFetch } from "./types";
+import { ReportAddressFetch } from "./types";
 
 type ReportPageProps = {
   address: string;
@@ -43,8 +43,6 @@ const ReportPage = ({}: ReportPageProps) => {
       });
     }
   }, [credScoreData, credScoreError, credScoreLoading, dispatch]);
-
-  console.log("credScoreData", credScoreData);
 
   return (
     <div className="py-12 md:py-16 px-5 max-w-[1130px] mx-auto">
