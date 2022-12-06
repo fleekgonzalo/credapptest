@@ -62,7 +62,7 @@ export const ReportYourHolding = ({ data, loading }: Props) => {
   }
 
   const isCollateralPresent = () => {
-    const collateralChartData = generateChartData(data, "collateral");
+    const collateralChartData = generateChartData(data, "collateral_usd");
     return !collateralChartData.some(
       (item) => item.id === "total" && item.value === null
     );
