@@ -51,6 +51,15 @@ const ReportStatistic = () => {
     statisticData = extractAddressAPIData(data);
   }
 
+  // Filter collateral data if collateral is not present
+  const filterStatisticData = statisticData?.filter(
+    (item) =>
+      item.metricName !== "collateral" ||
+      (item.metricName === "collateral" &&
+        item.value !== null &&
+        item.percentile !== null)
+  );
+
   return (
     <Card childWrapperClass="p-8 pb-9" className="grow md:w-1/2">
       <h2 className="font-bold text-xl leading-5 mb-9">
@@ -61,7 +70,7 @@ const ReportStatistic = () => {
           </div>
         </InfoWithTooltip>
       </h2>
-      {statisticData.map((metric) => (
+      {filterStatisticData.map((metric) => (
         <div
           key={metric.metricName}
           className="flex mb-10 last:mb-0 items-center"
