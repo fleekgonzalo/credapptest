@@ -20,8 +20,7 @@ const ICON_SIZE = 24;
 const options = [
   { label: "Total Assets", value: "asset_in_wallet_usd" },
   { label: "Debt", value: "debt_usd" },
-  // Comment out collateral for now
-  // { label: "Collateral", value: "collateral_usd" },
+  { label: "Collateral", value: "collateral_usd" },
   { label: "Deposit", value: "deposit_usd" },
 ];
 const metricColors = {
@@ -39,6 +38,23 @@ type ReportAssetsProps = {
   assetAPILoading: boolean;
 };
 
+const extractErc20ChartData = (assetAPIData, selectedMetric): [number, any] => {
+  let total = 0;
+
+  return [
+    total,
+    extractAssetAPIData(assetAPIData, selectedMetric)
+      .sort((a, b) => b.value - a.value)
+      .filter((i) => {
+        if (i.value !== null && i.value > 0) {
+          total += i.value;
+          return true;
+        }
+        return false;
+      }),
+  ];
+};
+
 const ReportAssets = ({
   assetAPIData,
   assetAPIError,
@@ -48,11 +64,24 @@ const ReportAssets = ({
   let chartData = null;
   let hasNegative = false;
   let isEmpty = false;
+  let filteredOptions = options;
 
   const handleImgNotfound = (e) => {
     const img = e.target;
     // add fallback image src here for unsupported asset
     img.src = "/image/asset_missing.png";
+  };
+
+  const filterOutCollateralIfNotPresent = () => {
+    const [_, extractedCollateralChartData] = extractErc20ChartData(
+      assetAPIData,
+      "collateral_usd"
+    );
+
+    if (extractedCollateralChartData.length === 0)
+      filteredOptions = options.filter(
+        (option) => option.value !== "collateral_usd"
+      );
   };
 
   useEffect(() => {
@@ -68,17 +97,12 @@ const ReportAssets = ({
   }
 
   if (assetAPIData) {
-    let total = 0;
+    const [total, extractedChartData] = extractErc20ChartData(
+      assetAPIData,
+      selectedMetric
+    );
 
-    chartData = extractAssetAPIData(assetAPIData, selectedMetric)
-      .sort((a, b) => b.value - a.value)
-      .filter((i) => {
-        if (i.value !== null && i.value > 0) {
-          total += i.value;
-          return true;
-        }
-        return false;
-      });
+    filterOutCollateralIfNotPresent();
 
     if (total > 0) {
       let combine = {
@@ -98,6 +122,8 @@ const ReportAssets = ({
           return false;
         })
         .concat(combine.value > 0 ? combine : []);
+    } else {
+      chartData = extractedChartData;
     }
     isEmpty = chartData.length < 1;
     hasNegative = chartData.some((item) => item.value < 0);
@@ -120,7 +146,7 @@ const ReportAssets = ({
         </h2>
         <Dropdown
           className="-mt-1"
-          options={options}
+          options={filteredOptions}
           value={selectedMetric}
           onChange={handleChangeMetric}
         />
