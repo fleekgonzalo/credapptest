@@ -1,5 +1,5 @@
 export const defaultStatisticData = [
-  { metricName: "net assets", value: null, percentile: "" },
+  { metricName: "total assets", value: null, percentile: "" },
   { metricName: "deposit", value: null, percentile: "" },
   { metricName: "collateral", value: null, percentile: "" },
   { metricName: "debt", value: null, percentile: "" },
@@ -8,7 +8,7 @@ export const defaultStatisticData = [
 export const metricConfigs = [
   {
     name: "asset",
-    label: "Net Assets",
+    label: "Total Assets",
     color: "purple-bar",
   },
   {

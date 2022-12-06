@@ -18,7 +18,7 @@ import { FilterPieChart, NotEnoughDataSymbol } from "./NotEnoughData";
 const ICON_SIZE = 24;
 
 const options = [
-  { label: "Net Assets", value: "asset_in_wallet_usd" },
+  { label: "Total Assets", value: "asset_in_wallet_usd" },
   { label: "Debt", value: "debt_usd" },
   // Comment out collateral for now
   // { label: "Collateral", value: "collateral_usd" },
