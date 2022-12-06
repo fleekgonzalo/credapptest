@@ -43,7 +43,7 @@ const yAxisTickFormater = (value: number, index: number) => {
   }
   return `$${value}`;
 };
-const metricNames = ["debt", "deposit", "collateral", "asset"];
+
 const CustomizedDot = (props) => {
   const { cx, cy, stroke, payload, value } = props;
 

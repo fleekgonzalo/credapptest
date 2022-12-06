@@ -12,6 +12,11 @@ export const metricConfigs = [
     color: "purple-bar",
   },
   {
+    name: "collateral",
+    label: "Collateral",
+    color: "orange",
+  },
+  {
     name: "deposit",
     label: "Deposit",
     color: "blue-chart",
@@ -22,6 +27,7 @@ export const metricConfigs = [
     color: "red",
   },
 ];
+
 export const iconColorMapping = {
   AAVE: "#B6509E",
   AMPL: "#ffffff",

@@ -38,14 +38,21 @@ export const ReportHistoryChart = ({
   data: HistoryResultUSD;
   loading: boolean;
 }) => {
-  const metrics = generateMetricConfig(metricConfigs);
-  const reverseMetrics = metrics.map((i) => i).reverse();
-
   const memoData = useMemo(
     () => (!!data && data.length > 0 ? data : null),
     [data]
   );
   const chartData = generateHistoryData(memoData);
+  const isCollateralPresent = chartData?.some(
+    (item) => item.collateral !== null
+  );
+  const filteredMetricConfigs = isCollateralPresent
+    ? metricConfigs
+    : metricConfigs.filter((metricConfig) => {
+        metricConfig.label !== "collateral";
+      });
+  const metrics = generateMetricConfig(filteredMetricConfigs);
+  const reverseMetrics = metrics.map((i) => i).reverse();
 
   return (
     <Card className="h-[654px] md:h-[560px] pb-4">
