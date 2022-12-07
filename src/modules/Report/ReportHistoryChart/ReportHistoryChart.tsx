@@ -5,7 +5,7 @@ import AutoSizer from "react-virtualized-auto-sizer";
 import { Card } from "@/common/components/Card";
 import { ComposeHistoryChart } from "@/common/components/ComposeHistoryChart";
 import { getTailwindColor } from "@/styles/theme";
-import { HistoryResult } from "@/types/api";
+import { HistoryResultUSD } from "@/types/api";
 
 import { metricConfigs } from "../constant";
 import { generateMetricConfig } from "../helpers";
@@ -35,17 +35,24 @@ export const ReportHistoryChart = ({
   data,
   loading,
 }: {
-  data: HistoryResult;
+  data: HistoryResultUSD;
   loading: boolean;
 }) => {
-  const metrics = generateMetricConfig(metricConfigs);
-  const reverseMetrics = metrics.map((i) => i).reverse();
-
   const memoData = useMemo(
     () => (!!data && data.length > 0 ? data : null),
     [data]
   );
   const chartData = generateHistoryData(memoData);
+  const isCollateralPresent = chartData?.some(
+    (item) => item.collateral !== null
+  );
+  const filteredMetricConfigs = isCollateralPresent
+    ? metricConfigs
+    : metricConfigs.filter((metricConfig) => {
+        metricConfig.label !== "collateral";
+      });
+  const metrics = generateMetricConfig(filteredMetricConfigs);
+  const reverseMetrics = metrics.map((i) => i).reverse();
 
   return (
     <Card className="h-[654px] md:h-[560px] pb-4">

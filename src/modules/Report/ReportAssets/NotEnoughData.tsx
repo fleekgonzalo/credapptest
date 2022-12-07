@@ -8,7 +8,7 @@ export const FilterPieChart = ({ hasNegative }) => (
     />
     <p className="font-normal opacity-60 mt-4 text-center max-w-sm">
       {hasNegative
-        ? "Data Visual not available at this time. Net Assets only show non-negative values"
+        ? "Data Visual not available at this time. Total Assets only show non-negative values"
         : "Not enough data"}
     </p>
   </div>

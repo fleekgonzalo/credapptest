@@ -62,7 +62,7 @@ export const extractAddressAPIData = (data: ReportAddressResult) => {
 
   return [
     {
-      metricName: "net assets",
+      metricName: "total assets",
       value: parseInt(total_asset_value_usd),
       percentile: total_asset_percentile,
     },
@@ -88,12 +88,13 @@ export const extractAssetAPIData = (
   data: ReportAssetResult,
   metric: string
 ) => {
-  const { symbols } = data;
+  const { erc20 } = data;
 
-  return symbols.map((symbol) => ({
+  return erc20.map((symbol) => ({
     name: symbol.symbol,
     value: isNaN(parseFloat(symbol[metric]))
       ? null
       : parseFloat(symbol[metric]),
+    address: symbol.address,
   }));
 };

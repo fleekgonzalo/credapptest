@@ -18,10 +18,10 @@ import { FilterPieChart, NotEnoughDataSymbol } from "./NotEnoughData";
 const ICON_SIZE = 24;
 
 const options = [
-  { label: "Net Assets", value: "asset" },
-  { label: "Debt", value: "debt" },
-  { label: "Collateral", value: "collateral" },
-  { label: "Deposit", value: "deposit" },
+  { label: "Total Assets", value: "asset_in_wallet_usd" },
+  { label: "Debt", value: "debt_usd" },
+  { label: "Collateral", value: "collateral_usd" },
+  { label: "Deposit", value: "deposit_usd" },
 ];
 const metricColors = {
   asset: "purple-bar",
@@ -38,20 +38,50 @@ type ReportAssetsProps = {
   assetAPILoading: boolean;
 };
 
+const extractErc20ChartData = (assetAPIData, selectedMetric): [number, any] => {
+  let total = 0;
+
+  return [
+    total,
+    extractAssetAPIData(assetAPIData, selectedMetric)
+      .sort((a, b) => b.value - a.value)
+      .filter((i) => {
+        if (i.value !== null && i.value > 0) {
+          total += i.value;
+          return true;
+        }
+        return false;
+      }),
+  ];
+};
+
 const ReportAssets = ({
   assetAPIData,
   assetAPIError,
   assetAPILoading,
 }: ReportAssetsProps) => {
-  const [selectedMetric, setSelectedMetric] = useState("collateral");
+  const [selectedMetric, setSelectedMetric] = useState("asset_in_wallet_usd");
   let chartData = null;
   let hasNegative = false;
   let isEmpty = false;
+  let filteredOptions = options;
 
   const handleImgNotfound = (e) => {
     const img = e.target;
     // add fallback image src here for unsupported asset
     img.src = "/image/asset_missing.png";
+  };
+
+  const filterOutCollateralIfNotPresent = () => {
+    const [_, extractedCollateralChartData] = extractErc20ChartData(
+      assetAPIData,
+      "collateral_usd"
+    );
+
+    if (extractedCollateralChartData.length === 0)
+      filteredOptions = options.filter(
+        (option) => option.value !== "collateral_usd"
+      );
   };
 
   useEffect(() => {
@@ -67,17 +97,12 @@ const ReportAssets = ({
   }
 
   if (assetAPIData) {
-    let total = 0;
+    const [total, extractedChartData] = extractErc20ChartData(
+      assetAPIData,
+      selectedMetric
+    );
 
-    chartData = extractAssetAPIData(assetAPIData, selectedMetric)
-      .sort((a, b) => b.value - a.value)
-      .filter((i) => {
-        if (i.value !== null && i.value > 0) {
-          total += i.value;
-          return true;
-        }
-        return false;
-      });
+    filterOutCollateralIfNotPresent();
 
     if (total > 0) {
       let combine = {
@@ -97,6 +122,8 @@ const ReportAssets = ({
           return false;
         })
         .concat(combine.value > 0 ? combine : []);
+    } else {
+      chartData = extractedChartData;
     }
     isEmpty = chartData.length < 1;
     hasNegative = chartData.some((item) => item.value < 0);
@@ -119,7 +146,7 @@ const ReportAssets = ({
         </h2>
         <Dropdown
           className="-mt-1"
-          options={options}
+          options={filteredOptions}
           value={selectedMetric}
           onChange={handleChangeMetric}
         />
@@ -150,7 +177,7 @@ const ReportAssets = ({
                   <img
                     alt="asset"
                     height={ICON_SIZE}
-                    src={`/image/asset_logo_${asset.name.toUpperCase()}.png`}
+                    src={`${process.env.NEXT_PUBLIC_TOKEN_ICON_CDN_URL}${asset.address}.png`}
                     width={ICON_SIZE}
                     onError={handleImgNotfound}
                   />

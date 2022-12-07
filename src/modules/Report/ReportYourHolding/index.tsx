@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Skeleton from "react-loading-skeleton";
 
 import { RadioButton } from "@/common/components/RadioButton";
@@ -6,19 +6,24 @@ import { ReportAssetResult } from "@/types/api";
 
 import { InfoWithTooltip } from "../InfoWithTooltip";
 import { SunburstChart } from "../SunburtChart";
+import { generateChartData } from "../SunburtChart/helpers";
 
 const options = [
   {
     label: "Total Assets",
-    value: "asset",
+    value: "asset_in_wallet_usd",
   },
   {
     label: "Deposit",
-    value: "deposit",
+    value: "deposit_usd",
+  },
+  {
+    label: "Collateral",
+    value: "collateral_usd",
   },
   {
     label: "Debt",
-    value: "debt",
+    value: "debt_usd",
   },
 ];
 type Props = {
@@ -50,11 +55,22 @@ const YourHoldingSkeleton = () => {
   );
 };
 export const ReportYourHolding = ({ data, loading }: Props) => {
-  const [metric, setMetric] = useState("asset");
+  const [metric, setMetric] = useState(options[0].value);
 
   if (loading) {
     return <YourHoldingSkeleton />;
   }
+
+  const isCollateralPresent = () => {
+    const collateralChartData = generateChartData(data, "collateral_usd");
+    return !collateralChartData.some(
+      (item) => item.id === "total" && item.value === null
+    );
+  };
+
+  const filteredOptions = isCollateralPresent()
+    ? options
+    : options.filter((option) => option.label.toLowerCase() !== "collateral");
 
   return (
     <>
@@ -71,7 +87,7 @@ export const ReportYourHolding = ({ data, loading }: Props) => {
           </InfoWithTooltip>
         </h2>
         <div className="flex gap-x-4">
-          {options.map((item) => (
+          {filteredOptions.map((item) => (
             <RadioButton
               key={item.value}
               checked={item.value === metric}
