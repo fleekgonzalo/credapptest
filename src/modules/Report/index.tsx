@@ -17,12 +17,12 @@ type ReportPageProps = {
   address: string;
 };
 
-const ReportPage = ({}: ReportPageProps) => {
-  const address = "0x4BaAD650A6E58C4D3bE40358657BAc526927b53d";
+const ReportPage = ({ address }: ReportPageProps) => {
   const dispatch = useContext(APIDispatchContext);
   const scoreAPI = getApiUrl({
     address,
     endpoint: "report/address/",
+    sandbox: true,
   });
 
   const {
