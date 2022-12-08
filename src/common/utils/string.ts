@@ -20,9 +20,14 @@ export const shortenWalletAddress = ({
 export const getApiUrl = ({
   address,
   endpoint,
+  sandbox = false,
 }: {
   address: string;
   endpoint: string;
+  sandbox?: boolean;
 }) => {
-  return `${process.env.NEXT_PUBLIC_API_URL + endpoint + address}`;
+  const url = sandbox
+    ? process.env.NEXT_PUBLIC_API_URL + "sandbox/"
+    : process.env.NEXT_PUBLIC_API_URL;
+  return `${url + endpoint + address}`;
 };

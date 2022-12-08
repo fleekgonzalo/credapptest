@@ -34,6 +34,7 @@ const HomePage = () => {
     ? getApiUrl({
         address: account.address,
         endpoint: "report/address/",
+        sandbox: true,
       })
     : null;
 
