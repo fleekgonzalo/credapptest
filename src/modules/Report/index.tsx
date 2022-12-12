@@ -6,6 +6,7 @@ import { ChevronLeftIcon } from "@/common/components/CustomIcon";
 import { APIDispatchContext } from "@/common/context/api.context";
 import useFetcher from "@/common/hooks/useFetcher";
 import { getApiUrl } from "@/common/utils/string";
+import { sandboxEnv } from "@/constant/sanboxEnv";
 
 import ReportAssets from "./ReportAssets";
 import { ReportHistoryChart } from "./ReportHistoryChart";
@@ -22,7 +23,7 @@ const ReportPage = ({ address }: ReportPageProps) => {
   const scoreAPI = getApiUrl({
     address,
     endpoint: "report/address/",
-    sandbox: true,
+    sandbox: sandboxEnv,
   });
 
   const {
