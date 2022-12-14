@@ -63,7 +63,7 @@ const HomePage = () => {
       {/* Cred score top sections */}
       <div className="flex justify-between items-center h-[51px]">
         <h2 className="mb-4 font-bold text-xl leading-5">My Cred Score</h2>
-        {/* {hasScore && (
+        {hasScore && (
           <Link href="/report">
             <Button
               className="mb-4 font-semibold rounded-[6px] tracking-[0.02em] text-sm leading-[15px] py-[8.5px] px-2"
@@ -72,7 +72,7 @@ const HomePage = () => {
               GET REPORT
             </Button>
           </Link>
-        )} */}
+        )}
       </div>
       <CredScoreTopSection
         account={account}
