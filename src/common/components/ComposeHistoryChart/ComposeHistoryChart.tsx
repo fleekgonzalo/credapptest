@@ -101,7 +101,7 @@ export const ComposeHistoryChart = ({
         tickLine={false}
       />
       <CartesianGrid opacity="0.2" stroke="#ffffff" strokeDasharray="2 2" />
-      <Tooltip />
+      <Tooltip formatter={(value) => `$${value}`} />
       {!data ? null : (
         <>
           <ReferenceLine stroke="white" y={0} />
