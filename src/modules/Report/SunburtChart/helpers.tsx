@@ -119,7 +119,7 @@ export const generateChartData = (data: ReportAssetResult, metric: string) => {
       name: convertMetricToProperName(metric),
       value: isNaN(metricTotal) ? null : metricTotal,
       custom: {
-        percent: 100,
+        value: metricTotal,
       },
     },
     ...chains,

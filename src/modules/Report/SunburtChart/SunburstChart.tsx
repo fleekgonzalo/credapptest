@@ -21,15 +21,20 @@ type LevelData = {
   name: string;
   id: string;
   custom: {
-    percent: number;
+    value?: number;
+    percent?: number;
   };
 };
 
 const HoverInfo = ({ data }) => {
   const name = data.name === "asset" ? "total assets" : data.name;
+  const displayValue =
+    data.slideValue.type === "percent"
+      ? `${data.slideValue.value}%`
+      : `$${data.slideValue.value}`;
   return (
     <div>
-      <p className="text-5xl font-bold">{data.percent} %</p>
+      <p className="text-5xl font-bold">{displayValue}</p>
       <p className="text-sm leading-[18px] mt-4 capitalize">{name}</p>
     </div>
   );
@@ -52,7 +57,10 @@ const renderFilter = ({ msg }: { msg?: string }) => {
 export const SunburstChart = ({ assetData, metric }: SunburstChartProps) => {
   const [isShowHoverData, setShowHoverData] = useState(false);
   const [slideName, setSlideName] = useState("");
-  const [slidePercent, setSlidePercent] = useState(0);
+  const [slideValue, setSlideValue] = useState<{
+    type: string;
+    value: number;
+  }>();
 
   const onMouseOut: SeriesMouseOutCallbackFunction = useCallback(() => {
     setShowHoverData(false);
@@ -64,7 +72,10 @@ export const SunburstChart = ({ assetData, metric }: SunburstChartProps) => {
       if (data.id !== "root") {
         setShowHoverData(true);
         setSlideName(data.name);
-        setSlidePercent(data.custom.percent);
+        const _slideValue = data.custom.value
+          ? { type: "value", value: data.custom.value }
+          : { type: "percent", value: data.custom.percent };
+        setSlideValue(_slideValue);
       } else {
         setShowHoverData(false);
       }
@@ -83,7 +94,7 @@ export const SunburstChart = ({ assetData, metric }: SunburstChartProps) => {
         mouseOut: onMouseOut,
         data,
       }),
-    [data]
+    [data, onMouseOut, onMouseOverPoint]
   );
 
   if (!data) {
@@ -118,7 +129,7 @@ export const SunburstChart = ({ assetData, metric }: SunburstChartProps) => {
             <span>Hover regions to surface allocation</span>
           </>
         ) : (
-          <HoverInfo data={{ name: slideName, percent: slidePercent }} />
+          <HoverInfo data={{ name: slideName, slideValue }} />
         )}
       </div>
     </div>
