@@ -72,6 +72,26 @@ export const generateChainData = (chains: ChainData[], metricTotal, metric) => {
   }));
 };
 
+const convertMetricToProperName = (metric: string) => {
+  switch (metric) {
+    case "deposit_usd": {
+      return "Deposit (USD)";
+    }
+    case "asset_in_wallet_usd": {
+      return "Asset in Wallet (USD)";
+    }
+    case "debt_usd": {
+      return "Debt (USD)";
+    }
+    case "collateral_usd": {
+      return "Collateral (USD)";
+    }
+    default: {
+      return metric;
+    }
+  }
+};
+
 export const generateChartData = (data: ReportAssetResult, metric: string) => {
   if (!data) {
     return null;
@@ -96,7 +116,7 @@ export const generateChartData = (data: ReportAssetResult, metric: string) => {
     {
       id: "total",
       parent: "root",
-      name: metric,
+      name: convertMetricToProperName(metric),
       value: isNaN(metricTotal) ? null : metricTotal,
       custom: {
         percent: 100,
