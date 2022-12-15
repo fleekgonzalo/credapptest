@@ -62,7 +62,7 @@ export const extractAddressAPIData = (data: ReportAddressResult) => {
 
   return [
     {
-      metricName: "total assets",
+      metricName: "assets",
       value: parseInt(total_asset_value_usd),
       percentile: total_asset_percentile,
     },

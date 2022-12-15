@@ -31,14 +31,17 @@ const getArrowPositionClassName = (currentArrowPosition: string) => {
   }
 };
 
-const Trigger = ({ children }) => {
+const Trigger = ({ children, allowHover = false }) => {
   const { setIsOpen, setReferenceElement, props } = useContext(PopoverContext);
   if (!React.Children.only(children))
     console.error("Popover.Trigger only allows 1 child");
+  const hoverEvents = {
+    onMouseOver: () => setIsOpen(true),
+    onMouseLeave: () => setIsOpen(false),
+  };
   return cloneElement(children, {
     ...(props as {}),
-    // onMouseOver: () => setIsOpen(true),
-    // onMouseLeave: () => setIsOpen(false),
+    ...(allowHover ? hoverEvents : {}),
     onClick: (e) => {
       setIsOpen((prev) => !prev);
     },

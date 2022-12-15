@@ -1,7 +1,8 @@
 import classNames from "classnames";
-import React from "react";
 
 import { getTailwindColor } from "@/styles/theme";
+
+import { StatisticProgressBarTooltip } from "./StatisticProgressBarTooltip";
 
 type Props = {
   value: number;
@@ -33,7 +34,7 @@ const ProgressBar = ({ value, background, className, percentile }: Props) => {
     return (
       <div className="w-full h-7 rounded-full relative bg-cred-dark-purple pl-2 text-cred-red">
         <span className="font-bold">{value.toLocaleString()}</span>
-        <span className="ml-2 text-xs">{`--th %ile`}</span>
+        <span className="text-xs">{`--th %ile`}</span>
       </div>
     );
   }
@@ -45,23 +46,23 @@ const ProgressBar = ({ value, background, className, percentile }: Props) => {
         backgroundColor: background || getTailwindColor("dark-purple"),
       }}
     >
-      <div
-        className="h-7 rounded-full pl-2"
-        style={{
-          width: `${percentile}%`,
-          backgroundColor: getProgressColor(+percentile),
-        }}
-      ></div>
-      <div
-        className={classNames("absolute top-0 font-bold", {
-          "left-1": value > 50,
-          "text-black": value > 50,
-          "right-1": value < 50,
-        })}
-      >
-        {value.toLocaleString()}
-        <span className="ml-2 text-xs">{`${percentile}th %ile`}</span>
-      </div>
+      <StatisticProgressBarTooltip percentile={percentile}>
+        <div
+          className="h-7 rounded-full pl-2 flex items-center"
+          style={{
+            width: `${percentile}%`,
+            backgroundColor: getProgressColor(+percentile),
+          }}
+        >
+          <span
+            className={classNames("font-bold", {
+              "text-black": value > 50,
+            })}
+          >
+            {value.toLocaleString()}
+          </span>
+        </div>
+      </StatisticProgressBarTooltip>
     </div>
   );
 };

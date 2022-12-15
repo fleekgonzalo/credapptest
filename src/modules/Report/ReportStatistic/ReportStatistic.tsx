@@ -75,7 +75,7 @@ const ReportStatistic = () => {
           key={metric.metricName}
           className="flex mb-10 last:mb-0 items-center"
         >
-          <div className="leading-5 min-w-[160px]">{`Total ${metric.metricName} value`}</div>
+          <div className="leading-5 min-w-[130px]">{`Total ${metric.metricName}`}</div>
           <ProgressBar percentile={metric?.percentile} value={metric.value} />
         </div>
       ))}

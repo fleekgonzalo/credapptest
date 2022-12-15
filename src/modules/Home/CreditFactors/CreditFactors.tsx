@@ -31,10 +31,12 @@ export const CreditFactors = ({ loading }: CreditFactorsProps) => {
     },
   } = useContext(APIResultContext);
 
+  const sectionTitle = "Credit Factors";
+
   if (loading || reportAddressLoading) {
     return (
       <section className="mt-6">
-        <h2 className="mb-6 font-bold">Credit factors</h2>
+        <h2 className="mb-6 font-bold">{sectionTitle}</h2>
         <div>
           <div className="grid grid-cols-1 gap-6 md:gap-8 md:grid-cols-2 lg:grid-cols-3">
             {factorNames.map((_, index) => {
@@ -53,7 +55,7 @@ export const CreditFactors = ({ loading }: CreditFactorsProps) => {
     }
     return (
       <section className="mt-6">
-        <h2 className="mb-6 font-bold">Credit factors</h2>
+        <h2 className="mb-6 font-bold">{sectionTitle}</h2>
         <div>
           <div className="grid grid-cols-1 gap-6 md:gap-8 md:grid-cols-2 lg:grid-cols-3">
             {factorNames.map((data, index) => {
@@ -75,7 +77,7 @@ export const CreditFactors = ({ loading }: CreditFactorsProps) => {
 
   return (
     <section className="mt-6">
-      <h2 className="mb-6 font-bold">Credit factors</h2>
+      <h2 className="mb-6 font-bold">{sectionTitle}</h2>
       <div>
         <div className="grid grid-cols-1 gap-6 md:gap-8 md:grid-cols-2 lg:grid-cols-3">
           {reportAddressData?.report?.factors
