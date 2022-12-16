@@ -64,24 +64,11 @@ const ReportAssets = ({
   let chartData = null;
   let hasNegative = false;
   let isEmpty = false;
-  let filteredOptions = options;
 
   const handleImgNotfound = (e) => {
     const img = e.target;
     // add fallback image src here for unsupported asset
     img.src = "/image/asset_missing.png";
-  };
-
-  const filterOutCollateralIfNotPresent = () => {
-    const [_, extractedCollateralChartData] = extractErc20ChartData(
-      assetAPIData,
-      "collateral_usd"
-    );
-
-    if (extractedCollateralChartData.length === 0)
-      filteredOptions = options.filter(
-        (option) => option.value !== "collateral_usd"
-      );
   };
 
   useEffect(() => {
@@ -101,8 +88,6 @@ const ReportAssets = ({
       assetAPIData,
       selectedMetric
     );
-
-    filterOutCollateralIfNotPresent();
 
     if (total > 0) {
       let combine = {
@@ -146,7 +131,7 @@ const ReportAssets = ({
         </h2>
         <Dropdown
           className="-mt-1"
-          options={filteredOptions}
+          options={options}
           value={selectedMetric}
           onChange={handleChangeMetric}
         />

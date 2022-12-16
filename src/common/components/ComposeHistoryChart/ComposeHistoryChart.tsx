@@ -1,3 +1,4 @@
+import { isEmpty } from "lodash";
 import {
   Bar,
   CartesianGrid,
@@ -76,6 +77,21 @@ export const ComposeHistoryChart = ({
 }: AreaChartProps) => {
   const yDomain = data ? ["auto", "dataMax"] : [0, 200000];
 
+  const collateralMissing = data.every((item) => {
+    if (item.collateral === null) {
+      return true;
+    }
+    return false;
+  });
+
+  let filteredMetrics = metrics;
+
+  if (collateralMissing) {
+    filteredMetrics = metrics.filter(
+      (item) => item.metricName !== "collateral"
+    );
+  }
+
   return (
     <ComposedChart data={data} height={height} width={width}>
       <XAxis
@@ -105,7 +121,7 @@ export const ComposeHistoryChart = ({
       {!data ? null : (
         <>
           <ReferenceLine stroke="white" y={0} />
-          {metrics.slice(0, 3).map((metric) => (
+          {filteredMetrics.slice(0, 3).map((metric) => (
             <Line
               key={metric.metricName}
               connectNulls
