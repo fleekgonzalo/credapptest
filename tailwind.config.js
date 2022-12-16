@@ -42,6 +42,7 @@ module.exports = {
           "blue-chart": "#60CAFF",
 
           // GREEN
+          "dark-green": "#307f2e",
           green: "#60FF5D",
           "green-opacity-0.1": "rgba(96, 255, 93, 0.1)",
           "green-chart": "#60FF90",

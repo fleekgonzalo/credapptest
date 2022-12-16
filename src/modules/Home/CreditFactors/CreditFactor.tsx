@@ -2,7 +2,7 @@ import { Card } from "@/common/components/Card";
 import { ChevronRightIcon, DiamondIcon } from "@/common/components/CustomIcon";
 
 interface Props {
-  variant: "green" | "yellow" | "red";
+  variant: "dark green" | "green" | "yellow" | "red";
   primaryText: string;
   secondaryText: string;
   link: string;
@@ -10,6 +10,11 @@ interface Props {
 
 const CreditFactor = ({ variant, primaryText, secondaryText, link }: Props) => {
   const variantsClassName = {
+    "dark green": {
+      highLightColorClassName: "bg-cred-dark-green",
+      borderColor: "border-cred-green-opacity-0.1",
+      iconColorClassName: "text-cred-dark-green",
+    },
     green: {
       highLightColorClassName: "bg-cred-green",
       borderColor: "border-cred-green-opacity-0.1",
