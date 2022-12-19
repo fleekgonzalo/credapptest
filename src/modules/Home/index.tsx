@@ -59,7 +59,8 @@ const HomePage = () => {
   }, [reportAddressData, reportAddressError, reportAddressLoading, dispatch]);
 
   const hasScore = !!credScoreData?.value;
-  const showReportButton = hasScore && !sandboxEnv;
+  const showReportButton =
+    hasScore && !sandboxEnv && reportAddressData !== null;
   return (
     <div className="py-12 md:py-16 px-5 max-w-[1130px] mx-auto">
       {/* Cred score top sections */}
