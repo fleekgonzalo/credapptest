@@ -77,7 +77,7 @@ export const ComposeHistoryChart = ({
 }: AreaChartProps) => {
   const yDomain = data ? ["auto", "dataMax"] : [0, 200000];
 
-  const collateralMissing = data.every((item) => {
+  const collateralMissing = data?.every((item) => {
     if (item.collateral === null) {
       return true;
     }

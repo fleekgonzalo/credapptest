@@ -48,9 +48,9 @@ export const ReportHistoryChart = ({
   );
   const filteredMetricConfigs = isCollateralPresent
     ? metricConfigs
-    : metricConfigs.filter((metricConfig) => {
-        metricConfig.label !== "collateral";
-      });
+    : metricConfigs.filter(
+        (metricConfig) => metricConfig.label.toLowerCase() !== "collateral"
+      );
   const metrics = generateMetricConfig(filteredMetricConfigs);
   const reverseMetrics = metrics.map((i) => i).reverse();
 

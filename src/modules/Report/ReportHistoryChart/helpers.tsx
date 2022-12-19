@@ -19,6 +19,7 @@ export const generateHistoryData = (data: HistoryResultUSD) => {
   if (!data) {
     return null;
   }
+
   const isAllNull = data.every((entry) => entry.date === null);
 
   if (isAllNull) {
