@@ -72,9 +72,10 @@ export const SunburstChart = ({ assetData, metric }: SunburstChartProps) => {
       if (data.id !== "root") {
         setShowHoverData(true);
         setSlideName(data.name);
-        const _slideValue = data.custom.value
-          ? { type: "value", value: data.custom.value }
-          : { type: "percent", value: data.custom.percent };
+        const _slideValue =
+          data.custom.value !== undefined
+            ? { type: "value", value: data.custom.value }
+            : { type: "percent", value: data.custom.percent };
         setSlideValue(_slideValue);
       } else {
         setShowHoverData(false);
