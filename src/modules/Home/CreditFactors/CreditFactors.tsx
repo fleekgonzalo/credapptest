@@ -10,12 +10,12 @@ type CreditFactorsProps = {
   loading: boolean;
 };
 const factorNames = [
-  "Length of credit history",
+  "Borrowing History",
+  "Wallet Composition",
+  "Wallet Health",
+  "Interactions",
+  "Reputation",
   "New Credit",
-  "Credit Mix",
-  "Amounts Owed",
-  "Account Age",
-  "Payment History",
 ];
 type Error422Response = {
   error: string;
