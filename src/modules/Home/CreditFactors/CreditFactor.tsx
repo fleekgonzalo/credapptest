@@ -5,10 +5,15 @@ interface Props {
   variant: "dark green" | "green" | "yellow" | "red";
   primaryText: string;
   secondaryText: string;
-  link: string;
+  link?: string;
 }
 
-const CreditFactor = ({ variant, primaryText, secondaryText, link }: Props) => {
+const CreditFactor = ({
+  variant,
+  primaryText,
+  secondaryText,
+  link = undefined,
+}: Props) => {
   const variantsClassName = {
     "dark green": {
       highLightColorClassName: "bg-cred-dark-green",
