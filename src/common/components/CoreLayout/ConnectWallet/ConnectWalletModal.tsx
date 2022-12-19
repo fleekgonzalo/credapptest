@@ -75,12 +75,12 @@ const ConnectWalletModal = ({ setOpenModal, isMounted }) => {
     if (message) {
       signMessage();
     }
-  }, [message]);
+  }, [message, signMessage]);
 
   useEffect(() => {
     if (signature && successSign) {
       setLoadingAuth(true);
-      getAuthToken({ address: address.address, message, signature }).then(
+      getAuthToken({ address: address?.address, message, signature }).then(
         (data) => {
           setAuthToken(data.access);
           setLoadingAuth(false);
@@ -88,14 +88,21 @@ const ConnectWalletModal = ({ setOpenModal, isMounted }) => {
         }
       );
     }
-  }, [signature]);
+  }, [
+    address?.address,
+    message,
+    setAuthToken,
+    setOpenModal,
+    signature,
+    successSign,
+  ]);
 
   useEffect(() => {
     if (errorSign) {
       toast.error("Error when sign message, please contact admin");
       disconnect();
     }
-  }, [errorSign]);
+  }, [disconnect, errorSign]);
 
   return (
     <Modal isMounted={isMounted} setOpenModal={setOpenModal}>

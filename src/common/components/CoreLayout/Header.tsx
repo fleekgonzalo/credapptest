@@ -66,6 +66,7 @@ const Header = ({ className, openWalletModal, hideNavItems }: Props) => {
         setTimeout(() => disconnect(), 1000);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

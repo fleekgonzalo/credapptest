@@ -28,7 +28,7 @@ export const Checkbox = ({
     if (!onClick) {
       onChange(internal);
     }
-  }, [internal]);
+  }, [internal, onChange, onClick]);
 
   const onClickHandle = onClick ? onClick : () => setCheck((s) => !s);
   const isCheck = checked ? checked : internal;

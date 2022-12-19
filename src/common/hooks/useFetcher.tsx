@@ -1,7 +1,5 @@
 import axios, { AxiosError } from "axios";
-import { compareAsc } from "date-fns";
-import { useContext, useEffect, useState } from "react";
-import toast from "react-hot-toast";
+import { useCallback, useContext, useEffect, useState } from "react";
 
 import { AppContext } from "../context/app.context";
 
@@ -11,32 +9,35 @@ function useFetch(url: string, tokenRequire = true) {
   const [error, setError] = useState<AxiosError>(null);
   const { auth } = useContext(AppContext);
 
-  const fetch = (signal) => {
-    if (tokenRequire) {
-      if (!auth) return;
-    }
-    const authHeader = auth
-      ? { headers: { Authorization: "Bearer " + auth.accessToken } }
-      : {};
+  const fetch = useCallback(
+    (signal) => {
+      if (tokenRequire) {
+        if (!auth) return;
+      }
+      const authHeader = auth
+        ? { headers: { Authorization: "Bearer " + auth.accessToken } }
+        : {};
 
-    setLoading(true);
-    axios
-      .get(url, {
-        ...authHeader,
-        signal,
-      })
-      .then((response) => {
-        setData(response.data);
-        setLoading(false);
-        setError(null);
-      })
-      .catch((err) => {
-        if (err.code !== "ERR_CANCELED") {
-          setError(err);
+      setLoading(true);
+      axios
+        .get(url, {
+          ...authHeader,
+          signal,
+        })
+        .then((response) => {
+          setData(response.data);
           setLoading(false);
-        }
-      });
-  };
+          setError(null);
+        })
+        .catch((err) => {
+          if (err.code !== "ERR_CANCELED") {
+            setError(err);
+            setLoading(false);
+          }
+        });
+    },
+    [auth, tokenRequire, url]
+  );
 
   useEffect(() => {
     const controller = new AbortController();
@@ -51,7 +52,7 @@ function useFetch(url: string, tokenRequire = true) {
     return () => {
       controller.abort();
     };
-  }, [url, auth]);
+  }, [url, auth, fetch]);
 
   return { data, loading, error, refetch: fetch };
 }
