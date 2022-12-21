@@ -15,7 +15,7 @@ const getCredColor = (rating: Rating) => {
     case Rating.VeryGood:
       return "green";
     case Rating.Good:
-      return "yellow";
+      return "light green";
     case Rating.Fair:
       return "orange";
     case Rating.Bad:

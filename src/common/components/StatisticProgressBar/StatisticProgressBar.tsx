@@ -18,7 +18,7 @@ const getProgressColor = (value: number) => {
   } else if (value >= 40) {
     return getTailwindColor("yellow");
   }
-  return getTailwindColor("red");
+  return getTailwindColor("pink");
 };
 
 const ProgressBar = ({ value, background, className, percentile }: Props) => {
@@ -32,7 +32,7 @@ const ProgressBar = ({ value, background, className, percentile }: Props) => {
 
   if (value < 0) {
     return (
-      <div className="w-full h-7 rounded-full relative bg-cred-dark-purple pl-2 text-cred-red">
+      <div className="w-full h-7 rounded-full relative bg-cred-dark-purple pl-2 text-cred-pink">
         <span className="font-bold">{value.toLocaleString()}</span>
         <span className="text-xs">{`--th %ile`}</span>
       </div>

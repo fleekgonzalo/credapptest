@@ -27,7 +27,7 @@ const metricColors = {
   asset: "purple-bar",
   deposit: "blue-chart",
   collateral: "orange",
-  debt: "red",
+  debt: "pink",
 };
 
 const PERCENTAGE_THRESHOLD = 2;
@@ -170,7 +170,7 @@ const ReportAssets = ({
                 </div>
                 <span
                   className={classNames("font-bold", {
-                    "text-cred-red": asset.value < 0,
+                    "text-cred-pink": asset.value < 0,
                   })}
                 >
                   {asset.value.toLocaleString()}

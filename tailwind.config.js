@@ -42,9 +42,12 @@ module.exports = {
           "blue-chart": "#60CAFF",
 
           // GREEN
-          "dark-green": "#307f2e",
-          green: "#60FF5D",
-          "green-opacity-0.1": "rgba(96, 255, 93, 0.1)",
+          "light-green": "#39E75F",
+          "light-green-opacity-0.1": "rgba(57, 231, 95, 0.1)",
+          "dark-green": "#008631",
+          "dark-green-opacity-0.1": "rgba(0, 134, 49, 0.1)",
+          green: "#00C04B",
+          "green-opacity-0.1": "rgba(0, 192, 75, 0.1)",
           "green-chart": "#60FF90",
           "green-red": "linear-gradient(90deg, #45aa77 50%, #aa1527 50%)",
 
@@ -52,9 +55,13 @@ module.exports = {
           orange: "#FBAF1B",
           "orange-opacity-0.1": "rgba(255, 175, 27, 0.1)",
 
+          // PINK
+          pink: "#FF00AA",
+          "pink-opacity-0.1": "rgba(255, 0, 122, 0.1)",
+
           // RED
-          red: "#FF00AA",
-          "red-opacity-0.1": "rgba(255, 0, 122, 0.1)",
+          red: "#C61A09",
+          "red-opacity-0.1": "rgba(198, 26, 9, 0.1)",
 
           // YELLOW
           yellow: "#F3D25E",

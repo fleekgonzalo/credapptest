@@ -24,7 +24,7 @@ export const metricConfigs = [
   {
     name: "debt",
     label: "Debt",
-    color: "red",
+    color: "pink",
   },
 ];
 
