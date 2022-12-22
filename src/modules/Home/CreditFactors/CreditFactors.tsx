@@ -14,7 +14,7 @@ const factorNames = [
   "Wallet Composition",
   "Wallet Health",
   "Interactions",
-  "Reputation",
+  "Trust",
   "New Credit",
 ];
 type Error422Response = {
