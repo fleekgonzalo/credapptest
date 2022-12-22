@@ -2,7 +2,7 @@ import { Card } from "@/common/components/Card";
 import { ChevronRightIcon, DiamondIcon } from "@/common/components/CustomIcon";
 
 interface Props {
-  variant: "dark green" | "green" | "yellow" | "red" | "orange" | "light green";
+  variant: "excellent" | "very good" | "good" | "fair" | "low";
   primaryText: string;
   secondaryText: string;
   link?: string;
@@ -15,35 +15,30 @@ const CreditFactor = ({
   link = undefined,
 }: Props) => {
   const variantsClassName = {
-    "dark green": {
-      highLightColorClassName: "bg-cred-dark-green",
-      borderColor: "border-cred-dark-green-opacity-0.1",
-      iconColorClassName: "text-cred-dark-green",
+    excellent: {
+      highLightColorClassName: "bg-cred-excellent-credit",
+      borderColor: "border-cred-excellent-credit-opacity-0.1",
+      iconColorClassName: "text-cred-excellent-credit",
     },
-    "light green": {
-      highLightColorClassName: "bg-cred-light-green",
-      borderColor: "border-cred-light-green-opacity-0.1",
-      iconColorClassName: "text-cred-light-green",
+    "very-good": {
+      highLightColorClassName: "bg-cred-very-good-credit",
+      borderColor: "border-cred-very-good-credit-opacity-0.1",
+      iconColorClassName: "text-cred-very-good-credit",
     },
-    green: {
-      highLightColorClassName: "bg-cred-green",
-      borderColor: "border-cred-green-opacity-0.1",
-      iconColorClassName: "text-cred-green",
+    good: {
+      highLightColorClassName: "bg-cred-good-credit",
+      borderColor: "border-cred-good-credit-opacity-0.1",
+      iconColorClassName: "text-cred-good-credit",
     },
-    yellow: {
-      highLightColorClassName: "bg-cred-yellow",
-      borderColor: "border-cred-yellow-opacity-0.1",
-      iconColorClassName: "text-cred-yellow",
+    fair: {
+      highLightColorClassName: "bg-cred-fair-credit",
+      borderColor: "border-cred-fair-credit-opacity-0.1",
+      iconColorClassName: "text-cred-fair-credit",
     },
-    red: {
-      highLightColorClassName: "bg-cred-red",
-      borderColor: "border-cred-red-opacity-0.1",
-      iconColorClassName: "text-cred-red",
-    },
-    orange: {
-      highLightColorClassName: "bg-cred-orange",
-      borderColor: "border-cred-orange-opacity-0.1",
-      iconColorClassName: "text-cred-orange",
+    low: {
+      highLightColorClassName: "bg-cred-low-credit",
+      borderColor: "border-cred-low-credit-opacity-0.1",
+      iconColorClassName: "text-cred-low-credit",
     },
   };
 

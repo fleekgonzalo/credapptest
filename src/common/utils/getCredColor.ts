@@ -11,21 +11,21 @@ export enum Rating {
 const getCredColor = (rating: Rating) => {
   switch (rating) {
     case Rating.Excellent:
-      return "dark green";
+      return "excellent";
     case Rating.VeryGood:
-      return "green";
+      return "very-good";
     case Rating.Good:
-      return "light green";
+      return "good";
     case Rating.Fair:
-      return "orange";
+      return "fair";
     case Rating.Bad:
-      return "red";
+      return "low";
     case Rating.Poor:
-      return "red";
+      return "low";
     case Rating.Low:
-      return "red";
+      return "low";
     default:
-      return "red";
+      return "low";
   }
 };
 
