@@ -42,26 +42,33 @@ module.exports = {
           "blue-chart": "#60CAFF",
 
           // GREEN
-          "light-green": "#39E75F",
-          "light-green-opacity-0.1": "rgba(57, 231, 95, 0.1)",
-          "dark-green": "#008631",
-          "dark-green-opacity-0.1": "rgba(0, 134, 49, 0.1)",
           green: "#00C04B",
-          "green-opacity-0.1": "rgba(0, 192, 75, 0.1)",
           "green-chart": "#60FF90",
           "green-red": "linear-gradient(90deg, #45aa77 50%, #aa1527 50%)",
 
-          // ORANGE
-          orange: "#FBAF1B",
-          "orange-opacity-0.1": "rgba(255, 175, 27, 0.1)",
+          // RED
+          "low-credit": "#FF535E",
+          "low-credit-opacity-0.1": "rgba(255, 83, 94, 0.1)",
+
+          // PURPLE FOR CREDIT FACTORS
+          "fair-credit": "#BD5DFC",
+          "fair-credit-opacity-0.1": "rgba(189, 93, 252, 0.1)",
+
+          // LIGHT BLUE FOR CREDIT FACTORS
+          "good-credit": "#5D91FC",
+          "good-credit-opacity-0.1": "rgba(93, 145, 252, 0.1)",
+
+          // TURQUOISE FOR CREDIT FACTORS
+          "very-good-credit": "#5EE5F6",
+          "very-good-credit-opacity-0.1": "rgba(94, 229, 246, 0.1)",
+
+          // GREEN FOR CREDIT FACTORS
+          "excellent-credit": "#38E75F",
+          "excellent-credit-opacity-0.1": "rgba(56, 231, 95, 0.1)",
 
           // PINK
           pink: "#FF00AA",
           "pink-opacity-0.1": "rgba(255, 0, 122, 0.1)",
-
-          // RED
-          red: "#C61A09",
-          "red-opacity-0.1": "rgba(198, 26, 9, 0.1)",
 
           // YELLOW
           yellow: "#F3D25E",

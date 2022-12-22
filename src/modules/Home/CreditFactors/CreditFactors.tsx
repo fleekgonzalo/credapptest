@@ -64,7 +64,7 @@ export const CreditFactors = ({ loading }: CreditFactorsProps) => {
                   key={`credit-factor-${index}`}
                   primaryText={data}
                   secondaryText={errorMsg}
-                  variant="red"
+                  variant="low"
                 />
               );
             })}
