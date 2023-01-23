@@ -2,7 +2,7 @@ export const partners = [
   {
     label: "AAVE",
     desc: "Earn interest, borrow assets, and build applications.",
-    logoName: "aave.png",
+    logoName: "/aave.png",
     link: "https://aave.com/",
   },
   {
