@@ -1,4 +1,12 @@
+/** @type {import('next').NextConfig} */
 module.exports = {
   trailingSlash: true,
-  reactStrictMode: true,
-}
+  images: {
+    unoptimized: true,
+  },
+  exportPathMap: function() {
+    return {
+      '/': { page: '/' }
+    };
+  }     
+ };
